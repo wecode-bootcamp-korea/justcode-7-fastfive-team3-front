@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import css from './Login.module.scss';
 
 const Login = () => {
@@ -19,7 +19,7 @@ const Login = () => {
     setEmail(e.target.value);
   };
   const login = () => {
-    fetch('http://localhost:8000/login', {
+    fetch('http://localhost:8000/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,11 +31,16 @@ const Login = () => {
     })
       .then(response => response.json())
       .then(json => {
-        if (json.token) {
-          localStorage.setItem('token', json.token);
-          window.location.href = '/';
-        } else {
+        if (json.message) {
           alert('입력한 정보를 다시 확인해주세요.');
+        } else if (json.token !== '') {
+          localStorage.setItem('token', json.authInfo.token);
+          localStorage.setItem('id', json.authInfo.id);
+          localStorage.setItem('nickname', json.authInfo.nickname);
+          localStorage.setItem('email', json.authInfo.email);
+          localStorage.setItem('sort_id', json.authInfo.sort_id);
+          localStorage.setItem('is_admin', json.authInfo.is_admin);
+          window.location.href = '/';
         }
       });
   };
@@ -62,7 +67,7 @@ const Login = () => {
         />
         <button
           onClick={login}
-          disabled={isEmailWrong}
+          disabled={!isEmailWrong}
           className={`${isEmailWrong && password !== '' ? css.on : css.off}`}
         >
           로그인
