@@ -1,0 +1,118 @@
+.mainContainer {
+  display: flex;
+  & a {
+    color: black;
+  }
+  .container {
+    width: 100%;
+    .main {
+      display: flex;
+      width: 100%;
+      padding: 3rem;
+      .content {
+        & span {
+          display: inline-block;
+        }
+        width: 100%;
+      }
+    }
+  }
+  .gridContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr 8fr);
+    grid-auto-columns: minmax(10rem, auto);
+    row-gap: 0.9em;
+
+    .crudBtns {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      padding-right: 2rem;
+      .centerBar {
+        width: 1px;
+        height: 1rem;
+
+        background-color: black;
+        margin: 0 0.6em;
+      }
+    }
+    // .off {
+    //   display: none;
+    // }
+    .category {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      font : {
+        size: 1.5rem;
+        weight: 700;
+      }
+    }
+    .title {
+      font : {
+        size: 1.1rem;
+        weight: 700;
+      }
+    }
+    .companyName {
+      font-size: 1.5rem;
+      color: #ff6d6a;
+    }
+    .infoContent {
+      width: 90%;
+    }
+    .logo,
+    .gridItem:nth-child(3),
+    .gridItem:nth-child(4),
+    .gridItem:nth-child(5),
+    .gridItem:nth-child(14) {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    .logoImg {
+      display: flex;
+      width: 100%;
+      height: auto;
+      max-width: 30rem;
+      object-fit: cover;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media screen and (max-width: 981px) {
+  .mainContainer {
+    .container {
+      .main {
+        .content {
+          font-size: 0.9rem;
+          .title {
+            font-size: 1.2rem;
+          }
+          .companyName {
+            font-size: 1.5rem;
+          }
+          .gridItem {
+            grid-column-start: 1;
+            grid-column-end: 3;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .mainContainer {
+    .container {
+      .main {
+        .content {
+          font-size: 0.9rem;
+        }
+        .companyName {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
