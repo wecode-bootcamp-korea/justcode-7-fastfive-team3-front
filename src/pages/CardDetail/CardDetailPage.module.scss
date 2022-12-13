@@ -1,0 +1,15 @@
+.mainContainer {
+  display: flex;
+  .container {
+    width: 100%;
+    .main {
+      display: flex;
+      width: 100%;
+      padding: 3rem;
+      .content {
+        width: 100%;
+        background-color: aliceblue;
+      }
+    }
+  }
+}
