@@ -1,0 +1,11 @@
+.sideBarContainer {
+  margin: 0;
+  width: 16vw;
+  background-color: #5bb684;
+  color: #fff;
+}
+@media screen and (max-width: 767px) {
+  .sideBarContainer {
+    display: none;
+  }
+}
