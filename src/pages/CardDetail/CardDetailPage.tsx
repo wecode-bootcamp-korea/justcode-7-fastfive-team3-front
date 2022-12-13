@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import css from './CardDetailPage.module.scss';
-import Header from '../../Components/Header/Header';
-import Footer from '../../Components/Footer/Footer';
-import SideBar from '../../Components/SideBar/SideBar';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+import SideBar from '../../components/SideBar/SideBar';
 
 const CardDetailPage = () => {
   return (
