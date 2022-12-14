@@ -27,51 +27,73 @@ const CardDetailPage = () => {
               <div className={`${css.gridItem} ${css.logo}`}>
                 <img
                   className={css.logoImg}
-                  src="https://jeonghwan-kim.github.io/static/c5453a21722fae5121a6cd6acb30a2ce/bcec6/react-logo.png"
+                  src="https://www.fastfive.co.kr/wp-content/uploads/2020/01/191104_FASTFIVE_logo_BK_250.png"
                   alt=""
                 />
               </div>
               <div
                 className={`${css.gridItem} ${css.title} ${css.companyName}`}
               >
-                패스트파이브
+                <p>패스트파이브</p>
               </div>
               <div className={`${css.gridItem} ${css.infoContent}`}>
-                패스트파이브는 일하는 공간을 새롭게 정의합니다. 패스트파이브
-                오피스 플랫폼은 부동산 시장의 수요와 공급을 혁신적으로 통합하며,
-                공간을 채우는 콘텐츠로 기업과 오피스를 연결합니다.
+                <p>
+                  패스트파이브는 일하는 공간을 새롭게 정의합니다. 패스트파이브
+                  오피스 플랫폼은 부동산 시장의 수요와 공급을 혁신적으로
+                  통합하며, 공간을 채우는 콘텐츠로 기업과 오피스를 연결합니다.
+                </p>
               </div>
-              <div className={`${css.gridItem} ${css.title}`}>업무분야</div>
-              <div className={css.gridItem}>
-                공유오피스, 라운지 멤버십, 프리미엄 오피스텔, 사옥 컨설팅
+              <div className={`${css.gridItem} ${css.title}`}>
+                <p>업무분야</p>
               </div>
-              <div className={`${css.gridItem} ${css.title}`}>멤버 혜택</div>
               <div className={css.gridItem}>
-                패스트파이브 멤버 컨택 시 10% 할인 제공
+                <p>공유오피스, 라운지 멤버십, 프리미엄 오피스텔, 사옥 컨설팅</p>
               </div>
-              <div className={`${css.gridItem} ${css.title}`}>홈페이지</div>
-              <div className={css.gridItem}>
-                <a href="https://www.fastfive.co.kr/#enp_mbris">
-                  https://www.fastfive.co.kr/#enp_mbris
-                </a>
+              <div className={`${css.gridItem} ${css.title}`}>
+                <p>멤버 혜택</p>
               </div>
-              <div className={`${css.gridItem} ${css.title}`}>연락처</div>
               <div className={css.gridItem}>
-                sample@fastfive.co.kr , 010-1234-1234 (홍길동 팀장)
+                <p>패스트파이브 멤버 컨택 시 10% 할인 제공</p>
+              </div>
+              <div className={`${css.gridItem} ${css.title}`}>
+                <p>홈페이지</p>
+              </div>
+              <div className={css.gridItem}>
+                <p>
+                  <a href="https://www.fastfive.co.kr/#enp_mbris">
+                    https://www.fastfive.co.kr/#enp_mbris
+                  </a>
+                </p>
+              </div>
+              <div className={`${css.gridItem} ${css.title}`}>
+                <p>연락처</p>
+              </div>
+              <div className={css.gridItem}>
+                <p>
+                  <span>sample@fastfive.co.kr</span> / 010-1234-1234 (홍길동
+                  팀장)
+                </p>
               </div>
               <div className={`${css.gridItem} ${css.infoContent}`}>
-                패스트파이브는 일하는 공간을 새롭게 정의합니다. 패스트파이브
-                오피스 플랫폼은 부동산 시장의 수요와 공급을 혁신적으로 통합하며,
-                공간을 채우는 콘텐츠로 기업과 오피스를 연결합니다.
-                패스트파이브는 일하는 공간을 새롭게 정의합니다. 패스트파이브
-                오피스 플랫폼은 부동산 시장의 수요와 공급을 혁신적으로 통합하며,
-                공간을 채우는 콘텐츠로 기업과 오피스를 연결합니다.패스트파이브는
-                일하는 공간을 새롭게 정의합니다. 패스트파이브 오피스 플랫폼은
-                부동산 시장의 수요와 공급을 혁신적으로 통합하며, 공간을 채우는
-                콘텐츠로 기업과 오피스를 연결합니다.
+                <p>
+                  패스트파이브는 일하는 공간을 새롭게 정의합니다. 패스트파이브
+                  오피스 플랫폼은 부동산 시장의 수요와 공급을 혁신적으로
+                  통합하며, 공간을 채우는 콘텐츠로 기업과 오피스를 연결합니다.
+                  패스트파이브는 일하는 공간을 새롭게 정의합니다. 패스트파이브
+                  오피스 플랫폼은 부동산 시장의 수요와 공급을 혁신적으로
+                  통합하며, 공간을 채우는 콘텐츠로 기업과 오피스를
+                  연결합니다.패스트파이브는 일하는 공간을 새롭게 정의합니다.
+                  패스트파이브 오피스 플랫폼은 부동산 시장의 수요와 공급을
+                  혁신적으로 통합하며, 공간을 채우는 콘텐츠로 기업과 오피스를
+                  연결합니다.
+                </p>
               </div>
-              <div className={`${css.gridItem} ${css.title}`}>회사 소개서</div>
-              <div className={css.gridItem}>패스트파이브 회사 소개서.pdf</div>
+              <div className={`${css.gridItem} ${css.title}`}>
+                <p>회사 소개서</p>
+              </div>
+              <div className={css.gridItem}>
+                <p>패스트파이브 회사 소개서.pdf</p>
+              </div>
             </div>
           </div>
         </div>

@@ -21,7 +21,6 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr 8fr);
     grid-auto-columns: minmax(10rem, auto);
-    row-gap: 0.9em;
 
     .crudBtns {
       display: flex;
@@ -51,16 +50,18 @@
     }
     .title {
       font : {
-        size: 1.1rem;
+        size: 1.05rem;
         weight: 700;
       }
+      color: rgb(80, 80, 80);
     }
     .companyName {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: #ff6d6a;
     }
     .infoContent {
-      width: 90%;
+      padding-right: 4em;
+      line-height: 1.5rem;
     }
     .logo,
     .gridItem:nth-child(3),
@@ -77,6 +78,25 @@
       max-width: 30rem;
       object-fit: cover;
       margin: 0 auto;
+      padding: 3rem;
+    }
+
+    .gridItem {
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .gridItem:first-child,
+    .gridItem:nth-child(2),
+    .gridItem:nth-child(4) {
+      border-bottom: none;
+    }
+
+    .gridItem p {
+      padding: 1em;
+      padding-left: 0;
+    }
+
+    .gridItem:nth-child(4) {
+      padding: 0;
     }
   }
 }
@@ -96,6 +116,15 @@
           .gridItem {
             grid-column-start: 1;
             grid-column-end: 3;
+          }
+
+          .gridItem:nth-child(2n),
+          .gridItem:nth-child(15) {
+            border-bottom: none;
+          }
+
+          .gridItem:nth-child(14) {
+            border-bottom: 1px solid #f4f4f4;
           }
         }
       }
