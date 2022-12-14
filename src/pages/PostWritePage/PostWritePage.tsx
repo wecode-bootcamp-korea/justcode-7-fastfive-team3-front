@@ -1,8 +1,8 @@
 import React from 'react';
-import './PostPage.module.scss';
+import './PostWritePage.module.scss';
 import PostWrite from '../../components/PostWrite/PostWrite';
 
-const PostPage = () => {
+const PostWritePage = () => {
   return (
     <>
       <PostWrite />
@@ -10,4 +10,4 @@ const PostPage = () => {
   );
 };
 
-export default PostPage;
+export default PostWritePage;

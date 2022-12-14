@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
-import PostPage from './pages/PostPage/PostPage';
+import PostWritePage from './pages/PostWritePage/PostWritePage';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route />
         <Route path="/app" element={<App />} />
-        <Route path="/postPage" element={<PostPage />} />
+        <Route path="/postWritePage" element={<PostWritePage />} />
       </Routes>
     </BrowserRouter>
   );
