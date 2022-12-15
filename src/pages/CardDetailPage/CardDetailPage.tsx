@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import css from './CardDetailPage.module.scss';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -6,12 +6,56 @@ import SideBar from '../../components/SideBar/SideBar';
 import { Link } from 'react-router-dom';
 
 const CardDetailPage = () => {
+  //1. 이메일 클릭 시 복사 기능 구현
+  const [isModalOn, setIsModalOn] = useState(false);
+  const [email, setEmail] = useState('');
+  const emailRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    setEmail(emailRef.current!.innerHTML);
+  }, [email]);
+
+  //navigator.clipboard는 localhost 또는 https환경에서만 작동
+  const copyEmailInhttps = () => {
+    setIsModalOn(true);
+    navigator.clipboard.writeText(email).then(() => {
+      setTimeout(function () {
+        setIsModalOn(false);
+      }, 1000);
+      console.log(navigator.clipboard.readText);
+    });
+  };
+
+  //http 환경에서도 작동하는 copyEmail 함수
+  //배포 시 사용합니다.
+  const copyEmailInhttp = () => {
+    setIsModalOn(true);
+    const textArea = document.createElement('textarea');
+    document.body.appendChild(textArea);
+    textArea.value = email;
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    if (document.execCommand('copy')) {
+      setTimeout(function () {
+        setIsModalOn(false);
+      }, 1000);
+    }
+  };
+
   return (
     <Fragment>
       <Header />
       <main className={css.mainContainer}>
         <SideBar />
         <div className={css.container}>
+          {isModalOn && (
+            <div className={css.modalBg}>
+              <div className={css.modalMain}>
+                <p className={css.copyMessage}>이메일이 복사되었습니다.</p>
+              </div>
+            </div>
+          )}
+
           <div className={css.main}>
             <div className={`${css.content} ${css.gridContainer}`}>
               <div className={`${css.gridItem} ${css.category}`}>
@@ -59,20 +103,36 @@ const CardDetailPage = () => {
                 <p>홈페이지</p>
               </div>
               <div className={css.gridItem}>
-                <p>
-                  <a href="https://www.fastfive.co.kr/#enp_mbris">
+                <p className={css.contactInfo}>
+                  <a
+                    href="https://www.fastfive.co.kr/#enp_mbris"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://www.fastfive.co.kr/#enp_mbris
                   </a>
                 </p>
+                <span className={css.alertMessage}>
+                  주소를 클릭하면 페이지로 이동합니다.
+                </span>
               </div>
               <div className={`${css.gridItem} ${css.title}`}>
                 <p>연락처</p>
               </div>
               <div className={css.gridItem}>
-                <p>
-                  <span>sample@fastfive.co.kr</span> / 010-1234-1234 (홍길동
-                  팀장)
+                <p className={css.contactInfo}>
+                  <span
+                    className={css.copyEmail}
+                    ref={emailRef}
+                    onClick={copyEmailInhttps}
+                  >
+                    sample@fastfive.co.kr
+                  </span>
+                  / 010-1234-1234 (홍길동 팀장)
                 </p>
+                <span className={css.alertMessage}>
+                  이메일을 클릭하면 복사됩니다.
+                </span>
               </div>
               <div className={`${css.gridItem} ${css.infoContent}`}>
                 <p>
