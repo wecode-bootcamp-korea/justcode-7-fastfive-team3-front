@@ -1,0 +1,147 @@
+:root {
+  --div-margin-top: 1em;
+}
+
+.pageWrapper {
+  display: flex;
+  .footerWrapper {
+    display: flex;
+    flex-direction: column;
+    .outWrapper {
+      width: 80em;
+      padding: 0 3rem;
+      .titleWrapper {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1.5rem;
+        .title {
+          font-size: 1.25em;
+          font-weight: bold;
+        }
+        .autoSaveNoti {
+          padding-top: 3em;
+          text-align: right;
+          font-size: 0.9em;
+        }
+      }
+
+      .subHeading {
+        line-height: 2;
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+
+      .contentWrapper {
+        padding-top: 1em;
+        .typeOfBusinessWrapper {
+          display: flex;
+          .categorySelect {
+            margin-left: 4em;
+            padding: 3px;
+            border-radius: 0px;
+            cursor: pointer;
+          }
+          .detailSelect {
+            margin-left: 1em;
+            border-radius: 0px;
+            padding: 5px;
+            cursor: pointer;
+          }
+        }
+
+        .companyNameWrapper {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          input {
+            margin-left: 1.47em;
+            width: 11em;
+            border: 1px solid black;
+            border-radius: 0px;
+            padding: 5px;
+            ::placeholder {
+              text-indent: 2em;
+            }
+          }
+        }
+
+        .companyLogoWrapper {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          .logoUploadWrapper {
+            margin-left: 1.5em;
+            .imgWrapper {
+              input {
+                border-radius: 0;
+              }
+              img {
+              }
+            }
+            .logoSizeNoti {
+              font-size: 0.8em;
+            }
+          }
+        }
+
+        .companyIntroduceFile {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          .fileUploadWrapper {
+            margin-left: 1.6em;
+            input {
+            }
+            .fileSizeNoti {
+              font-size: 0.8em;
+            }
+          }
+        }
+
+        .usingBranch {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          .categorySelect {
+            margin-left: 1em;
+            padding: 3px;
+            border-radius: 0px;
+            cursor: pointer;
+          }
+        }
+
+        .agreeWrapper {
+          display: flex;
+          margin-top: 5px;
+          justify-content: center;
+          input {
+          }
+          .agreeContent {
+            margin-left: 5px;
+            font-size: 0.8em;
+            .underline {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .btnWrapper {
+          display: flex;
+          justify-content: center;
+          margin: 1em 0 2em 6em;
+          .btnInnerWrapper {
+            display: flex;
+            gap: 15px;
+            .btn {
+              width: 65px;
+              height: 35px;
+              cursor: pointer;
+            }
+          }
+          .resetBtn {
+            margin-left: 6em;
+            width: 40px;
+            height: 35px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
