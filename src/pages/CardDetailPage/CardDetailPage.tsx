@@ -6,9 +6,11 @@ import SideBar from '../../components/SideBar/SideBar';
 import { Link } from 'react-router-dom';
 
 const CardDetailPage = () => {
-  //1. 이메일 클릭 시 복사 기능 구현
   const [isModalOn, setIsModalOn] = useState(false);
   const [email, setEmail] = useState('');
+  const [isDelete, setIsDelete] = useState(false);
+  let token: string | null = localStorage.getItem('token');
+  //1. 이메일 클릭 시 복사 기능 구현
   const emailRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     setEmail(emailRef.current!.innerHTML);
@@ -41,6 +43,25 @@ const CardDetailPage = () => {
       }, 1000);
     }
   };
+
+  //삭제 기능 구현
+  const deletePost = () => {
+    setIsDelete(window.confirm('삭제하시겠습니까?'));
+  };
+
+  //headers는 HeadersInit타입이다...
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set('Content-Type', 'application/json');
+  // requestHeaders.set('Authorization', localStorage.getItem('token'));
+
+  useEffect(() => {
+    if (isDelete) {
+      fetch('http://localhost:8000/deletepost', {
+        method: 'DELETE',
+        headers: requestHeaders,
+      });
+    }
+  }, [isDelete]);
 
   return (
     <Fragment>
@@ -152,7 +173,14 @@ const CardDetailPage = () => {
                 <p>회사 소개서</p>
               </div>
               <div className={css.gridItem}>
-                <p>패스트파이브 회사 소개서.pdf</p>
+                <p className={css.contactInfo}>
+                  <a href="https://www.naver.com/">
+                    패스트파이브 회사 소개서.pdf
+                  </a>
+                </p>
+                <span className={css.alertMessage}>
+                  파일 명을 클릭하면 다운로드 받을 수 있습니다.
+                </span>
               </div>
             </div>
           </div>
