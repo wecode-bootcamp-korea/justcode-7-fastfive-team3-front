@@ -1,0 +1,145 @@
+.mainContainer {
+  display: flex;
+  & a {
+    color: black;
+  }
+  .container {
+    width: 100%;
+    .main {
+      display: flex;
+      width: 100%;
+      padding: 3rem;
+      .content {
+        & span {
+          display: inline-block;
+        }
+        width: 100%;
+      }
+    }
+  }
+  .gridContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr 8fr);
+    grid-auto-columns: minmax(10rem, auto);
+
+    .crudBtns {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      padding-right: 2rem;
+      .centerBar {
+        width: 1px;
+        height: 1rem;
+
+        background-color: black;
+        margin: 0 0.6em;
+      }
+    }
+
+    .category {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      font : {
+        size: 1.5rem;
+        weight: 700;
+      }
+    }
+    .title {
+      font : {
+        size: 1.05rem;
+        weight: 700;
+      }
+      color: rgb(80, 80, 80);
+    }
+    .companyName {
+      font-size: 1.2rem;
+      color: #ff6d6a;
+    }
+    .infoContent {
+      padding-right: 4em;
+      line-height: 1.5rem;
+    }
+    .logo,
+    .gridItem:nth-child(3),
+    .gridItem:nth-child(4),
+    .gridItem:nth-child(5),
+    .gridItem:nth-child(14) {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    .logoImg {
+      display: flex;
+      width: 100%;
+      height: auto;
+      max-width: 30rem;
+      object-fit: cover;
+      margin: 0 auto;
+      padding: 3rem;
+    }
+
+    .gridItem {
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .gridItem:first-child,
+    .gridItem:nth-child(2),
+    .gridItem:nth-child(4) {
+      border-bottom: none;
+    }
+
+    .gridItem p {
+      padding: 1em;
+      padding-left: 0;
+    }
+
+    .gridItem:nth-child(4) {
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 981px) {
+  .mainContainer {
+    .container {
+      .main {
+        .content {
+          font-size: 0.9rem;
+          .title {
+            font-size: 1.2rem;
+          }
+          .companyName {
+            font-size: 1.5rem;
+          }
+          .gridItem {
+            grid-column-start: 1;
+            grid-column-end: 3;
+          }
+
+          .gridItem:nth-child(2n),
+          .gridItem:nth-child(15) {
+            border-bottom: none;
+          }
+
+          .gridItem:nth-child(14) {
+            border-bottom: 1px solid #f4f4f4;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .mainContainer {
+    .container {
+      .main {
+        .content {
+          font-size: 0.9rem;
+        }
+        .companyName {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
