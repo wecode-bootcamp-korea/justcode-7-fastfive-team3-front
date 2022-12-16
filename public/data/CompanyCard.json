@@ -1,0 +1,52 @@
+{
+  "companyCard": [
+    {
+      "id": 1,
+      "img": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "company_name": "회사1",
+      "description": "회사1 설명"
+    },
+    {
+      "id": 2,
+      "img": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+      "company_name": "회사2",
+      "description": "회사2 설명"
+    },
+    {
+      "id": 3,
+      "img": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "company_name": "회사3",
+      "description": "회사3 설명"
+    },
+    {
+      "id": 4,
+      "img": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+      "company_name": "회사4",
+      "description": "회사4 설명"
+    },
+    {
+      "id": 5,
+      "img": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "company_name": "회사5",
+      "description": "회사5 설명"
+    },
+    {
+      "id": 6,
+      "img": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+      "company_name": "회사6",
+      "description": "회사6 설명"
+    },
+    {
+      "id": 7,
+      "img": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "company_name": "회사7",
+      "description": "회사7 설명"
+    },
+    {
+      "id": 8,
+      "img": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+      "company_name": "회사8",
+      "description": "회사8 설명"
+    }
+  ]
+}

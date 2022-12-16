@@ -4,18 +4,33 @@
   background-color: #fff;
   border-bottom: 1px solid #f4f4f4;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
+  align-items: center;
   padding-left: 2rem;
   & h1 {
-    align-self: center;
+    // align-self: center;
+    margin-top: 10px;
     font: {
-      size: 3em;
+      size: 2.8rem;
       weight: 700;
+    }
+  }
+  button {
+    margin-right: 2rem;
+    width: 10rem;
+    background-color: #ff6d6a;
+    border-radius: 100px;
+    height: 3rem;
+    text-align: center;
+    a {
+      color: #fff;
+      font-size: 1.2em;
+      display: block;
     }
   }
   @media screen and (max-width: 767px) {
     & h1 {
-      align-self: center;
+      // align-self: center;
       font: {
         size: 2em;
         weight: 700;
