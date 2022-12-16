@@ -4,7 +4,6 @@ import PostWritePage from './pages/PostWritePage/PostWritePage';
 import Login from './pages/Login/Login';
 import CardDetailPage from './pages/CardDetailPage/CardDetailPage';
 
-
 const Router = () => {
   return (
     <BrowserRouter>
