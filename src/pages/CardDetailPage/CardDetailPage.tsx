@@ -23,7 +23,6 @@ const CardDetailPage = () => {
       setTimeout(function () {
         setIsModalOn(false);
       }, 1000);
-      console.log(navigator.clipboard.readText);
     });
   };
 
@@ -49,10 +48,8 @@ const CardDetailPage = () => {
     setIsDelete(window.confirm('삭제하시겠습니까?'));
   };
 
-  //headers는 HeadersInit타입이다...
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
-  // requestHeaders.set('Authorization', localStorage.getItem('token'));
 
   useEffect(() => {
     if (isDelete) {
