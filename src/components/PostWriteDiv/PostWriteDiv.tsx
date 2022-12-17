@@ -58,7 +58,7 @@ const PostWriteDiv = () => {
           <div className={div.classname}>
             <div className={css.subHeading}>{div.subheading}</div>
             {div.id == 1 || div.id == 4 || div.id == 5 ? (
-              <textarea name="" id="" placeholder={div.placeholder}></textarea>
+              <textarea placeholder={div.placeholder}></textarea>
             ) : (
               <input type="text" placeholder={div.placeholder} />
             )}
