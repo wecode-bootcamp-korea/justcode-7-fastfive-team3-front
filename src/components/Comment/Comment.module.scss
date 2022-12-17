@@ -1,0 +1,18 @@
+.commentContainer {
+  position: relative;
+  width: 100%;
+  padding: 3rem;
+  background-color: #f4f4f4;
+  .gridContainer {
+    display: grid;
+    width: 100%;
+    padding: 3rem;
+    row-gap: 1em;
+    .gridItem {
+      width: 100%;
+      min-height: 5em;
+      background-color: #fff;
+      border-radius: 8px;
+    }
+  }
+}
