@@ -1,5 +1,5 @@
 import { text } from 'node:stream/consumers';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import css from './Comment.module.scss';
 
 const Comment = () => {
@@ -7,7 +7,13 @@ const Comment = () => {
   const [replyTextLength, setReplyTextLength] = useState(0);
 
   //textarea 처음에 비활성화 -> 수정 클릭 시 활성화
+  const [isMyTextarea, setIsMyTextarea] = useState(true);
 
+  const myTextarea = useRef<HTMLTextAreaElement>(null);
+  const doModify = () => {
+    setIsMyTextarea(false);
+    myTextarea.current?.focus();
+  };
   //비밀 여부
   const [isSecret, setIsSecret] = useState(false);
   const setSecret = () => {
@@ -38,7 +44,6 @@ const Comment = () => {
       setReplyTextLength(0);
     }
   };
-
   return (
     <div className={css.commentContainer}>
       <h1 className={css.commentTitle}>댓글</h1>
@@ -51,6 +56,7 @@ const Comment = () => {
           <textarea
             className={css.commentContent}
             disabled
+            rows={1}
             defaultValue={'저는 공개되어있는 댓글입니다..'}
           />
           <button className={css.newReply}>답글 달기</button>
@@ -63,15 +69,25 @@ const Comment = () => {
           </div>
           <textarea
             className={css.commentContent}
-            disabled
+            disabled={isMyTextarea}
+            ref={myTextarea}
+            rows={1}
             defaultValue={'사실 수정 삭제가 가능한 댓글이죠...'}
           />
-          <div className={css.modifyAndDelete}>
-            <button className={css.modify}>수정</button>
-            <div className={css.centerBar} />
-            <button className={css.delete}>삭제</button>
-          </div>
-          <button className={css.newReply}>답글 달기</button>
+          {isMyTextarea ? (
+            <Fragment>
+              <div className={css.modifyAndDelete}>
+                <button className={css.modify} onClick={doModify}>
+                  수정
+                </button>
+                <div className={css.centerBar} />
+                <button className={css.delete}>삭제</button>
+              </div>
+              <button className={css.newReply}>답글 달기</button>
+            </Fragment>
+          ) : (
+            <button className={css.setModify}>수정하기</button>
+          )}
         </div>
 
         <div className={`${css.gridItem} ${css.reply}`}>
@@ -85,7 +101,6 @@ const Comment = () => {
             defaultValue={
               '안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나!'
             }
-            rows={1}
           />
           <button className={css.newReply}>답글 달기</button>
         </div>
@@ -101,7 +116,7 @@ const Comment = () => {
           <div className={css.countAndsend}>
             <span className={css.count}>{replyTextLength}</span>/1000
             <div
-              className={isSecret ? css.unlock : css.lock}
+              className={isSecret ? css.lock : css.unlock}
               onClick={setSecret}
             />
             <button
@@ -123,6 +138,7 @@ const Comment = () => {
             defaultValue={
               '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
             }
+            disabled
           />
         </div>
       </div>

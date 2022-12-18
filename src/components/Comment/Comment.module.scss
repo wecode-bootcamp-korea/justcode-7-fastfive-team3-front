@@ -16,7 +16,6 @@
     .gridItem {
       position: relative;
       width: 100%;
-      height: auto;
       padding: 1rem;
       background-color: #fff;
       border-radius: 8px;
@@ -83,8 +82,9 @@
       }
       .commentContent {
         width: 85%;
-        min-height: 1rem;
-        overflow-y: hidden;
+        // height: 100%;
+        margin-top: 1rem;
+        color: black;
         border: none;
         resize: none;
       }
@@ -103,6 +103,7 @@
         .modify,
         .delete {
           background: none;
+          cursor: pointer;
         }
         .centerBar {
           width: 1px;
@@ -110,6 +111,15 @@
           background-color: black;
           margin: 0 0.3rem;
         }
+      }
+      .setModify {
+        position: absolute;
+        right: 1em;
+        padding: 0.3em 0.8em;
+        background-color: #ff6d6a;
+        color: #fff;
+        border-radius: 0.45em;
+        cursor: pointer;
       }
     }
     .reply {
