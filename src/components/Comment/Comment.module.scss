@@ -16,7 +16,7 @@
     .gridItem {
       position: relative;
       width: 100%;
-      min-height: 5em;
+      height: auto;
       padding: 1rem;
       background-color: #fff;
       border-radius: 8px;
@@ -74,7 +74,8 @@
       }
       .commentContent {
         width: 85%;
-        margin-top: 1em;
+        min-height: 1rem;
+        overflow-y: hidden;
         border: none;
         resize: none;
       }
