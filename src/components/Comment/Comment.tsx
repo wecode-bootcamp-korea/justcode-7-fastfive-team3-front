@@ -8,17 +8,29 @@ const Comment = () => {
 
   //textarea 처음에 비활성화 -> 수정 클릭 시 활성화
   const [isMyTextarea, setIsMyTextarea] = useState(true);
-
   const myTextarea = useRef<HTMLTextAreaElement>(null);
   const doModify = () => {
     setIsMyTextarea(false);
     myTextarea.current?.focus();
+  };
+
+  //삭제 버튼 클릭 시 알림창
+  const doDelete = () => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      alert('삭제되었습니다.');
+      //TODO fetch()
+    } else {
+      alert('취소되었습니다.');
+    }
   };
   //비밀 여부
   const [isSecret, setIsSecret] = useState(false);
   const setSecret = () => {
     setIsSecret(!isSecret);
   };
+
+  //rnk : 0이면 일반댓글
+  //rnk : 1이면 일반댓글
 
   //등록 버튼 활성화 여부
   const textareaDOM = useRef<HTMLTextAreaElement>(null);
@@ -81,7 +93,9 @@ const Comment = () => {
                   수정
                 </button>
                 <div className={css.centerBar} />
-                <button className={css.delete}>삭제</button>
+                <button className={css.delete} onClick={doDelete}>
+                  삭제
+                </button>
               </div>
               <button className={css.newReply}>답글 달기</button>
             </Fragment>
