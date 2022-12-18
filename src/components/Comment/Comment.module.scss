@@ -3,16 +3,107 @@
   width: 100%;
   padding: 3rem;
   background-color: #f4f4f4;
+  .commentTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
   .gridContainer {
     display: grid;
+    justify-items: flex-end;
     width: 100%;
     padding: 3rem;
-    row-gap: 1em;
+    row-gap: 0.85em;
     .gridItem {
+      position: relative;
       width: 100%;
       min-height: 5em;
+      padding: 1rem;
       background-color: #fff;
       border-radius: 8px;
+      .commentWriterInfo {
+        display: flex;
+        gap: 1rem;
+        .writerName {
+          font-weight: 700;
+        }
+        .commentDate {
+          font-size: 0.9rem;
+        }
+      }
+      .secreatAlertMessage {
+        color: #bebebe;
+      }
+      .newReply {
+        position: absolute;
+        right: 1em;
+        bottom: 1em;
+        background: none;
+        cursor: pointer;
+      }
+      .countAndsend {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 1em;
+        bottom: 1em;
+        margin-left: 1em;
+        .unlock {
+          width: 1em;
+          height: 1em;
+          margin-left: 0.5em;
+          background-image: url('../../assets/image/unlock.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          cursor: pointer;
+        }
+        .lock {
+          width: 1em;
+          height: 1em;
+          background-image: url('../../assets/image/unlock.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+        .sendReply {
+          margin-left: 1em;
+          padding: 0.3em 0.8em;
+          background-color: #ff6d6a;
+          color: #fff;
+          border-radius: 0.45em;
+          cursor: pointer;
+        }
+      }
+      .commentContent {
+        width: 85%;
+        margin-top: 1em;
+        border: none;
+        resize: none;
+      }
+      .commentContent:focus {
+        outline: none;
+      }
+      .commentContent:disabled {
+        background-color: #fff;
+      }
+      .modifyAndDelete {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 1em;
+        top: 1em;
+        .modify,
+        .delete {
+          background: none;
+        }
+        .centerBar {
+          width: 1px;
+          height: 1rem;
+          background-color: black;
+          margin: 0 0.3rem;
+        }
+      }
+    }
+    .reply {
+      width: 95%;
     }
   }
 }
