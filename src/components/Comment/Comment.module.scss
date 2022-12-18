@@ -59,9 +59,18 @@
         .lock {
           width: 1em;
           height: 1em;
-          background-image: url('../../assets/image/unlock.png');
+          margin-left: 0.5em;
+          background-image: url('../../assets/image/lock.png');
           background-repeat: no-repeat;
           background-size: cover;
+          cursor: pointer;
+        }
+        .notSendReply {
+          margin-left: 1em;
+          padding: 0.3em 0.8em;
+          background-color: #e7e7e7;
+          color: black;
+          border-radius: 0.45em;
         }
         .sendReply {
           margin-left: 1em;

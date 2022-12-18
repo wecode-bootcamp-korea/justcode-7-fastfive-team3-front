@@ -1,13 +1,30 @@
 import { text } from 'node:stream/consumers';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import css from './Comment.module.scss';
 
 const Comment = () => {
   //글자 수
   const [replyTextLength, setReplyTextLength] = useState(0);
+
   //textarea 처음에 비활성화 -> 수정 클릭 시 활성화
 
-  const textarea = useRef<HTMLTextAreaElement>(null);
+  //비밀 여부
+  const [isSecret, setIsSecret] = useState(false);
+  const setSecret = () => {
+    setIsSecret(!isSecret);
+  };
+
+  //등록 버튼 활성화 여부
+  const textareaDOM = useRef<HTMLTextAreaElement>(null);
+  const textareaValue = textareaDOM.current?.value;
+  const [isDisable, setIsDisable] = useState(true);
+  useEffect(() => {
+    if (textareaValue) {
+      setIsDisable(false);
+    } else {
+      setIsDisable(true);
+    }
+  }, [textareaValue]);
 
   const handleResizeHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     //textarea 내용에 따른 높이 변경
@@ -77,14 +94,22 @@ const Comment = () => {
           <textarea
             className={css.commentContent}
             placeholder="위 멤버에게 궁금한 점이나 제안하고 싶은 내용을 댓글로 남겨보세요."
-            ref={textarea}
+            ref={textareaDOM}
             rows={1}
             onInput={handleResizeHeight}
           />
           <div className={css.countAndsend}>
             <span className={css.count}>{replyTextLength}</span>/1000
-            <div className={css.unlock} />
-            <button className={css.sendReply}>등록</button>
+            <div
+              className={isSecret ? css.unlock : css.lock}
+              onClick={setSecret}
+            />
+            <button
+              className={isDisable ? css.notSendReply : css.sendReply}
+              disabled={isDisable}
+            >
+              등록
+            </button>
           </div>
         </div>
 
