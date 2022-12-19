@@ -39,12 +39,14 @@
             margin-left: 4em;
             padding: 3px;
             border-radius: 0px;
+            border: 1px solid #999696;
             cursor: pointer;
           }
           .detailSelect {
             margin-left: 1em;
             border-radius: 0px;
             padding: 5px;
+            border: 1px solid #999696;
             cursor: pointer;
           }
         }
@@ -55,9 +57,12 @@
           input {
             margin-left: 1.47em;
             width: 11vw;
-            border: 1px solid black;
             border-radius: 0px;
+            border: 1px solid #999696;
             padding: 5px;
+          }
+          & input:focus {
+            outline: none;
           }
         }
 
@@ -76,6 +81,192 @@
             .logoSizeNoti {
               font-size: 0.8em;
             }
+          }
+        }
+        .mainWorkingFildAlert {
+          color: red;
+          font-size: 0.8em;
+          margin-left: 7.3em;
+        }
+
+        .essentiel {
+          color: red;
+          font-size: 0.8em;
+          margin-left: 7.3em;
+        }
+
+        .companyIntroduce {
+          margin-top: var(--div-margin-top);
+          .textAreaWrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            margin: 0.5em 0 0 5.9em;
+            width: 67.6vw;
+            height: 8vh;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            textarea {
+              border: none;
+              width: 61vw;
+              height: 7vh;
+              resize: none;
+            }
+            .textCountingSmall {
+              margin: 2.3em 0 0 0.5em;
+              width: 3.2vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: #999696;
+            }
+            .redTextCountingSmall {
+              margin: 2.3em 0 0 0.5em;
+              width: 3.2vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: red;
+            }
+          }
+          & textarea:focus::placeholder {
+            color: transparent;
+          }
+          & textarea:focus {
+            outline: none;
+          }
+        }
+
+        .companyUrl {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          input {
+            padding: 5px;
+            margin-left: 2.7em;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            width: 20vw;
+          }
+          & input:focus::placeholder {
+            color: transparent;
+          }
+          & input:focus {
+            outline: none;
+          }
+        }
+
+        .mainWorkingFild {
+          margin-top: var(--div-margin-top);
+          input {
+            padding: 5px;
+            margin: 0.5em 0 0 7em;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            width: 67.6vw;
+            height: 4vh;
+          }
+          & input:focus::placeholder {
+            color: transparent;
+          }
+          & input:focus {
+            outline: none;
+          }
+        }
+
+        .detailIntroduce {
+          margin-top: var(--div-margin-top);
+          .textAreaWrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            margin: 0.5em 0 0 5.9em;
+            width: 67.6vw;
+            height: 8vh;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            textarea {
+              border: none;
+              width: 61vw;
+              height: 7vh;
+              resize: none;
+            }
+            .textCounting {
+              margin: 2.3em 0 0 0.5em;
+              width: 4vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: #999696;
+            }
+            .redTextCounting {
+              margin: 2.3em 0 0 0.5em;
+              width: 4vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: red;
+            }
+          }
+          & textarea:focus::placeholder {
+            color: transparent;
+          }
+          & textarea:focus {
+            outline: none;
+          }
+        }
+
+        .membership {
+          margin-top: var(--div-margin-top);
+          .textAreaWrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            margin: 0.5em 0 0 5.9em;
+            width: 67.6vw;
+            height: 8vh;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            textarea {
+              border: none;
+              width: 61vw;
+              height: 7vh;
+              resize: none;
+            }
+            .textCountingSmall {
+              margin: 2.3em 0 0 0.5em;
+              width: 3.2vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: #999696;
+            }
+            .redTextCountingSmall {
+              margin: 2.3em 0 0 0.5em;
+              width: 3.2vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: red;
+            }
+          }
+          & textarea:focus::placeholder {
+            color: transparent;
+          }
+          & textarea:focus {
+            outline: none;
+          }
+        }
+
+        .ceoInfo {
+          margin-top: var(--div-margin-top);
+          input {
+            padding: 5px;
+            margin-left: 7em;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            width: 67.6vw;
+            height: 4vh;
+            resize: none;
+          }
+          & input:focus::placeholder {
+            color: transparent;
+          }
+          & input:focus {
+            outline: none;
           }
         }
 
@@ -99,6 +290,7 @@
             margin-left: 1em;
             padding: 3px;
             border-radius: 0px;
+            border: 1px solid #999696;
             cursor: pointer;
           }
         }
@@ -186,12 +378,14 @@
               margin-left: 4em;
               padding: 3px;
               border-radius: 0px;
+              border: 1px solid #999696;
               cursor: pointer;
             }
             .detailSelect {
               margin-left: 1em;
               border-radius: 0px;
               padding: 5px;
+              border: 1px solid #999696;
               cursor: pointer;
             }
           }
@@ -202,7 +396,7 @@
             input {
               margin-left: 1.6em;
               width: 15vw;
-              border: 1px solid black;
+              border: 1px solid #999696;
               border-radius: 0px;
               padding: 5px;
             }
@@ -226,6 +420,193 @@
             }
           }
 
+          .mainWorkingFildAlert {
+            color: red;
+            font-size: 0.8em;
+            margin-left: 7.8em;
+          }
+
+          .essentiel {
+            color: red;
+            font-size: 0.8em;
+            margin-left: 7.8em;
+          }
+
+          .companyIntroduce {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.2em;
+              width: 79.8vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 68vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCountingSmall {
+                margin: 2.3em 0.2em 0 0;
+                width: 5vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCountingSmall {
+                margin: 2.3em 0.2em 0 0;
+                width: 5vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .companyUrl {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin-left: 3em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 35vw;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .mainWorkingFild {
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin: 0.5em 0 0 7em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 79.8vw;
+              height: 4vh;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .detailIntroduce {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.2em;
+              width: 79.8vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 68vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCounting {
+                margin: 2.3em 0.5em 0 0;
+                width: 6vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCounting {
+                margin: 2.3em 0.5em 0 0;
+                width: 6vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .membership {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.2em;
+              width: 79.8vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 68vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCountingSmall {
+                margin: 2.3em 0.2em 0 0;
+                width: 5vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCountingSmall {
+                margin: 2.3em 0.2em 0 0;
+                width: 5vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .ceoInfo {
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin-left: 7em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 79.8vw;
+              height: 4vh;
+              resize: none;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
           .companyIntroduceFile {
             display: flex;
             margin-top: var(--div-margin-top);
@@ -246,6 +627,7 @@
               margin-left: 0.7em;
               padding: 3px;
               border-radius: 0px;
+              border: 1px solid #999696;
               cursor: pointer;
             }
           }
@@ -328,12 +710,14 @@
               margin-left: 4em;
               padding: 3px;
               border-radius: 0px;
+              border: 1px solid #999696;
               cursor: pointer;
             }
             .detailSelect {
               margin-left: 1em;
               border-radius: 0px;
               padding: 5px;
+              border: 1px solid #999696;
               cursor: pointer;
             }
           }
@@ -344,7 +728,7 @@
             input {
               margin-left: 1.9em;
               width: 20vw;
-              border: 1px solid black;
+              border: 1px solid #999696;
               border-radius: 0px;
               padding: 5px;
             }
@@ -368,11 +752,198 @@
             }
           }
 
+          .mainWorkingFildAlert {
+            color: red;
+            font-size: 0.8em;
+            margin-left: 8.3em;
+          }
+
+          .essentiel {
+            color: red;
+            font-size: 0.8em;
+            margin-left: 8.3em;
+          }
+
+          .companyIntroduce {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.7em;
+              width: 77.9vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 63vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCountingSmall {
+                margin: 2.8em 1.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCountingSmall {
+                margin: 2.8em 1.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .companyUrl {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin-left: 3em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 35vw;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .mainWorkingFild {
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin: 0.5em 0 0 6.5em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 78vw;
+              height: 4vh;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .detailIntroduce {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.7em;
+              width: 77.9vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 63vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCounting {
+                margin: 3em 2.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCounting {
+                margin: 3em 2.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .membership {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.7em;
+              width: 77.9vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 63vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCountingSmall {
+                margin: 2.8em 1.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCountingSmall {
+                margin: 2.8em 1.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .ceoInfo {
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin-left: 6.5em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 77.8vw;
+              height: 4vh;
+              resize: none;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
           .companyIntroduceFile {
             display: flex;
             margin-top: var(--div-margin-top);
             .fileUploadWrapper {
-              margin-left: 2.3em;
+              margin-left: 1.8em;
               input {
               }
               .fileSizeNoti {
@@ -388,6 +959,7 @@
               margin-left: 0.7em;
               padding: 3px;
               border-radius: 0px;
+              border: 1px solid #999696;
               cursor: pointer;
             }
           }
