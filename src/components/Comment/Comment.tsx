@@ -1,5 +1,6 @@
 import { text } from 'node:stream/consumers';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
+import Reply from './Reply/Reply';
 import css from './Comment.module.scss';
 
 const Comment = () => {
@@ -93,50 +94,7 @@ const Comment = () => {
     <div className={css.commentContainer}>
       <h1 className={css.commentTitle}>댓글</h1>
       <div className={css.gridContainer}>
-        <div className={css.gridItem}>
-          <div className={css.commentWriterInfo}>
-            <p className={css.writerName}>작성자1</p>
-            <p className={css.commentDate}>2022년 12월 12일 오후 11:30</p>
-          </div>
-          <textarea
-            className={css.commentContent}
-            disabled
-            rows={1}
-            defaultValue={'저는 공개되어있는 댓글입니다..'}
-          />
-          <button className={css.newReply}>답글 달기</button>
-        </div>
-
-        <div className={css.gridItem}>
-          <div className={css.commentWriterInfo}>
-            <p className={css.writerName}>접니다</p>
-            <p className={css.commentDate}>2022년 12월 13일 오후 11:30</p>
-          </div>
-          <textarea
-            className={css.commentContent}
-            disabled={isMyTextarea}
-            ref={myTextarea}
-            rows={1}
-            defaultValue={'사실 수정 삭제가 가능한 댓글이죠...'}
-          />
-          {isMyTextarea ? (
-            <Fragment>
-              <div className={css.modifyAndDelete}>
-                <button className={css.modify} onClick={doModify}>
-                  수정
-                </button>
-                <div className={css.centerBar} />
-                <button className={css.delete} onClick={doDelete}>
-                  삭제
-                </button>
-              </div>
-              <button className={css.newReply}>답글 달기</button>
-            </Fragment>
-          ) : (
-            <button className={css.setModify}>수정하기</button>
-          )}
-        </div>
-
+        <Reply />
         <div className={`${css.gridItem} ${css.reply}`}>
           <div className={css.commentWriterInfo}>
             <p className={css.writerName}>작성자3</p>
