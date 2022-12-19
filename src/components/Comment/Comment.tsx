@@ -67,7 +67,6 @@ const Comment = () => {
   const [isMainDisable, setIsMainDisable] = useState(true);
   const mainTextareaDOM = useRef<HTMLTextAreaElement>(null);
   const mainTextareaValue = mainTextareaDOM.current?.value;
-  console.log(mainTextareaValue);
   useEffect(() => {
     if (mainTextareaValue) {
       setIsMainDisable(false);
@@ -89,7 +88,6 @@ const Comment = () => {
       setReplyMainTextLength(0);
     }
   };
-  console.log('MainDisable : ', isMainDisable);
 
   return (
     <div className={css.commentContainer}>
