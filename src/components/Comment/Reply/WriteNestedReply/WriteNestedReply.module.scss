@@ -1,27 +1,10 @@
-.replyContainer {
+.writeReplyContainer {
   position: relative;
   width: 100%;
   padding: 1rem;
   background-color: #fff;
   border-radius: 8px;
-  .replyWriterInfo {
-    display: flex;
-    gap: 1rem;
-    .replyWriterName {
-      font-weight: 700;
-    }
-    .replyDate {
-      font-size: 0.9rem;
-    }
-  }
-  .newReply {
-    position: absolute;
-    right: 1em;
-    bottom: 1em;
-    background: none;
-    cursor: pointer;
-  }
-  .countAndsend {
+  .writeCountAndsend {
     display: flex;
     align-items: center;
     position: absolute;
@@ -32,7 +15,7 @@
       width: 1em;
       height: 1em;
       margin-left: 0.5em;
-      background-image: url('../../../assets/image/unlock.png');
+      background-image: url('../../../../assets/image/unlock.png');
       background-repeat: no-repeat;
       background-size: cover;
       cursor: pointer;
@@ -41,7 +24,7 @@
       width: 1em;
       height: 1em;
       margin-left: 0.5em;
-      background-image: url('../../../assets/image/lock.png');
+      background-image: url('../../../../assets/image/lock.png');
       background-repeat: no-repeat;
       background-size: cover;
       cursor: pointer;
@@ -62,7 +45,7 @@
       cursor: pointer;
     }
   }
-  .replyContent {
+  .writeCommentContent {
     width: 85%;
     // height: 100%;
     margin-top: 1rem;
@@ -70,37 +53,13 @@
     border: none;
     resize: none;
   }
-  .replyContent:focus {
+  .writeCommentContent:focus {
     outline: none;
   }
-  .replyContent:disabled {
+  .writeCommentContent:disabled {
     background-color: #fff;
   }
-  .modifyAndDelete {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    right: 1em;
-    top: 1em;
-    .modify,
-    .delete {
-      background: none;
-      cursor: pointer;
-    }
-    .centerBar {
-      width: 1px;
-      height: 1rem;
-      background-color: black;
-      margin: 0 0.3rem;
-    }
-  }
-  .setModify {
-    position: absolute;
-    right: 1em;
-    padding: 0.3em 0.8em;
-    background-color: #ff6d6a;
-    color: #fff;
-    border-radius: 0.45em;
-    cursor: pointer;
-  }
+}
+.reply {
+  width: 95%;
 }

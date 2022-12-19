@@ -1,62 +1,17 @@
-import { text } from 'node:stream/consumers';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import Reply from './Reply/Reply';
+import React, { useEffect, useRef, useState } from 'react';
+import Reply from './Reply/Reply/Reply';
+import NestedReply from './Reply/NestedReply/NestedReply';
+import WriteReply from './Reply/WriteNestedReply/WriteNestedReply';
 import css from './Comment.module.scss';
 
+export interface LoginProps {
+  loginId: string | null;
+}
 const Comment = () => {
+  const loginId: string | null = localStorage.getItem('id');
+
   //글자 수
-  const [replyTextLength, setReplyTextLength] = useState(0);
   const [replyMainTextLength, setReplyMainTextLength] = useState(0);
-
-  //textarea 처음에 비활성화 -> 수정 클릭 시 활성화
-  const [isMyTextarea, setIsMyTextarea] = useState(true);
-  const myTextarea = useRef<HTMLTextAreaElement>(null);
-  const doModify = () => {
-    setIsMyTextarea(false);
-    myTextarea.current?.focus();
-  };
-
-  //삭제 버튼 클릭 시 알림창
-  const doDelete = () => {
-    if (window.confirm('삭제하시겠습니까?')) {
-      alert('삭제되었습니다.');
-      //TODO fetch()
-    } else {
-      alert('취소되었습니다.');
-    }
-  };
-  //답글 비밀 여부
-  const [isSecret, setIsSecret] = useState(false);
-  const setSecret = () => {
-    setIsSecret(!isSecret);
-  };
-
-  //rnk : 0이면 일반댓글
-  //rnk : 1이면 일반댓글
-
-  //답글 등록 버튼 활성화 여부
-  const textareaDOM = useRef<HTMLTextAreaElement>(null);
-  const textareaValue = textareaDOM.current?.value;
-  const [isDisable, setIsDisable] = useState(true);
-  useEffect(() => {
-    if (textareaValue) {
-      setIsDisable(false);
-    } else {
-      setIsDisable(true);
-    }
-  }, [textareaValue]);
-  const handleResizeHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    //textarea 내용에 따른 높이 변경
-    e.target.style.height = '1px';
-    e.target.style.height = e.target.scrollHeight + 'px';
-    //글자수 count
-    const currentTextareaText = e.target.value;
-    if (currentTextareaText) {
-      setReplyTextLength(currentTextareaText.length);
-    } else if (!currentTextareaText) {
-      setReplyTextLength(0);
-    }
-  };
 
   //메인 비밀 여부
   const [isMainSecret, setMainIsSecret] = useState(false);
@@ -94,45 +49,9 @@ const Comment = () => {
     <div className={css.commentContainer}>
       <h1 className={css.commentTitle}>댓글</h1>
       <div className={css.gridContainer}>
-        <Reply />
-        <div className={`${css.gridItem} ${css.reply}`}>
-          <div className={css.commentWriterInfo}>
-            <p className={css.writerName}>작성자3</p>
-            <p className={css.commentDate}>2022년 12월 12일 오후 11:30</p>
-          </div>
-          <textarea
-            className={css.commentContent}
-            disabled
-            defaultValue={
-              '안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나! 안녕! 내 이름은 대댓글. 댓글다는 사람이죠. 댓글은 언제나 하나!'
-            }
-          />
-          <button className={css.newReply}>답글 달기</button>
-        </div>
-
-        <div className={`${css.gridItem} ${css.reply}`}>
-          <textarea
-            className={css.commentContent}
-            placeholder="위 멤버에게 궁금한 점이나 제안하고 싶은 내용을 댓글로 남겨보세요."
-            ref={textareaDOM}
-            rows={1}
-            onInput={handleResizeHeight}
-          />
-          <div className={css.countAndsend}>
-            <span className={css.count}>{replyTextLength}</span>/1000
-            <div
-              className={isSecret ? css.lock : css.unlock}
-              onClick={setSecret}
-            />
-            <button
-              className={isDisable ? css.notSendReply : css.sendReply}
-              disabled={isDisable}
-            >
-              등록
-            </button>
-          </div>
-        </div>
-
+        <Reply loginId={loginId} />
+        <NestedReply />
+        <WriteReply />
         <div className={css.gridItem}>
           <div className={css.commentWriterInfo}>
             <p className={css.writerName}>작성자4</p>
@@ -140,9 +59,7 @@ const Comment = () => {
           </div>
           <textarea
             className={`${css.commentContent} ${css.secreatAlertMessage}`}
-            defaultValue={
-              '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
-            }
+            defaultValue="비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다."
             disabled
           />
         </div>
