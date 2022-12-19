@@ -1,13 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Reply from './Reply/Reply/Reply';
 import NestedReply from './Reply/NestedReply/NestedReply';
-import WriteReply from './Reply/WriteNestedReply/WriteNestedReply';
+
 import css from './Comment.module.scss';
+import WriteNestedReply from './Reply/WriteNestedReply/WriteNestedReply';
+import Paging from './Reply/Paging/Paging';
 
 export interface LoginProps {
   loginId: string | null;
+  setShowWriteTextarea: Function;
+  showWriteTextarea: boolean;
 }
+
 const Comment = () => {
+  //rnk : 0이면 일반댓글
+  //rnk : 1이면 일반댓글
+  const [showWriteTextarea, setShowWriteTextarea] = useState(false);
   const loginId: string | null = localStorage.getItem('id');
 
   //글자 수
@@ -49,21 +57,21 @@ const Comment = () => {
     <div className={css.commentContainer}>
       <h1 className={css.commentTitle}>댓글</h1>
       <div className={css.gridContainer}>
-        <Reply loginId={loginId} />
-        <NestedReply />
-        <WriteReply />
-        <div className={css.gridItem}>
-          <div className={css.commentWriterInfo}>
-            <p className={css.writerName}>작성자4</p>
-            <p className={css.commentDate}>2022년 12월 12일 오후 11:30</p>
-          </div>
-          <textarea
-            className={`${css.commentContent} ${css.secreatAlertMessage}`}
-            defaultValue="비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다."
-            disabled
+        <div className={css.commentList}>
+          <Reply
+            loginId={loginId}
+            setShowWriteTextarea={setShowWriteTextarea}
+            showWriteTextarea={showWriteTextarea}
           />
+          <NestedReply />
+          <NestedReply />
+          <NestedReply />
+          <NestedReply />
         </div>
-        <div>페이지네이션~</div>
+        {showWriteTextarea && <WriteNestedReply />}
+        <div>
+          <Paging />
+        </div>
         <div className={`${css.gridItem} ${css.mainReply}`}>
           <textarea
             className={css.commentContent}

@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import css from './WriteNestedReply.module.scss';
 
-const WriteReply = () => {
+const WriteNestedReply = () => {
   const [replyTextLength, setReplyTextLength] = useState(0);
   //답글 비밀 여부
   const [isSecret, setIsSecret] = useState(false);
   const setSecret = () => {
     setIsSecret(!isSecret);
   };
-
-  //rnk : 0이면 일반댓글
-  //rnk : 1이면 일반댓글
 
   //답글 등록 버튼 활성화 여부
   const textareaDOM = useRef<HTMLTextAreaElement>(null);
@@ -58,4 +55,4 @@ const WriteReply = () => {
   );
 };
 
-export default WriteReply;
+export default WriteNestedReply;
