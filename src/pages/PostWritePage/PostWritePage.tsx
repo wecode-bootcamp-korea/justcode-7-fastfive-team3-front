@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './PostWritePage.module.scss';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -6,6 +7,21 @@ import SideBar from '../../components/SideBar/SideBar';
 import css from './PostWritePage.module.scss';
 
 const PostWritePage = () => {
+  const [companyName, setCompanyName] = useState<boolean>(false); //회사이름
+  const [fiveLimit, setFiveLimit] = useState<string | boolean>(false); //,5개
+  const [ceoInfo, setCeoInfo] = useState<boolean>(false); //ceo연락처
+  const [companyIntroduce, setCompanyIntroduce] = useState<boolean>(false); //회사소개
+  const [companyLogo, setCompanyLogo] = useState<boolean>(false); //회사로고 파일
+  const [categoryEssentielCheck, setCategoryEssentielCheck] =
+    useState<boolean>(false); //카테고리 필수 체크
+  const [detailCategoryEssentielCheck, setDetailCategoryEssentielCheck] =
+    useState<boolean>(false); //상세 카테고리 필수 체크
+  const [branchEssentielCheck, setBranchEssentielCheck] =
+    useState<boolean>(false); //지점 카테고리 필수 체크
+  const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
+  const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
+  const { category_id } = useParams();
+
   const [agreeCheckBox, setAgreeCheckBox] = useState<boolean | undefined>(
     false
   );
@@ -19,9 +35,47 @@ const PostWritePage = () => {
     number | undefined
   >(0);
 
-  const [fiveLimit, setFiveLimit] = useState<string | boolean>(false);
-  const [ceoInfo, setCeoInfo] = useState<boolean>(false);
-  const [companyIntroduce, setCompanyIntroduce] = useState<boolean>(false);
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set('Content-Type', 'application/json');
+  requestHeaders.set(
+    'Authorization',
+    localStorage
+      ?.getItem('token')
+      ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
+  );
+
+  //카테고리 GET
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/category', {
+  //     headers: requestHeaders,
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       setCategoryArray(res.data);
+  //     });
+  // }, []);
+
+  // //카테고리 POST
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/category', {
+  //     method: 'POST',
+  //     headers: requestHeaders,
+  //     body: JSON.stringify({ category_id: category_id }),
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => {});
+  // }, []);
+
+  // //상세 카테고리 GET
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/category' + category_id, {
+  //     headers: requestHeaders,
+  //   })
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       setDetailCategoryArray(res.data);
+  //     });
+  // }, []);
 
   //글자수 카운트
   const countingMainWorkingFild = (
@@ -57,6 +111,25 @@ const PostWritePage = () => {
     }
   };
 
+  //회사이름 필수항목 체크
+  const companyNameCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      setCompanyName(true);
+    } else {
+      setCompanyName(false);
+    }
+  };
+
+  //회사로고 필수항목 체크
+  const companyLogoCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      setCompanyLogo(true);
+      console.log('회사로고', companyLogo);
+    } else {
+      setCompanyLogo(false);
+    }
+  };
+
   //, 5개 검사
   const fiveLimitCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     // 필수항목 체크
@@ -73,8 +146,37 @@ const PostWritePage = () => {
   const essentielCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
       setCeoInfo(true);
+      console.log(ceoInfo);
     } else {
       setCeoInfo(false);
+    }
+  };
+
+  //카테고리 필수항목 체크
+  const categoryCheck = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value) {
+      setCategoryEssentielCheck(true);
+      console.log('카테고리 밸류', categoryEssentielCheck);
+    } else {
+      setCategoryEssentielCheck(false);
+    }
+  };
+
+  //상세 카테고리 필수항목 체크
+  const detailCategoryCheck = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value) {
+      setDetailCategoryEssentielCheck(true);
+    } else {
+      setDetailCategoryEssentielCheck(false);
+    }
+  };
+
+  //지점 카테고리 필수항목 체크
+  const branchCheck = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value) {
+      setBranchEssentielCheck(true);
+    } else {
+      setBranchEssentielCheck(false);
     }
   };
 
@@ -89,8 +191,41 @@ const PostWritePage = () => {
 
   //등록 버튼 클릭
   const getUpload = () => {
-    if (agreeCheckBox == false) {
+    if (
+      categoryEssentielCheck === true &&
+      detailCategoryEssentielCheck === true &&
+      companyName === true &&
+      companyLogo === true &&
+      companyIntroduce === true &&
+      fiveLimit === true &&
+      ceoInfo === true &&
+      agreeCheckBox === true &&
+      branchEssentielCheck === true
+    ) {
+      alert('게시글이 등록되었습니다.');
+    } else if (
+      // categoryEssentielCheck === true &&
+      // detailCategoryEssentielCheck === true &&
+      companyName === true &&
+      companyLogo === true &&
+      companyIntroduce === true &&
+      fiveLimit === true &&
+      ceoInfo === true &&
+      // branchEssentielCheck === true &&
+      agreeCheckBox === false
+    ) {
       alert('서비스 이용약관에 동의해주세요.');
+    } else if (
+      categoryEssentielCheck === false ||
+      detailCategoryEssentielCheck === false ||
+      companyName === false ||
+      companyLogo === false ||
+      companyIntroduce === false ||
+      fiveLimit === false ||
+      ceoInfo === false ||
+      agreeCheckBox === false ||
+      branchEssentielCheck === false
+    ) {
     }
   };
 
@@ -112,39 +247,48 @@ const PostWritePage = () => {
             <section className={css.contentWrapper}>
               <div className={css.typeOfBusinessWrapper}>
                 <div className={css.subHeading}>업종 *</div>
-                <select className={css.categorySelect}>
-                  <option value="none">카테고리</option>
-                  {/* {categoryValueArray.map(category => {
+                <select className={css.categorySelect} onChange={categoryCheck}>
+                  <option value="">카테고리</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  {categoryArray.map(category => {
                     return (
                       <>
-                        key={category.id} value={category.value}
-                        <option>{category.value}</option>
+                        key={category.category_id}
+                        <option value={category.category_id}>
+                          {category.category}
+                        </option>
                       </>
                     );
-                  })} */}
+                  })}
                 </select>
-                <select className={css.detailSelect}>
+                <select
+                  className={css.detailSelect}
+                  onChange={detailCategoryCheck}
+                >
                   <option value="none">상세</option>
-                  {/* {detailValueArray.map(detail => {
+                  {detailCategoryArray.map(detail => {
                     return (
                       <>
                         key={detail.id}
-                        <option>{detail.value}</option>
+                        <option value={detail.id}>{detail.category}</option>
                       </>
                     );
-                  })} */}
+                  })}
                 </select>
               </div>
               <div className={css.companyNameWrapper}>
-                <div className={css.subHeading}>회사 이름 *</div>
-                <input type="text" />
+                <span className={css.subHeading}>회사 이름 *</span>
+                <input type="text" onChange={companyNameCheck} />
+                {companyName === false && (
+                  <div className={css.essentiel}>필수 작성 항목입니다.</div>
+                )}
               </div>
               <div className={css.companyLogoWrapper}>
                 <div className={css.subHeading}>회사 로고 or 대표 이미지 *</div>
                 <div className={css.logoUploadWrapper}>
                   <div className={css.imgWrapper}>
-                    <input type="file" />
-                    <img src="" alt="" />
+                    <input type="file" onChange={companyLogoCheck} />
                   </div>
                   <div className={css.logoSizeNoti}>
                     10mb 이하의 jpg, png 파일을 선택해주세요.
@@ -273,7 +417,7 @@ const PostWritePage = () => {
               </div>
               <div className={css.usingBranch}>
                 <div className={css.subHeading}>이용중인 지점 *</div>
-                <select className={css.categorySelect}>
+                <select className={css.categorySelect} onChange={branchCheck}>
                   <option value="none">지점명</option>
                   {/* {branchArray.map(branch => {
                     return (
