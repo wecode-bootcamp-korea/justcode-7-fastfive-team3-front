@@ -1,0 +1,79 @@
+.subHeading {
+  line-height: 2;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.companyIntroduce {
+  display: flex;
+  margin-top: var(--div-margin-top);
+  textarea {
+    margin-left: 1.5em;
+    border: 1px solid black;
+    border-radius: 0px;
+    width: 68.1rem;
+    height: 5em;
+    resize: none;
+  }
+}
+
+.companyUrl {
+  display: flex;
+  margin-top: var(--div-margin-top);
+  input {
+    margin-left: 2.7em;
+    border: 1px solid black;
+    border-radius: 0px;
+    width: 20em;
+  }
+}
+
+.mainWorkingFild {
+  display: flex;
+  margin-top: var(--div-margin-top);
+  input {
+    margin-left: 1.2em;
+    border: 1px solid black;
+    border-radius: 0px;
+    width: 66.2rem;
+  }
+}
+
+.detailIntroduce {
+  margin-top: var(--div-margin-top);
+  textarea {
+    margin-top: 5px;
+    margin-left: 7em;
+    border: 1px solid black;
+    border-radius: 0px;
+    width: 68.1rem;
+    height: 8em;
+    resize: none;
+  }
+}
+
+.membership {
+  margin-top: var(--div-margin-top);
+  textarea {
+    margin-top: 5px;
+    margin-left: 7em;
+    border: 1px solid black;
+    border-radius: 0px;
+    width: 68.1rem;
+    height: 8em;
+    resize: none;
+  }
+}
+
+.ceoInfo {
+  display: flex;
+  margin-top: var(--div-margin-top);
+  input {
+    margin-top: 5px;
+    margin-left: 1em;
+    border: 1px solid black;
+    border-radius: 0px;
+    width: 65rem;
+    resize: none;
+  }
+}
