@@ -12,9 +12,14 @@ const Reply: React.FC<ReplyProps> = ({
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
   const myTextarea = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (isMyTextarea) {
+      myTextarea.current?.focus();
+    }
+  }, [isMyTextarea]);
   const doModify = () => {
     setIsMyTextarea(false);
-    myTextarea.current?.focus();
   };
   const noModify = () => {
     setIsMyTextarea(true);

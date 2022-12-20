@@ -125,7 +125,9 @@ const Comment = () => {
           return <CommentList comment={comment} key={comment.reply_id} />;
         })}
         <div className={css.pagenation}>
-          <Pagination count={totalPages} onChange={handlePagination} />
+          {totalPages !== 0 && (
+            <Pagination count={totalPages} onChange={handlePagination} />
+          )}
         </div>
         <div
           className={`${css.gridItem} ${css.mainReply}`}

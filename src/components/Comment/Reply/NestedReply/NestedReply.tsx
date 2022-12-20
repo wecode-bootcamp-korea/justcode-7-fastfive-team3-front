@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { NestedReplyProps } from '../../CommentList/CommentList';
 import css from './NestedReply.module.scss';
 
-const NestedReply: React.FC<NestedReplyProps> = ({ reply }) => {
+const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
   //textarea 처음에 비활성화 -> 수정 클릭 시 활성화
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
@@ -28,8 +28,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ reply }) => {
     }
   };
   const [isLoginUser, setIsLoginUser] = useState(false);
-  const loginId: string | null = localStorage.getItem('id');
-  const replyUserId = '1';
+  const replyUserId = reply.reply_user_id;
   useEffect(() => {
     if (loginId === replyUserId) {
       setIsLoginUser(true);

@@ -13,6 +13,7 @@ export interface ReplyProps {
 }
 
 export interface NestedReplyProps {
+  loginId: string | null | number;
   reply: ReplyType;
 }
 const CommentList: React.FC<PropsType> = ({ comment }) => {
@@ -20,14 +21,14 @@ const CommentList: React.FC<PropsType> = ({ comment }) => {
   useEffect(() => {
     setNestedReplyList(comment.reply);
   }, []);
-  const loginId: string | null = localStorage.getItem('id');
+  const loginId: string | null | number = localStorage.getItem('id');
   const [showWriteTextarea, setShowWriteTextarea] = useState(false);
   return (
     <Fragment>
       <div className={css.commentList}>
         {comment && (
           <Reply
-            loginId={loginId}
+            loginId={Number(loginId)}
             setShowWriteTextarea={setShowWriteTextarea}
             showWriteTextarea={showWriteTextarea}
             commentInfo={comment}
@@ -35,7 +36,13 @@ const CommentList: React.FC<PropsType> = ({ comment }) => {
         )}
         {comment.rnk !== 0 &&
           nestedReplyList.map(reply => {
-            return <NestedReply reply={reply} key={reply.reply_id} />;
+            return (
+              <NestedReply
+                loginId={Number(loginId)}
+                reply={reply}
+                key={reply.reply_id}
+              />
+            );
           })}
       </div>
       {showWriteTextarea && (
