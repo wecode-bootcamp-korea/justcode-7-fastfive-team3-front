@@ -38,7 +38,9 @@ const CommentList: React.FC<PropsType> = ({ comment }) => {
             return <NestedReply reply={reply} key={reply.reply_id} />;
           })}
       </div>
-      {showWriteTextarea && <WriteNestedReply />}
+      {showWriteTextarea && (
+        <WriteNestedReply showWriteTextarea={showWriteTextarea} />
+      )}
     </Fragment>
   );
 };

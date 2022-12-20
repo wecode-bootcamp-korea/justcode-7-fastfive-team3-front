@@ -13,6 +13,14 @@
     .nestedReplyDate {
       font-size: 0.9rem;
     }
+    .lock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/lock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
   }
   .secreatAlertMessage {
     color: #bebebe;

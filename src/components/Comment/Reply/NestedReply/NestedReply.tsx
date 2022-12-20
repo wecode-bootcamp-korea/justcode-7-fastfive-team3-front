@@ -71,7 +71,8 @@ const NestedReply: React.FC<NestedReplyProps> = ({ reply }) => {
           <p className={css.nestedReplywriterName}>
             {isPrivate ? '.' : reply.nickname}
           </p>
-          <p className={css.nestedReplyDate}>2022년 12월 12일 오후 11:30</p>
+          <p className={css.nestedReplyDate}>{reply.created_at}</p>
+          {isPrivate && <div className={css.lock} />}
         </div>
         <textarea
           className={css.nestedReplyContent}

@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
+import CardDetailPage from '../../../../pages/CardDetailPage/CardDetailPage';
 import { ReplyProps } from '../../CommentList/CommentList';
 import css from './Reply.module.scss';
 
@@ -90,6 +91,7 @@ const Reply: React.FC<ReplyProps> = ({
             {isPrivate ? '.' : commentInfo.nickname}
           </p>
           <p className={css.replyDate}>{commentInfo.created_at}</p>
+          {isPrivate && <div className={css.lock} />}
         </div>
         <textarea
           className={css.replyContent}

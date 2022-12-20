@@ -1,16 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import css from './WriteNestedReply.module.scss';
 
-const WriteNestedReply = () => {
+interface TextareaType {
+  showWriteTextarea: boolean;
+}
+
+const WriteNestedReply: React.FC<TextareaType> = ({ showWriteTextarea }) => {
   const [replyTextLength, setReplyTextLength] = useState(0);
   //답글 비밀 여부
   const [isSecret, setIsSecret] = useState(false);
+  const textareaDOM = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    textareaDOM.current?.focus();
+  }, [showWriteTextarea]);
   const setSecret = () => {
     setIsSecret(!isSecret);
   };
 
-  //답글 등록 버튼 활성화 여부
-  const textareaDOM = useRef<HTMLTextAreaElement>(null);
+  //등록 버튼 활성화 여부
   const textareaValue = textareaDOM.current?.value;
   const [isDisable, setIsDisable] = useState(true);
   useEffect(() => {
