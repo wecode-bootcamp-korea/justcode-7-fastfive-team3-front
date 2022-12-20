@@ -29,6 +29,7 @@ export interface CommentType {
   feed_user_id: number;
   is_private: boolean;
   is_deleted: boolean;
+  is_fake: boolean;
   comment: string;
   parent_reply_id: number;
   parent_user_id: number | null;

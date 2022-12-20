@@ -27,10 +27,32 @@ const Reply: React.FC<ReplyProps> = ({
     setIsPrivate(commentInfo.is_private);
   }, []);
   //삭제 버튼 클릭 시 알림창
+  let token = localStorage.getItem('token');
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set('Content-Type', 'application/json');
+  requestHeaders.set('Content-Type', 'application/json');
+  if (token) {
+    requestHeaders.set('Authorization', token);
+  }
   const doDelete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      alert('삭제되었습니다.');
-      //TODO fetch()
+      fetch('http://localhost:8000/reply', {
+        method: 'DELETE',
+        headers: requestHeaders,
+        body: JSON.stringify({
+          reply_id: commentInfo.reply_id,
+        }),
+      })
+        .then(response => response.json())
+        .then(json => {
+          if (json.message) {
+            console.log(json);
+            alert('삭제되었습니다.');
+            window.location.reload();
+          } else {
+            alert('다시 시도해주세요.');
+          }
+        });
     } else {
       alert('취소되었습니다.');
     }

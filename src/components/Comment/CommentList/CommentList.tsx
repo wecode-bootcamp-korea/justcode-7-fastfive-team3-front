@@ -18,22 +18,31 @@ export interface NestedReplyProps {
 }
 const CommentList: React.FC<PropsType> = ({ comment }) => {
   const [nestedReplyList, setNestedReplyList] = useState<ReplyType[]>([]);
+  const [isFake, setIsFake] = useState(false);
   useEffect(() => {
     setNestedReplyList(comment.reply);
+    setIsFake(comment.is_fake);
   }, []);
   const loginId: string | null | number = localStorage.getItem('id');
   const [showWriteTextarea, setShowWriteTextarea] = useState(false);
+
+  const returnReply = () => {
+    if (comment) {
+      return (
+        <Reply
+          loginId={Number(loginId)}
+          setShowWriteTextarea={setShowWriteTextarea}
+          showWriteTextarea={showWriteTextarea}
+          commentInfo={comment}
+        />
+      );
+    }
+  };
+
   return (
     <Fragment>
       <div className={css.commentList}>
-        {comment && (
-          <Reply
-            loginId={Number(loginId)}
-            setShowWriteTextarea={setShowWriteTextarea}
-            showWriteTextarea={showWriteTextarea}
-            commentInfo={comment}
-          />
-        )}
+        {returnReply()}
         {comment.rnk !== 0 &&
           nestedReplyList.map(reply => {
             return (
