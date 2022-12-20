@@ -10,6 +10,9 @@ const NestedReply = () => {
     setIsMyTextarea(false);
     myTextarea.current?.focus();
   };
+  const noModify = () => {
+    setIsMyTextarea(true);
+  };
 
   //삭제 버튼 클릭 시 알림창
   const doDelete = () => {
@@ -47,7 +50,14 @@ const NestedReply = () => {
         </Fragment>
       );
     } else if (isLoginUser && !isMyTextarea) {
-      return <button className={css.setModify}>수정하기</button>;
+      return (
+        <div className={css.modifys}>
+          <button className={css.cancleModify} onClick={noModify}>
+            취소
+          </button>
+          <button className={css.setModify}>수정하기</button>
+        </div>
+      );
     }
   };
   return (

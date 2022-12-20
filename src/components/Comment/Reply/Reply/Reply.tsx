@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { LoginProps } from '../../Comment';
+import { LoginProps } from '../../CommentList/CommentList';
 import WriteNestedReply from '../WriteNestedReply/WriteNestedReply';
 import css from './Reply.module.scss';
 
@@ -64,7 +64,11 @@ const Reply: React.FC<LoginProps> = ({
         </Fragment>
       );
     } else if (!isLoginUser) {
-      return <button className={css.newReply}>답글 달기</button>;
+      return (
+        <button className={css.newReply} onClick={writeNewNestedReply}>
+          답글 달기
+        </button>
+      );
     } else if (isLoginUser && !isMyTextarea) {
       return (
         <div className={css.modifys}>

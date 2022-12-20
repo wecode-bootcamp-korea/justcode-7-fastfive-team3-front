@@ -104,14 +104,23 @@
       margin: 0 0.3rem;
     }
   }
-  .setModify {
+  .modifys {
+    display: flex;
+    gap: 1rem;
     position: absolute;
-    right: 1em;
-    padding: 0.3em 0.8em;
-    background-color: #ff6d6a;
-    color: #fff;
-    border-radius: 0.45em;
-    cursor: pointer;
+    right: 1rem;
+    bottom: 0.5rem;
+    .setModify {
+      padding: 0.3em 0.8em;
+      background-color: #ff6d6a;
+      color: #fff;
+      border-radius: 0.45em;
+      cursor: pointer;
+    }
+    .cancleModify {
+      background: none;
+      cursor: pointer;
+    }
   }
 }
 .reply {

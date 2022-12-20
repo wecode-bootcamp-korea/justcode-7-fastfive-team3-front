@@ -1,22 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Reply from './Reply/Reply/Reply';
-import NestedReply from './Reply/NestedReply/NestedReply';
-
+import CommentList from './CommentList/CommentList';
 import css from './Comment.module.scss';
-import WriteNestedReply from './Reply/WriteNestedReply/WriteNestedReply';
-import Paging from './Reply/Paging/Paging';
-
-export interface LoginProps {
-  loginId: string | null;
-  setShowWriteTextarea: Function;
-  showWriteTextarea: boolean;
-}
+import { Pagination } from '@mui/material';
 
 const Comment = () => {
   //rnk : 0이면 일반댓글
-  //rnk : 1이면 일반댓글
-  const [showWriteTextarea, setShowWriteTextarea] = useState(false);
-  const loginId: string | null = localStorage.getItem('id');
+  //rnk : 0아니면 대댓글
+  //rnk가 false라면..? / undefined 또는 null..?
 
   //글자 수
   const [replyMainTextLength, setReplyMainTextLength] = useState(0);
@@ -53,26 +43,24 @@ const Comment = () => {
     }
   };
 
+  //페이지네이션-MUI
+  const [currPage, setCurrPage] = useState('');
+  const handlePagination = (e: React.ChangeEvent<any>) => {
+    setCurrPage(e.target.textContent);
+  };
   return (
     <div className={css.commentContainer}>
       <h1 className={css.commentTitle}>댓글</h1>
       <div className={css.gridContainer}>
-        <div className={css.commentList}>
-          <Reply
-            loginId={loginId}
-            setShowWriteTextarea={setShowWriteTextarea}
-            showWriteTextarea={showWriteTextarea}
-          />
-          <NestedReply />
-          <NestedReply />
-          <NestedReply />
-          <NestedReply />
+        <CommentList />
+        <CommentList />
+        <div className={css.pagenation}>
+          <Pagination count={8} onChange={handlePagination} />
         </div>
-        {showWriteTextarea && <WriteNestedReply />}
-        <div>
-          <Paging />
-        </div>
-        <div className={`${css.gridItem} ${css.mainReply}`}>
+        <div
+          className={`${css.gridItem} ${css.mainReply}`}
+          onClick={e => e.preventDefault()}
+        >
           <textarea
             className={css.commentContent}
             placeholder="위 멤버에게 궁금한 점이나 제안하고 싶은 내용을 댓글로 남겨보세요."
