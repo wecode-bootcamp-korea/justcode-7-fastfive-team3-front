@@ -1,16 +1,15 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { LoginProps } from '../../CommentList/CommentList';
-import WriteNestedReply from '../WriteNestedReply/WriteNestedReply';
+import { ReplyProps } from '../../CommentList/CommentList';
 import css from './Reply.module.scss';
 
-const Reply: React.FC<LoginProps> = ({
+const Reply: React.FC<ReplyProps> = ({
   loginId,
   setShowWriteTextarea,
   showWriteTextarea,
+  commentInfo,
 }) => {
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
-  // const [showWriteTextarea, setShowWriteTextarea] = useState(false);
   const myTextarea = useRef<HTMLTextAreaElement>(null);
   const doModify = () => {
     setIsMyTextarea(false);
@@ -19,7 +18,9 @@ const Reply: React.FC<LoginProps> = ({
   const noModify = () => {
     setIsMyTextarea(true);
   };
-
+  useEffect(() => {
+    setIsPrivate(commentInfo.is_private);
+  }, []);
   //삭제 버튼 클릭 시 알림창
   const doDelete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
@@ -31,7 +32,7 @@ const Reply: React.FC<LoginProps> = ({
   };
   const [isLoginUser, setIsLoginUser] = useState(false);
 
-  const replyUserId = '2';
+  const replyUserId = commentInfo.reply_user_id;
   useEffect(() => {
     if (loginId === replyUserId) {
       setIsLoginUser(true);
@@ -85,8 +86,10 @@ const Reply: React.FC<LoginProps> = ({
     <Fragment>
       <div className={css.replyContainer}>
         <div className={css.replyWriterInfo}>
-          <p className={css.replyWriterName}>{isPrivate ? '.' : '작성자1'}</p>
-          <p className={css.replyDate}>2022년 12월 12일 오후 11:30</p>
+          <p className={css.replyWriterName}>
+            {isPrivate ? '.' : commentInfo.nickname}
+          </p>
+          <p className={css.replyDate}>{commentInfo.created_at}</p>
         </div>
         <textarea
           className={css.replyContent}
@@ -95,7 +98,7 @@ const Reply: React.FC<LoginProps> = ({
           defaultValue={
             isPrivate
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
-              : '공개댓글입니다'
+              : commentInfo.comment
           }
         />
         {handleModifyButton()}

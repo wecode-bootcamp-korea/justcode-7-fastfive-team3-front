@@ -1,11 +1,15 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { NestedReplyProps } from '../../CommentList/CommentList';
 import css from './NestedReply.module.scss';
 
-const NestedReply = () => {
+const NestedReply: React.FC<NestedReplyProps> = ({ reply }) => {
   //textarea 처음에 비활성화 -> 수정 클릭 시 활성화
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
   const myTextarea = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    setIsPrivate(reply.is_private);
+  }, []);
   const doModify = () => {
     setIsMyTextarea(false);
     myTextarea.current?.focus();
@@ -65,7 +69,7 @@ const NestedReply = () => {
       <div className={`${css.nestedReplyContainer} ${css.reply}`}>
         <div className={css.nestedReplyWriterInfo}>
           <p className={css.nestedReplywriterName}>
-            {isPrivate ? '.' : '작성자1'}
+            {isPrivate ? '.' : reply.nickname}
           </p>
           <p className={css.nestedReplyDate}>2022년 12월 12일 오후 11:30</p>
         </div>
@@ -75,7 +79,7 @@ const NestedReply = () => {
           defaultValue={
             isPrivate
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
-              : '공개댓글입니다2'
+              : reply.comment
           }
         />
         {handleModifyButton()}

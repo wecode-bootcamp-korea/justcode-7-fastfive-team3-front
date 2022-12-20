@@ -2,7 +2,50 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Pagination } from '@mui/material';
 import CommentList from './CommentList/CommentList';
 import css from './Comment.module.scss';
+import { useParams } from 'react-router-dom';
 
+export interface ReplyType {
+  reply_id: number;
+  feed_id: number;
+  feed_user_id: number;
+  is_private: boolean;
+  is_deleted: boolean;
+  comment: string;
+  parent_reply_id: number;
+  parent_user_id: number | null;
+  reply_group: number;
+  rnk: number;
+  reply_user_id: number;
+  company_name: string;
+  nickname: string;
+  email: string;
+  position_name: string;
+  is_admin: number;
+  created_at: string;
+}
+export interface CommentType {
+  reply_id: number;
+  feed_id: number;
+  feed_user_id: number;
+  is_private: boolean;
+  is_deleted: boolean;
+  comment: string;
+  parent_reply_id: number;
+  parent_user_id: number | null;
+  reply_group: number;
+  rnk: number;
+  reply_user_id: number;
+  company_name: string;
+  nickname: string;
+  email: string;
+  position_name: string;
+  is_admin: number;
+  created_at: string;
+  reply: Array<ReplyType>;
+}
+export interface PropsType {
+  comment: CommentType;
+}
 const Comment = () => {
   //글자 수
   const [replyMainTextLength, setReplyMainTextLength] = useState(0);
@@ -12,6 +55,34 @@ const Comment = () => {
   const [isMainDisable, setIsMainDisable] = useState(true);
   //페이지네이션-MUI
   const [currPage, setCurrPage] = useState('');
+  //전체 페이지 수
+  const [totalPages, setTotalPages] = useState(0);
+  //댓글 전체 데이터
+  const [comments, setComments] = useState<CommentType[]>([]);
+
+  //댓글 데이터 불러오기
+  const token: string | null = localStorage.getItem('token');
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set('Content-Type', 'application/json');
+  if (token) {
+    requestHeaders.set('Authorization', token);
+  }
+
+  const params = useParams();
+  let postId = params.id;
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/reply/${postId}?page=${currPage}`, {
+      method: 'GET',
+      headers: requestHeaders,
+    })
+      .then(response => response.json())
+      .then(json => {
+        setTotalPages(Number(json.replyPageCnt));
+        setComments(json.result);
+      });
+  }, [currPage]);
+
   const setMainSecret = () => {
     setMainIsSecret(!isMainSecret);
   };
@@ -45,14 +116,16 @@ const Comment = () => {
   const handlePagination = (e: React.ChangeEvent<any>) => {
     setCurrPage(e.target.textContent);
   };
+
   return (
     <div className={css.commentContainer}>
       <h1 className={css.commentTitle}>댓글</h1>
       <div className={css.gridContainer}>
-        <CommentList />
-        <CommentList />
+        {comments.map(comment => {
+          return <CommentList comment={comment} key={comment.reply_id} />;
+        })}
         <div className={css.pagenation}>
-          <Pagination count={8} onChange={handlePagination} />
+          <Pagination count={totalPages} onChange={handlePagination} />
         </div>
         <div
           className={`${css.gridItem} ${css.mainReply}`}
