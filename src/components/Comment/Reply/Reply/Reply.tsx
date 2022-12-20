@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CardDetailPage from '../../../../pages/CardDetailPage/CardDetailPage';
 import { ReplyProps } from '../../CommentList/CommentList';
 import css from './Reply.module.scss';
@@ -11,18 +12,16 @@ const Reply: React.FC<ReplyProps> = ({
 }) => {
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
-  const myTextarea = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    if (isMyTextarea) {
-      myTextarea.current?.focus();
-    }
-  }, [isMyTextarea]);
+  const [focus, setFocus] = useState(false);
+  const [replyTextLength, setReplyTextLength] = useState(0);
+  const [isMainSecret, setMainIsSecret] = useState(false);
   const doModify = () => {
     setIsMyTextarea(false);
+    setFocus(true);
   };
   const noModify = () => {
     setIsMyTextarea(true);
+    setFocus(false);
   };
   useEffect(() => {
     setIsPrivate(commentInfo.is_private);
@@ -46,12 +45,25 @@ const Reply: React.FC<ReplyProps> = ({
       setIsLoginUser(false);
     }
   }, [loginId]);
-
+  const handleResizeHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    //textarea 내용에 따른 높이 변경
+    e.target.style.height = '1px';
+    e.target.style.height = e.target.scrollHeight + 'px';
+    //글자수 count
+    const currentTextareaText = e.target.value;
+    if (currentTextareaText) {
+      setReplyTextLength(currentTextareaText.length);
+    } else if (!currentTextareaText) {
+      setReplyTextLength(0);
+    }
+  };
   //답글달기 클릭 시 답글 작성 컴포넌트 생성
   const writeNewNestedReply = () => {
     setShowWriteTextarea(!showWriteTextarea);
   };
-
+  const setMainSecret = () => {
+    setMainIsSecret(!isMainSecret);
+  };
   const handleModifyButton = () => {
     if (isLoginUser && isMyTextarea) {
       return (
@@ -79,6 +91,11 @@ const Reply: React.FC<ReplyProps> = ({
     } else if (isLoginUser && !isMyTextarea) {
       return (
         <div className={css.modifys}>
+          <span className={css.count}>{replyTextLength}</span>/1000
+          <div
+            className={isMainSecret ? css.lock : css.unlock}
+            onClick={setMainSecret}
+          />
           <button className={css.cancleModify} onClick={noModify}>
             취소
           </button>
@@ -102,6 +119,8 @@ const Reply: React.FC<ReplyProps> = ({
           className={css.replyContent}
           disabled={isMyTextarea}
           rows={1}
+          autoFocus={focus}
+          onInput={handleResizeHeight}
           defaultValue={
             isPrivate
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'

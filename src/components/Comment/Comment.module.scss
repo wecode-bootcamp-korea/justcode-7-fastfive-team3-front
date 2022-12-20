@@ -72,6 +72,9 @@
       .commentContent:focus {
         outline: none;
       }
+      .commentContent:focus::placeholder {
+        color: transparent;
+      }
       .commentContent:disabled {
         background-color: #fff;
       }

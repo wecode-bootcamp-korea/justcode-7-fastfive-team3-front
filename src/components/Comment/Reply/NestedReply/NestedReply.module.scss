@@ -91,6 +91,9 @@
   .nestedReplyContentt:focus {
     outline: none;
   }
+  .nestedReplyContentt:focus::placeholder {
+    color: transparent;
+  }
   .nestedReplyContent:disabled {
     background-color: #fff;
   }
