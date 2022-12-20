@@ -1,0 +1,103 @@
+.commentContainer {
+  position: relative;
+  width: 100%;
+  padding: 3rem;
+  background-color: #f4f4f4;
+  .commentTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .gridContainer {
+    display: grid;
+    justify-items: flex-end;
+    width: 100%;
+    padding: 3rem;
+    row-gap: 0.85em;
+
+    .gridItem {
+      position: relative;
+      width: 100%;
+      padding: 1rem;
+      background-color: #fff;
+      border-radius: 8px;
+      .countAndsend {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 1em;
+        bottom: 1em;
+        margin-left: 1em;
+        .unlock {
+          width: 1em;
+          height: 1em;
+          margin-left: 0.5em;
+          background-image: url('../../assets/image/unlock.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          cursor: pointer;
+        }
+        .lock {
+          width: 1em;
+          height: 1em;
+          margin-left: 0.5em;
+          background-image: url('../../assets/image/lock.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          cursor: pointer;
+        }
+        .notSendReply {
+          margin-left: 1em;
+          padding: 0.3em 0.8em;
+          background-color: #e7e7e7;
+          color: black;
+          border-radius: 0.45em;
+        }
+        .sendReply {
+          margin-left: 1em;
+          padding: 0.3em 0.8em;
+          background-color: #ff6d6a;
+          color: #fff;
+          border-radius: 0.45em;
+          cursor: pointer;
+        }
+      }
+      .commentContent {
+        width: 85%;
+        // height: 100%;
+        margin-top: 1rem;
+        color: black;
+        border: none;
+        resize: none;
+      }
+      .commentContent:focus {
+        outline: none;
+      }
+      .commentContent:disabled {
+        background-color: #fff;
+      }
+    }
+    .pagenation {
+      display: flex;
+      gap: 1rem;
+      overflow: hidden;
+      .moveBtn {
+        z-index: 999;
+      }
+      .pageList {
+        display: flex;
+        gap: 2rem;
+        width: 5.4rem;
+
+        .pageItem {
+          width: 1rem;
+          height: 1rem;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .mainReply {
+    margin-top: 2rem;
+    border: 1px solid #ff6d6a;
+  }
+}

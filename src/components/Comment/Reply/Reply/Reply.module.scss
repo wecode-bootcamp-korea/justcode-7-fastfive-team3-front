@@ -1,0 +1,115 @@
+.replyContainer {
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  .replyWriterInfo {
+    display: flex;
+    gap: 1rem;
+    .replyWriterName {
+      font-weight: 700;
+    }
+    .replyDate {
+      font-size: 0.9rem;
+    }
+  }
+  .newReply {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    background: none;
+    cursor: pointer;
+  }
+  .countAndsend {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    margin-left: 1em;
+    .unlock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/unlock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
+    .lock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/lock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
+    .notSendReply {
+      margin-left: 1em;
+      padding: 0.3em 0.8em;
+      background-color: #e7e7e7;
+      color: black;
+      border-radius: 0.45em;
+    }
+    .sendReply {
+      margin-left: 1em;
+      padding: 0.3em 0.8em;
+      background-color: #ff6d6a;
+      color: #fff;
+      border-radius: 0.45em;
+      cursor: pointer;
+    }
+  }
+  .replyContent {
+    width: 85%;
+    // height: 100%;
+    margin-top: 1rem;
+    color: black;
+    border: none;
+    resize: none;
+  }
+  .replyContent:focus {
+    outline: none;
+  }
+  .replyContent:disabled {
+    background-color: #fff;
+  }
+  .modifyAndDelete {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    .modify,
+    .delete {
+      background: none;
+      cursor: pointer;
+    }
+    .centerBar {
+      width: 1px;
+      height: 1rem;
+      background-color: black;
+      margin: 0 0.3rem;
+    }
+  }
+  .modifys {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    right: 1rem;
+    bottom: 0.5rem;
+    .setModify {
+      padding: 0.3em 0.8em;
+      background-color: #ff6d6a;
+      color: #fff;
+      border-radius: 0.45em;
+      cursor: pointer;
+    }
+    .cancleModify {
+      background: none;
+      cursor: pointer;
+    }
+  }
+}
