@@ -1,26 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Pagination } from '@mui/material';
 import CommentList from './CommentList/CommentList';
 import css from './Comment.module.scss';
-import { Pagination } from '@mui/material';
 
 const Comment = () => {
-  //rnk : 0이면 일반댓글
-  //rnk : 0아니면 대댓글
-  //rnk가 false라면..? / undefined 또는 null..?
-
   //글자 수
   const [replyMainTextLength, setReplyMainTextLength] = useState(0);
-
   //메인 비밀 여부
   const [isMainSecret, setMainIsSecret] = useState(false);
+  //메인 등록 버튼 활성화 여부
+  const [isMainDisable, setIsMainDisable] = useState(true);
+  //페이지네이션-MUI
+  const [currPage, setCurrPage] = useState('');
   const setMainSecret = () => {
     setMainIsSecret(!isMainSecret);
   };
 
-  //메인 등록 버튼 활성화 여부
-  const [isMainDisable, setIsMainDisable] = useState(true);
   const mainTextareaDOM = useRef<HTMLTextAreaElement>(null);
   const mainTextareaValue = mainTextareaDOM.current?.value;
+
   useEffect(() => {
     if (mainTextareaValue) {
       setIsMainDisable(false);
@@ -28,6 +26,7 @@ const Comment = () => {
       setIsMainDisable(true);
     }
   }, [mainTextareaValue]);
+
   const handleMainResizeHeight = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -43,8 +42,6 @@ const Comment = () => {
     }
   };
 
-  //페이지네이션-MUI
-  const [currPage, setCurrPage] = useState('');
   const handlePagination = (e: React.ChangeEvent<any>) => {
     setCurrPage(e.target.textContent);
   };
