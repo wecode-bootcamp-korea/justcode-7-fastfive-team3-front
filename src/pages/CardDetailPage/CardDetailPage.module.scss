@@ -1,9 +1,13 @@
 .mainContainer {
   display: flex;
+  .componentsContainer {
+    flex-direction: column;
+  }
   & a {
     color: black;
   }
   .container {
+    position: relative;
     width: 100%;
     .main {
       display: flex;
@@ -14,6 +18,26 @@
           display: inline-block;
         }
         width: 100%;
+      }
+    }
+    .modalBg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color: #000000, $alpha: 0.4);
+      .modalMain {
+        width: 15rem;
+        height: 3rem;
+        border-radius: 5px;
+        background-color: #fff;
+        text-align: center;
+        line-height: 3rem;
+        .copyMessage {
+          color: rgb(80, 80, 80);
+        }
       }
     }
   }
@@ -81,6 +105,16 @@
 
     .gridItem {
       border-bottom: 1px solid #f4f4f4;
+      .contactInfo {
+        padding-bottom: 0;
+        .copyEmail {
+          cursor: pointer;
+        }
+      }
+      .alertMessage {
+        font-size: 0.8em;
+        color: #bebebe;
+      }
     }
     .gridItem:first-child,
     .gridItem:nth-child(2),
