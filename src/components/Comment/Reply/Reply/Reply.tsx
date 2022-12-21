@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import CardDetailPage from '../../../../pages/CardDetailPage/CardDetailPage';
 import { ReplyProps } from '../../CommentList/CommentList';
 import css from './Reply.module.scss';
 
@@ -9,6 +7,7 @@ const Reply: React.FC<ReplyProps> = ({
   setShowWriteTextarea,
   showWriteTextarea,
   commentInfo,
+  setParentId,
 }) => {
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
@@ -82,6 +81,7 @@ const Reply: React.FC<ReplyProps> = ({
   //답글달기 클릭 시 답글 작성 컴포넌트 생성
   const writeNewNestedReply = () => {
     setShowWriteTextarea(!showWriteTextarea);
+    setParentId(commentInfo.reply_id);
   };
   const setMainSecret = () => {
     setMainIsSecret(!isMainSecret);
@@ -104,7 +104,7 @@ const Reply: React.FC<ReplyProps> = ({
           </button>
         </Fragment>
       );
-    } else if (!isLoginUser) {
+    } else if (!isLoginUser && !isPrivate) {
       return (
         <button className={css.newReply} onClick={writeNewNestedReply}>
           답글 달기
@@ -132,7 +132,9 @@ const Reply: React.FC<ReplyProps> = ({
       <div className={css.replyContainer}>
         <div className={css.replyWriterInfo}>
           <p className={css.replyWriterName}>
-            {isPrivate ? '.' : commentInfo.nickname}
+            {isPrivate && !isLoginUser
+              ? '비밀댓글입니다'
+              : commentInfo.nickname}
           </p>
           <p className={css.replyDate}>{commentInfo.created_at}</p>
           {isPrivate && <div className={css.lock} />}
@@ -144,7 +146,7 @@ const Reply: React.FC<ReplyProps> = ({
           autoFocus={focus}
           onInput={handleResizeHeight}
           defaultValue={
-            isPrivate
+            isPrivate && !isLoginUser
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
               : commentInfo.comment
           }

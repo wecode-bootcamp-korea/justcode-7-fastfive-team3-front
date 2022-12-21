@@ -46,6 +46,8 @@ export interface CommentType {
 }
 export interface PropsType {
   comment: CommentType;
+  setTotalPages: Function;
+  setComments: Function;
 }
 const Comment = () => {
   //메인 댓글 실시간 내용
@@ -93,7 +95,7 @@ const Comment = () => {
   };
 
   const mainTextareaDOM = useRef<HTMLTextAreaElement>(null);
-  const mainTextareaValue = mainTextareaDOM.current?.value;
+  let mainTextareaValue = mainTextareaDOM.current?.value;
 
   useEffect(() => {
     if (mainTextareaValue) {
@@ -131,16 +133,10 @@ const Comment = () => {
   const handlePagination = (e: React.ChangeEvent<any>) => {
     setCurrPage(e.target.textContent);
   };
-
   const uploadComment = () => {
-    //feed_id : postId
-    //댓글 내용 : mainCommentText
-    //비밀 여부 : isMainSecret (true면 비밀댓글로 등록)
-    fetch('http://localhost:3000/login', {
+    fetch('http://localhost:8000/reply', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: requestHeaders,
       body: JSON.stringify({
         feed_id: postId,
         comment: mainCommentText,
@@ -148,7 +144,19 @@ const Comment = () => {
       }),
     })
       .then(response => response.json())
-      .then(json => localStorage.setItem('token', json.token));
+      .then(json => {
+        if (json.createdNewComment) {
+          setTotalPages(Number(json.result.replyPageCnt));
+          setComments(json.result.result);
+          alert('댓글 등록이 완료되었습니다.');
+          if (mainTextareaDOM.current?.value) {
+            mainTextareaDOM.current.value = '';
+            setReplyMainTextLength(0);
+          }
+        } else {
+          alert('다시 시도해주세요.');
+        }
+      });
   };
 
   return (
@@ -156,7 +164,14 @@ const Comment = () => {
       <h1 className={css.commentTitle}>댓글</h1>
       <div className={css.gridContainer}>
         {comments.map(comment => {
-          return <CommentList comment={comment} key={comment.reply_id} />;
+          return (
+            <CommentList
+              comment={comment}
+              key={comment.reply_id}
+              setTotalPages={setTotalPages}
+              setComments={setComments}
+            />
+          );
         })}
         <div className={css.pagenation}>
           {totalPages !== 0 && (

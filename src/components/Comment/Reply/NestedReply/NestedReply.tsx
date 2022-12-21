@@ -91,7 +91,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
       <div className={`${css.nestedReplyContainer} ${css.reply}`}>
         <div className={css.nestedReplyWriterInfo}>
           <p className={css.nestedReplywriterName}>
-            {isPrivate ? '.' : reply.nickname}
+            {isPrivate && !isLoginUser ? '비밀답글입니다' : reply.nickname}
           </p>
           <p className={css.nestedReplyDate}>{reply.created_at}</p>
           {isPrivate && <div className={css.lock} />}
@@ -100,7 +100,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
           className={css.nestedReplyContent}
           disabled={isMyTextarea}
           defaultValue={
-            isPrivate
+            isPrivate && !isLoginUser
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
               : reply.comment
           }

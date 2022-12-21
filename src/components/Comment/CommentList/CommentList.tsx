@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { PropsType, ReplyType, CommentType } from '../Comment';
-import {} from '../Comment';
 import Reply from '../Reply/Reply/Reply';
 import NestedReply from '../Reply/NestedReply/NestedReply';
 import css from './CommentList.module.scss';
@@ -10,14 +9,22 @@ export interface ReplyProps {
   setShowWriteTextarea: Function;
   showWriteTextarea: boolean;
   commentInfo: CommentType;
+  setTotalPages: Function;
+  setParentId: Function;
 }
 
 export interface NestedReplyProps {
   loginId: string | null | number;
   reply: ReplyType;
 }
-const CommentList: React.FC<PropsType> = ({ comment }) => {
+const CommentList: React.FC<PropsType> = ({
+  comment,
+  setTotalPages,
+  setComments,
+}) => {
   const [nestedReplyList, setNestedReplyList] = useState<ReplyType[]>([]);
+  const [parentId, setParentId] = useState(0);
+  console.log(parentId);
   const isFake = comment.is_fake;
   useEffect(() => {
     setNestedReplyList(comment.reply);
@@ -32,6 +39,8 @@ const CommentList: React.FC<PropsType> = ({ comment }) => {
           setShowWriteTextarea={setShowWriteTextarea}
           showWriteTextarea={showWriteTextarea}
           commentInfo={comment}
+          setTotalPages={setTotalPages}
+          setParentId={setParentId}
         />
       );
     }
@@ -53,7 +62,13 @@ const CommentList: React.FC<PropsType> = ({ comment }) => {
           })}
       </div>
       {showWriteTextarea && (
-        <WriteNestedReply showWriteTextarea={showWriteTextarea} />
+        <WriteNestedReply
+          comment={comment}
+          showWriteTextarea={showWriteTextarea}
+          setTotalPages={setTotalPages}
+          parentId={parentId}
+          setComments={setComments}
+        />
       )}
     </Fragment>
   );
