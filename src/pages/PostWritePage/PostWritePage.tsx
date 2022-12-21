@@ -20,7 +20,8 @@ const PostWritePage = () => {
     useState<boolean>(false); //지점 카테고리 필수 체크
   const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
   const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
-  const { category_id } = useParams();
+  const [branchArray, setBranchArray] = useState<any[]>([]); //지점 배열
+  const [categoryID, setCategoryID] = useState<string>(); //카테고리
 
   const [agreeCheckBox, setAgreeCheckBox] = useState<boolean | undefined>(
     false
@@ -45,37 +46,24 @@ const PostWritePage = () => {
   );
 
   //카테고리 GET
-  // useEffect(() => {
-  //   fetch('http://localhost:8080/category', {
-  //     headers: requestHeaders,
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       setCategoryArray(res.data);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch('http://localhost:8000/category', {
+      headers: requestHeaders,
+    })
+      .then(res => res.json())
+      .then(res => {
+        setCategoryArray(res);
+      });
+  }, []);
 
-  // //카테고리 POST
-  // useEffect(() => {
-  //   fetch('http://localhost:8080/category', {
-  //     method: 'POST',
-  //     headers: requestHeaders,
-  //     body: JSON.stringify({ category_id: category_id }),
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {});
-  // }, []);
-
-  // //상세 카테고리 GET
-  // useEffect(() => {
-  //   fetch('http://localhost:8080/category' + category_id, {
-  //     headers: requestHeaders,
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       setDetailCategoryArray(res.data);
-  //     });
-  // }, []);
+  //지점명 GET
+  useEffect(() => {
+    fetch('/data/branchData.json')
+      .then(res => res.json())
+      .then(res => {
+        setBranchArray(res);
+      });
+  }, []);
 
   //글자수 카운트
   const countingMainWorkingFild = (
@@ -124,7 +112,6 @@ const PostWritePage = () => {
   const companyLogoCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
       setCompanyLogo(true);
-      console.log('회사로고', companyLogo);
     } else {
       setCompanyLogo(false);
     }
@@ -146,7 +133,6 @@ const PostWritePage = () => {
   const essentielCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
       setCeoInfo(true);
-      console.log(ceoInfo);
     } else {
       setCeoInfo(false);
     }
@@ -155,12 +141,24 @@ const PostWritePage = () => {
   //카테고리 필수항목 체크
   const categoryCheck = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value) {
+      setCategoryID(e.target.value);
       setCategoryEssentielCheck(true);
       console.log('카테고리 밸류', categoryEssentielCheck);
     } else {
       setCategoryEssentielCheck(false);
     }
   };
+
+  //상세 카테고리 GET
+  useEffect(() => {
+    fetch('http://localhost:8000/category/' + categoryID, {
+      headers: requestHeaders,
+    })
+      .then(res => res.json())
+      .then(res => {
+        setDetailCategoryArray(res);
+      });
+  }, [categoryID]);
 
   //상세 카테고리 필수항목 체크
   const detailCategoryCheck = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -249,8 +247,6 @@ const PostWritePage = () => {
                 <div className={css.subHeading}>업종 *</div>
                 <select className={css.categorySelect} onChange={categoryCheck}>
                   <option value="">카테고리</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
                   {categoryArray.map(category => {
                     return (
                       <>
@@ -419,14 +415,14 @@ const PostWritePage = () => {
                 <div className={css.subHeading}>이용중인 지점 *</div>
                 <select className={css.categorySelect} onChange={branchCheck}>
                   <option value="none">지점명</option>
-                  {/* {branchArray.map(branch => {
+                  {branchArray.map(branch => {
                     return (
                       <>
                         key={branch.id}
                         <option>{branch.branch}</option>
                       </>
                     );
-                  })} */}
+                  })}
                 </select>
               </div>
               <div className={css.agreeWrapper}>
@@ -440,9 +436,15 @@ const PostWritePage = () => {
               <section className={css.btnWrapper}>
                 <div className={css.btnInnerWrapper}>
                   <button className={css.btn}>미리보기</button>
+                  {/* {type === modify ? (
+                    <button className={css.btn} onClick={getUpload}>
+                      수정하기
+                    </button>
+                  ) : ( */}
                   <button className={css.btn} onClick={getUpload}>
                     등록하기
                   </button>
+                  {/* )} */}
                 </div>
                 <button className={css.resetBtn}>취소</button>
               </section>
