@@ -1,5 +1,8 @@
 .mainContainer {
   display: flex;
+  .componentsContainer {
+    flex-direction: column;
+  }
   & a {
     color: black;
   }
