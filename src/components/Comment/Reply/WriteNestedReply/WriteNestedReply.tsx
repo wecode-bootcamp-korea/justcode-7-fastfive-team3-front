@@ -6,7 +6,6 @@ import css from './WriteNestedReply.module.scss';
 interface TextareaType {
   showWriteTextarea: boolean;
   setTotalPages: Function;
-  comment: CommentType;
   parentId: number;
   setComments: Function;
 }
@@ -14,14 +13,12 @@ interface TextareaType {
 const WriteNestedReply: React.FC<TextareaType> = ({
   showWriteTextarea,
   setTotalPages,
-  comment,
   parentId,
   setComments,
 }) => {
   const [replyTextLength, setReplyTextLength] = useState(0);
   //답글 비밀 여부
   const [isSecret, setIsSecret] = useState(false);
-  const [newComment, setNewComment] = useState(comment);
   const textareaDOM = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     textareaDOM.current?.focus();

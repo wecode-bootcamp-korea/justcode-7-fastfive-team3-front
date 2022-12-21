@@ -104,6 +104,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
               : reply.comment
           }
+          maxLength={1000}
         />
         {handleModifyButton()}
       </div>

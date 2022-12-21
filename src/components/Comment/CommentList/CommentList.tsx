@@ -24,7 +24,6 @@ const CommentList: React.FC<PropsType> = ({
 }) => {
   const [nestedReplyList, setNestedReplyList] = useState<ReplyType[]>([]);
   const [parentId, setParentId] = useState(0);
-  console.log(parentId);
   const isFake = comment.is_fake;
   useEffect(() => {
     setNestedReplyList(comment.reply);
@@ -63,7 +62,6 @@ const CommentList: React.FC<PropsType> = ({
       </div>
       {showWriteTextarea && (
         <WriteNestedReply
-          comment={comment}
           showWriteTextarea={showWriteTextarea}
           setTotalPages={setTotalPages}
           parentId={parentId}

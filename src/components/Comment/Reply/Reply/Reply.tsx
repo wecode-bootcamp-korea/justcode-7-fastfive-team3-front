@@ -11,16 +11,13 @@ const Reply: React.FC<ReplyProps> = ({
 }) => {
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
-  const [focus, setFocus] = useState(false);
   const [replyTextLength, setReplyTextLength] = useState(0);
   const [isMainSecret, setMainIsSecret] = useState(false);
   const doModify = () => {
     setIsMyTextarea(false);
-    setFocus(true);
   };
   const noModify = () => {
     setIsMyTextarea(true);
-    setFocus(false);
   };
   useEffect(() => {
     setIsPrivate(commentInfo.is_private);
@@ -86,6 +83,29 @@ const Reply: React.FC<ReplyProps> = ({
   const setMainSecret = () => {
     setMainIsSecret(!isMainSecret);
   };
+  const textareaDOM = useRef<HTMLTextAreaElement>(null);
+  let textareaValue = textareaDOM.current?.value;
+  const modifyReply = () => {
+    fetch('http://localhost:8000/reply', {
+      method: 'PATCH',
+      headers: requestHeaders,
+      body: JSON.stringify({
+        reply_id: commentInfo.reply_id,
+        comment: textareaValue,
+        is_private: isMainSecret,
+      }),
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        if (json.result) {
+          alert('댓글 수정이 완료되었습니다.');
+          window.location.reload();
+        } else {
+          alert('다시 시도해주세요.');
+        }
+      });
+  };
   const handleModifyButton = () => {
     if (isLoginUser && isMyTextarea) {
       return (
@@ -121,7 +141,9 @@ const Reply: React.FC<ReplyProps> = ({
           <button className={css.cancleModify} onClick={noModify}>
             취소
           </button>
-          <button className={css.setModify}>수정하기</button>
+          <button className={css.setModify} onClick={modifyReply}>
+            수정하기
+          </button>
         </div>
       );
     }
@@ -143,13 +165,15 @@ const Reply: React.FC<ReplyProps> = ({
           className={css.replyContent}
           disabled={isMyTextarea}
           rows={1}
-          autoFocus={focus}
+          ref={textareaDOM}
+          autoFocus={!isMyTextarea}
           onInput={handleResizeHeight}
           defaultValue={
             isPrivate && !isLoginUser
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
               : commentInfo.comment
           }
+          maxLength={1000}
         />
         {handleModifyButton()}
       </div>
