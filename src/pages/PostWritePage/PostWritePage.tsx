@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './PostWritePage.module.scss';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -7,11 +7,9 @@ import SideBar from '../../components/SideBar/SideBar';
 import css from './PostWritePage.module.scss';
 
 const PostWritePage = () => {
-  const [companyName, setCompanyName] = useState<boolean>(false); //회사이름
-  const [fiveLimit, setFiveLimit] = useState<string | boolean>(false); //,5개
-  const [ceoInfo, setCeoInfo] = useState<boolean>(false); //ceo연락처
-  const [companyIntroduce, setCompanyIntroduce] = useState<boolean>(false); //회사소개
-  const [companyLogo, setCompanyLogo] = useState<boolean>(false); //회사로고 파일
+  const navigate = useNavigate();
+  const focusRef = useRef<HTMLInputElement | null>(null);
+  const focusTextareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [categoryEssentielCheck, setCategoryEssentielCheck] =
     useState<boolean>(false); //카테고리 필수 체크
   const [detailCategoryEssentielCheck, setDetailCategoryEssentielCheck] =
@@ -20,8 +18,27 @@ const PostWritePage = () => {
     useState<boolean>(false); //지점 카테고리 필수 체크
   const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
   const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
+
+  const [categoryID, setCategoryID] = useState<string | number>(); //카테고리 아이디
+  const [detailCategoryID, setDetailCategoryID] = useState<string | number>(); //상세 카테고리 아이디
+  const [companyName, setCompanyName] = useState<boolean>(false); //회사이름
+  const [companyLogo, setCompanyLogo] = useState<boolean>(); //회사로고 파일
+  const [companyIntroduce, setCompanyIntroduce] = useState<boolean>(false); //회사소개
+  const [homepage, setHomepage] = useState<string>(); //홈페이지 주소
+  const [fiveLimit, setFiveLimit] = useState<string | boolean>(false); //,5개(주력 업무 분야)
+  const [contact, setContact] = useState<string | boolean>(false); //ceo연락처
   const [branchArray, setBranchArray] = useState<any[]>([]); //지점 배열
-  const [categoryID, setCategoryID] = useState<string | number>(); //카테고리
+
+  const [companyNames, setCompanyNames] = useState<string>(''); //회사이름 fetched
+  const [companyLogoFetched, setCompanyLogoFetched] = useState<any>(); //회사로고 파일 fetched
+  const [companyIntroduceFetched, setCompanyIntroduceFetched] =
+    useState<string>(''); //회사소개 fetched
+  const [mainFiled, setMainFiled] = useState<string>(''); //주력 업무 분야 fetched
+  const [detailCompanyIntro, setDetailCompanyIntro] = useState<string>(); //자세한 소개 및 업무레퍼런스 fetched
+  const [membership, setMembership] = useState<string>(); //멤버 혜택 fetched
+  const [ceoContact, setCeoContact] = useState<string>(''); //ceo연락처fetched
+  const [companyIntroFile, setCompanyIntroFile] = useState<any>(); //회사소개 파일 fetched
+  const [branch, setBranch] = useState<string>(''); //지점 fetched
 
   const [agreeCheckBox, setAgreeCheckBox] = useState<boolean | undefined>(
     false
@@ -40,10 +57,161 @@ const PostWritePage = () => {
   requestHeaders.set('Content-Type', 'application/json');
   requestHeaders.set(
     'Authorization',
-    localStorage
-      ?.getItem('token')
-      ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
+    localStorage?.getItem('Authorization') || ''
   );
+
+  const requestHeaderFormData: HeadersInit = new Headers();
+  requestHeaderFormData.set('Content-Type', 'multipart/form-data');
+  requestHeaderFormData.set(
+    'Authorization',
+    localStorage?.getItem('Authorization') || ''
+  );
+
+  console.log('카테고리', categoryArray);
+
+  //작성 게시글 불러오기 GET
+  useEffect(() => {
+    fetch('http://localhost:8000/feed/posting', {
+      headers: requestHeaders,
+    })
+      .then(res => res.json())
+      .then(res => {
+        setDetailCategoryID(res[0].category_id);
+        setCategoryID(res[0].parent_category_id);
+        setCompanyNames(res[0].title);
+        companyLogoFetched(res[0].logo_img);
+        setCompanyIntroduceFetched(res[0].introduction);
+        setHomepage(res[0].website_url);
+        setMainFiled(res[0].main_field[0].main_field);
+        setDetailCompanyIntro(res[0].detail_introduction);
+        setMembership(res[0].member_benefit);
+        setCeoContact(res[0].contact);
+        setCompanyIntroFile(res[0].file_name);
+        setBranch(res[0].branch_name);
+      });
+  }, []);
+
+  //default 회사이름 GET
+  useEffect(() => {
+    fetch('http://localhost:8000/user/checkauth', {
+      headers: requestHeaders,
+    })
+      .then(res => res.json())
+      .then(res => {
+        setCompanyName(res.company_name);
+      });
+  }, []);
+
+  //게시글 수정/등록 PUT
+  const clikUpload = () => {
+    if (
+      categoryEssentielCheck === true &&
+      companyName === true &&
+      companyLogo === true &&
+      companyIntroduce === true &&
+      fiveLimit === true &&
+      contact === true &&
+      agreeCheckBox === true &&
+      branchEssentielCheck === true
+    ) {
+      if (
+        detailCategoryArray.length !== 0 &&
+        detailCategoryEssentielCheck === true
+      ) {
+        fetch('http://localhost:8000/feed/posting', {
+          method: 'PUT',
+          headers: requestHeaderFormData,
+          body: JSON.stringify({
+            categoryId: categoryID,
+            title: companyName,
+            file: companyLogo && companyIntroFile,
+            introduction: companyIntroduce,
+            hompage: homepage,
+            main_field: fiveLimit,
+            detail_introduction: detailCompanyIntro,
+            member_benefit: membership,
+            contact: contact,
+            branch: branch,
+          }),
+        })
+          .then(res => res.json())
+          .then(res => {});
+        alert('게시글이 등록되었습니다.');
+        navigate(`/list/${categoryID}`);
+      }
+      if (detailCategoryArray.length == 0) {
+        // Form Data
+        const formData = new FormData();
+        // add file/file_id if there is one
+        formData.append('file', companyLogoFetched);
+        formData.append('file', companyIntroFile);
+        //Basic form info
+        formData.append('categoryId', JSON.stringify(categoryID));
+        formData.append('title', JSON.stringify(companyName));
+        formData.append('hompage', JSON.stringify(homepage));
+        formData.append('main_field', JSON.stringify(fiveLimit));
+        formData.append('introduction', JSON.stringify(companyIntroduce));
+        formData.append(
+          'detail_introduction',
+          JSON.stringify(detailCompanyIntro)
+        );
+        formData.append('member_benefit', JSON.stringify(membership));
+        formData.append('contact', JSON.stringify(contact));
+        formData.append('branch', JSON.stringify(branch));
+        fetch('http://localhost:8000/feed/posting', {
+          method: 'PUT',
+          headers: requestHeaderFormData,
+          body: formData,
+        })
+          .then(res => res.json())
+          .then(res => {});
+        alert('게시글이 등록되었습니다.');
+        navigate(`/list/${categoryID}`);
+      }
+    } else if (
+      categoryEssentielCheck === true &&
+      companyName === true &&
+      companyLogo === true &&
+      companyIntroduce === true &&
+      fiveLimit === true &&
+      contact === true &&
+      branchEssentielCheck === true &&
+      agreeCheckBox === false
+    ) {
+      if (
+        detailCategoryArray.length !== 0 &&
+        detailCategoryEssentielCheck === true
+      ) {
+        alert('서비스 이용약관에 동의해주세요.');
+      }
+      if (detailCategoryArray.length == 0) {
+        alert('서비스 이용약관에 동의해주세요.');
+      }
+    } else if (
+      categoryEssentielCheck === false ||
+      companyName === false ||
+      companyLogo === false ||
+      companyIntroduce === false ||
+      fiveLimit === false ||
+      contact === false ||
+      agreeCheckBox === false ||
+      branchEssentielCheck === false
+    ) {
+      if (
+        detailCategoryArray.length !== 0 &&
+        detailCategoryEssentielCheck === false
+      ) {
+        // focusRef.current.focus();
+        // focusTextareaRef.current.focus();
+        alert('필수정보를 입력하세요.');
+      }
+      if (detailCategoryArray.length == 0) {
+        // focusRef.current.focus();
+        // focusTextareaRef.current.focus();
+        alert('필수정보를 입력하세요.');
+      }
+    }
+  };
 
   //카테고리 GET
   useEffect(() => {
@@ -52,6 +220,7 @@ const PostWritePage = () => {
     })
       .then(res => res.json())
       .then(res => {
+        console.log('res', res);
         setCategoryArray(res);
       });
   }, []);
@@ -65,7 +234,7 @@ const PostWritePage = () => {
       });
   }, []);
 
-  //글자수 카운트
+  //주력업무분야 글자수 카운트
   const countingMainWorkingFild = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -132,9 +301,9 @@ const PostWritePage = () => {
   //ceo 연락처 필수항목 체크
   const essentielCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
-      setCeoInfo(true);
+      setContact(true);
     } else {
-      setCeoInfo(false);
+      setContact(false);
     }
   };
 
@@ -162,7 +331,6 @@ const PostWritePage = () => {
   //상세 카테고리 필수항목 체크
   const detailCategoryCheck = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value) {
-      console.log(detailCategoryEssentielCheck);
       setDetailCategoryEssentielCheck(true);
     } else {
       setDetailCategoryEssentielCheck(false);
@@ -187,68 +355,6 @@ const PostWritePage = () => {
     setAgreeCheckBox(!agreeCheckBox);
   };
 
-  //조건별 등록버튼 클릭 시
-  const getUpload = () => {
-    if (
-      categoryEssentielCheck === true &&
-      companyName === true &&
-      companyLogo === true &&
-      companyIntroduce === true &&
-      fiveLimit === true &&
-      ceoInfo === true &&
-      agreeCheckBox === true &&
-      branchEssentielCheck === true
-    ) {
-      if (
-        detailCategoryArray.length !== 0 &&
-        detailCategoryEssentielCheck === true
-      ) {
-        alert('게시글이 등록되었습니다.');
-      }
-      if (detailCategoryArray.length == 0) {
-        alert('게시글이 등록되었습니다.');
-      }
-    } else if (
-      categoryEssentielCheck === true &&
-      companyName === true &&
-      companyLogo === true &&
-      companyIntroduce === true &&
-      fiveLimit === true &&
-      ceoInfo === true &&
-      branchEssentielCheck === true &&
-      agreeCheckBox === false
-    ) {
-      if (
-        detailCategoryArray.length !== 0 &&
-        detailCategoryEssentielCheck === true
-      ) {
-        alert('서비스 이용약관에 동의해주세요.');
-      }
-      if (detailCategoryArray.length == 0) {
-        alert('서비스 이용약관에 동의해주세요.');
-      }
-    } else if (
-      categoryEssentielCheck === false ||
-      companyName === false ||
-      companyLogo === false ||
-      companyIntroduce === false ||
-      fiveLimit === false ||
-      ceoInfo === false ||
-      agreeCheckBox === false ||
-      branchEssentielCheck === false
-    ) {
-      if (
-        detailCategoryArray.length !== 0 &&
-        detailCategoryEssentielCheck === false
-      ) {
-        alert('');
-      }
-      if (detailCategoryArray.length == 0) {
-        alert('');
-      }
-    }
-  };
-
   return (
     <>
       <Header />
@@ -269,6 +375,7 @@ const PostWritePage = () => {
                 <div className={css.subHeading}>업종 *</div>
                 <select className={css.categorySelect} onChange={categoryCheck}>
                   <option value="">카테고리</option>
+                  {categoryID && <option defaultValue={categoryID}></option>}
                   {categoryArray.map(category => {
                     return (
                       <>
@@ -286,6 +393,9 @@ const PostWritePage = () => {
                     onChange={detailCategoryCheck}
                   >
                     <option value="">상세</option>
+                    {detailCategoryID && (
+                      <option defaultValue={detailCategoryID}></option>
+                    )}
                     {detailCategoryArray.map(detail => {
                       return (
                         <>
@@ -299,7 +409,20 @@ const PostWritePage = () => {
               </div>
               <div className={css.companyNameWrapper}>
                 <span className={css.subHeading}>회사 이름 *</span>
-                <input type="text" onChange={companyNameCheck} />
+                {companyNames ? (
+                  <input
+                    type="text"
+                    value={companyNames}
+                    onChange={companyNameCheck}
+                    ref={focusRef}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    onChange={companyNameCheck}
+                    ref={focusRef}
+                  />
+                )}
                 {companyName === false && (
                   <div className={css.essentiel}>필수 작성 항목입니다.</div>
                 )}
@@ -308,7 +431,15 @@ const PostWritePage = () => {
                 <div className={css.subHeading}>회사 로고 or 대표 이미지 *</div>
                 <div className={css.logoUploadWrapper}>
                   <div className={css.imgWrapper}>
-                    <input type="file" onChange={companyLogoCheck} />
+                    {companyLogoFetched ? (
+                      <input
+                        type="file"
+                        onChange={companyLogoCheck}
+                        value={companyLogoFetched}
+                      />
+                    ) : (
+                      <input type="file" onChange={companyLogoCheck} />
+                    )}
                   </div>
                   <div className={css.logoSizeNoti}>
                     10mb 이하의 jpg, png 파일을 선택해주세요.
@@ -319,12 +450,25 @@ const PostWritePage = () => {
               <div className={css.companyIntroduce}>
                 <div className={css.subHeading}>회사 소개 *</div>
                 <div className={css.textAreaWrapper}>
-                  <textarea
-                    id="textarea"
-                    placeholder={'100자 이내로 간단하게 설명해주세요.'}
-                    onChange={countingMainWorkingFild}
-                    maxLength={100}
-                  />
+                  {companyIntroduceFetched ? (
+                    <textarea
+                      id="textarea"
+                      placeholder={'100자 이내로 간단하게 설명해주세요.'}
+                      onChange={countingMainWorkingFild}
+                      maxLength={100}
+                      value={companyIntroduceFetched}
+                      // ref={focusTextareaRef}
+                    />
+                  ) : (
+                    <textarea
+                      id="textarea"
+                      placeholder={'100자 이내로 간단하게 설명해주세요.'}
+                      onChange={countingMainWorkingFild}
+                      maxLength={100}
+                      // ref={focusTextareaRef}
+                    />
+                  )}
+
                   {companyIntroduceTextLength &&
                   companyIntroduceTextLength > 99 ? (
                     <span className={css.redTextCountingSmall}>
@@ -342,21 +486,42 @@ const PostWritePage = () => {
               </div>
               <div className={css.companyUrl}>
                 <div className={css.subHeading}>홈페이지</div>
-                <input
-                  type="text"
-                  placeholder={'우리회사의 홈페이지 주소를 알려주세요.'}
-                />
+                {homepage ? (
+                  <input
+                    type="text"
+                    placeholder={'우리회사의 홈페이지 주소를 알려주세요.'}
+                    value={homepage}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    placeholder={'우리회사의 홈페이지 주소를 알려주세요.'}
+                  />
+                )}
               </div>
               <div className={css.mainWorkingFild}>
                 <div className={css.subHeading}>주력 업무 분야 *</div>
+                {mainFiled ? (
+                  <input
+                    type="text"
+                    placeholder={
+                      '5개 이하의 주요 업무를 쉼표로 구분하여 입력해주세요. ex) 디지털 마케팅, 콘텐츠 제작, 영상 제작'
+                    }
+                    onChange={fiveLimitCheck}
+                    ref={focusRef}
+                    value={mainFiled}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    placeholder={
+                      '5개 이하의 주요 업무를 쉼표로 구분하여 입력해주세요. ex) 디지털 마케팅, 콘텐츠 제작, 영상 제작'
+                    }
+                    onChange={fiveLimitCheck}
+                    ref={focusRef}
+                  />
+                )}
 
-                <input
-                  type="text"
-                  placeholder={
-                    '5개 이하의 주요 업무를 쉼표로 구분하여 입력해주세요. ex) 디지털 마케팅, 콘텐츠 제작, 영상 제작'
-                  }
-                  onChange={fiveLimitCheck}
-                />
                 {fiveLimit === 'over' && (
                   <div className={css.mainWorkingFildAlert}>
                     주요 업무는 5개 이하로 소개해주세요.
@@ -371,14 +536,27 @@ const PostWritePage = () => {
                   자세한 소개 및 업무 레퍼런스
                 </div>
                 <div className={css.textAreaWrapper}>
-                  <textarea
-                    id="textarea"
-                    placeholder={
-                      '우리 회사 소개, 패스트파이브 멤버들과 협업하고 싶은 프로젝트, 지금까지의 업무 레퍼런스 등 자세한 내용을 공유해주세요.'
-                    }
-                    onChange={countingReferenceTextLength}
-                    maxLength={1000}
-                  />
+                  {detailCompanyIntro ? (
+                    <textarea
+                      id="textarea"
+                      placeholder={
+                        '우리 회사 소개, 패스트파이브 멤버들과 협업하고 싶은 프로젝트, 지금까지의 업무 레퍼런스 등 자세한 내용을 공유해주세요.'
+                      }
+                      onChange={countingReferenceTextLength}
+                      maxLength={1000}
+                      value={detailCompanyIntro}
+                    />
+                  ) : (
+                    <textarea
+                      id="textarea"
+                      placeholder={
+                        '우리 회사 소개, 패스트파이브 멤버들과 협업하고 싶은 프로젝트, 지금까지의 업무 레퍼런스 등 자세한 내용을 공유해주세요.'
+                      }
+                      onChange={countingReferenceTextLength}
+                      maxLength={1000}
+                    />
+                  )}
+
                   {referenceTextLength && referenceTextLength > 999 ? (
                     <span className={css.redTextCounting}>
                       {referenceTextLength}/1000
@@ -393,14 +571,27 @@ const PostWritePage = () => {
               <div className={css.membership}>
                 <div className={css.subHeading}>패스트파이브 멤버 혜택</div>
                 <div className={css.textAreaWrapper}>
-                  <textarea
-                    id="textarea"
-                    placeholder={
-                      '패스트파이브 멤버에게만 제공되는 혜택이 있다면 알려주세요. ex) 패스트파이브 멤버 컨택 시 견적의 10% 할인 제공'
-                    }
-                    onChange={countingMembershipTextLength}
-                    maxLength={100}
-                  />
+                  {membership ? (
+                    <textarea
+                      id="textarea"
+                      placeholder={
+                        '패스트파이브 멤버에게만 제공되는 혜택이 있다면 알려주세요. ex) 패스트파이브 멤버 컨택 시 견적의 10% 할인 제공'
+                      }
+                      onChange={countingMembershipTextLength}
+                      maxLength={100}
+                      value={membership}
+                    />
+                  ) : (
+                    <textarea
+                      id="textarea"
+                      placeholder={
+                        '패스트파이브 멤버에게만 제공되는 혜택이 있다면 알려주세요. ex) 패스트파이브 멤버 컨택 시 견적의 10% 할인 제공'
+                      }
+                      onChange={countingMembershipTextLength}
+                      maxLength={100}
+                    />
+                  )}
+
                   {membershipTextLength && membershipTextLength > 99 ? (
                     <span className={css.redTextCountingSmall}>
                       {membershipTextLength}/100
@@ -414,14 +605,28 @@ const PostWritePage = () => {
               </div>
               <div className={css.ceoInfo}>
                 <div className={css.subHeading}>대표 연락처 *</div>
-                <input
-                  type="text"
-                  placeholder={
-                    '업무상 컨택이 가능한 연락처를 알려주세요. ex) sample@fastfive.co.kr, 010-1234-1234'
-                  }
-                  onChange={essentielCheck}
-                />
-                {ceoInfo === false && (
+                {ceoContact ? (
+                  <input
+                    type="text"
+                    placeholder={
+                      '업무상 컨택이 가능한 연락처를 알려주세요. ex) sample@fastfive.co.kr, 010-1234-1234'
+                    }
+                    onChange={essentielCheck}
+                    ref={focusRef}
+                    value={ceoContact}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    placeholder={
+                      '업무상 컨택이 가능한 연락처를 알려주세요. ex) sample@fastfive.co.kr, 010-1234-1234'
+                    }
+                    onChange={essentielCheck}
+                    ref={focusRef}
+                  />
+                )}
+
+                {contact === false && (
                   <div className={css.essentiel}>필수 작성 항목입니다.</div>
                 )}
               </div>
@@ -429,7 +634,11 @@ const PostWritePage = () => {
               <div className={css.companyIntroduceFile}>
                 <div className={css.subHeading}>회사 소개서</div>
                 <div className={css.fileUploadWrapper}>
-                  <input type="file" />
+                  {companyIntroFile ? (
+                    <input type="file" value={companyIntroFile} />
+                  ) : (
+                    <input type="file" />
+                  )}
                   <div className={css.fileSizeNoti}>
                     30mb 이하의 pdf, jpg, png 파일을 선택해주세요.
                   </div>
@@ -439,6 +648,7 @@ const PostWritePage = () => {
                 <div className={css.subHeading}>이용중인 지점 *</div>
                 <select className={css.categorySelect} onChange={branchCheck}>
                   <option value="">지점명</option>
+                  {branch && <option defaultValue={branch}></option>}
                   {branchArray.map(branch => {
                     return (
                       <>
@@ -461,11 +671,11 @@ const PostWritePage = () => {
                 <div className={css.btnInnerWrapper}>
                   <button className={css.btn}>미리보기</button>
                   {/* {type === modify ? (
-                    <button className={css.btn} onClick={getUpload}>
+                    <button className={css.btn} onClick={clikUpload}>
                       수정하기
                     </button>
                   ) : ( */}
-                  <button className={css.btn} onClick={getUpload}>
+                  <button className={css.btn} onClick={clikUpload}>
                     등록하기
                   </button>
                   {/* )} */}
