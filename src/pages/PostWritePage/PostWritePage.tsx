@@ -21,7 +21,7 @@ const PostWritePage = () => {
   const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
   const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
   const [branchArray, setBranchArray] = useState<any[]>([]); //지점 배열
-  const [categoryID, setCategoryID] = useState<string>(); //카테고리
+  const [categoryID, setCategoryID] = useState<string | number>(); //카테고리
 
   const [agreeCheckBox, setAgreeCheckBox] = useState<boolean | undefined>(
     false
@@ -143,7 +143,6 @@ const PostWritePage = () => {
     if (e.target.value) {
       setCategoryID(e.target.value);
       setCategoryEssentielCheck(true);
-      console.log('카테고리 밸류', categoryEssentielCheck);
     } else {
       setCategoryEssentielCheck(false);
     }
@@ -163,6 +162,7 @@ const PostWritePage = () => {
   //상세 카테고리 필수항목 체크
   const detailCategoryCheck = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value) {
+      console.log(detailCategoryEssentielCheck);
       setDetailCategoryEssentielCheck(true);
     } else {
       setDetailCategoryEssentielCheck(false);
@@ -187,11 +187,10 @@ const PostWritePage = () => {
     setAgreeCheckBox(!agreeCheckBox);
   };
 
-  //등록 버튼 클릭
+  //조건별 등록버튼 클릭 시
   const getUpload = () => {
     if (
       categoryEssentielCheck === true &&
-      detailCategoryEssentielCheck === true &&
       companyName === true &&
       companyLogo === true &&
       companyIntroduce === true &&
@@ -200,22 +199,36 @@ const PostWritePage = () => {
       agreeCheckBox === true &&
       branchEssentielCheck === true
     ) {
-      alert('게시글이 등록되었습니다.');
+      if (
+        detailCategoryArray.length !== 0 &&
+        detailCategoryEssentielCheck === true
+      ) {
+        alert('게시글이 등록되었습니다.');
+      }
+      if (detailCategoryArray.length == 0) {
+        alert('게시글이 등록되었습니다.');
+      }
     } else if (
-      // categoryEssentielCheck === true &&
-      // detailCategoryEssentielCheck === true &&
+      categoryEssentielCheck === true &&
       companyName === true &&
       companyLogo === true &&
       companyIntroduce === true &&
       fiveLimit === true &&
       ceoInfo === true &&
-      // branchEssentielCheck === true &&
+      branchEssentielCheck === true &&
       agreeCheckBox === false
     ) {
-      alert('서비스 이용약관에 동의해주세요.');
+      if (
+        detailCategoryArray.length !== 0 &&
+        detailCategoryEssentielCheck === true
+      ) {
+        alert('서비스 이용약관에 동의해주세요.');
+      }
+      if (detailCategoryArray.length == 0) {
+        alert('서비스 이용약관에 동의해주세요.');
+      }
     } else if (
       categoryEssentielCheck === false ||
-      detailCategoryEssentielCheck === false ||
       companyName === false ||
       companyLogo === false ||
       companyIntroduce === false ||
@@ -224,6 +237,15 @@ const PostWritePage = () => {
       agreeCheckBox === false ||
       branchEssentielCheck === false
     ) {
+      if (
+        detailCategoryArray.length !== 0 &&
+        detailCategoryEssentielCheck === false
+      ) {
+        alert('');
+      }
+      if (detailCategoryArray.length == 0) {
+        alert('');
+      }
     }
   };
 
@@ -258,20 +280,22 @@ const PostWritePage = () => {
                     );
                   })}
                 </select>
-                <select
-                  className={css.detailSelect}
-                  onChange={detailCategoryCheck}
-                >
-                  <option value="none">상세</option>
-                  {detailCategoryArray.map(detail => {
-                    return (
-                      <>
-                        key={detail.id}
-                        <option value={detail.id}>{detail.category}</option>
-                      </>
-                    );
-                  })}
-                </select>
+                {detailCategoryArray.length !== 0 && (
+                  <select
+                    className={css.detailSelect}
+                    onChange={detailCategoryCheck}
+                  >
+                    <option value="">상세</option>
+                    {detailCategoryArray.map(detail => {
+                      return (
+                        <>
+                          key={detail.id}
+                          <option value={detail.id}>{detail.category}</option>
+                        </>
+                      );
+                    })}
+                  </select>
+                )}
               </div>
               <div className={css.companyNameWrapper}>
                 <span className={css.subHeading}>회사 이름 *</span>
@@ -414,7 +438,7 @@ const PostWritePage = () => {
               <div className={css.usingBranch}>
                 <div className={css.subHeading}>이용중인 지점 *</div>
                 <select className={css.categorySelect} onChange={branchCheck}>
-                  <option value="none">지점명</option>
+                  <option value="">지점명</option>
                   {branchArray.map(branch => {
                     return (
                       <>
