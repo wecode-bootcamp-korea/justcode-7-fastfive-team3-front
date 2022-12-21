@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CommentType } from '../../Comment';
 import css from './WriteNestedReply.module.scss';
 
 interface TextareaType {
@@ -17,8 +16,8 @@ const WriteNestedReply: React.FC<TextareaType> = ({
   setComments,
 }) => {
   const [replyTextLength, setReplyTextLength] = useState(0);
-  //답글 비밀 여부
   const [isSecret, setIsSecret] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
   const textareaDOM = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     textareaDOM.current?.focus();
@@ -29,7 +28,7 @@ const WriteNestedReply: React.FC<TextareaType> = ({
 
   //등록 버튼 활성화 여부
   const textareaValue = textareaDOM.current?.value;
-  const [isDisable, setIsDisable] = useState(true);
+
   useEffect(() => {
     if (textareaValue) {
       setIsDisable(false);

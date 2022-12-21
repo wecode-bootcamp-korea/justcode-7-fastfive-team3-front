@@ -2,8 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { PropsType, ReplyType, CommentType } from '../Comment';
 import Reply from '../Reply/Reply/Reply';
 import NestedReply from '../Reply/NestedReply/NestedReply';
-import css from './CommentList.module.scss';
 import WriteNestedReply from '../Reply/WriteNestedReply/WriteNestedReply';
+import css from './CommentList.module.scss';
 export interface ReplyProps {
   loginId: string | null | number;
   setShowWriteTextarea: Function;
@@ -24,12 +24,13 @@ const CommentList: React.FC<PropsType> = ({
 }) => {
   const [nestedReplyList, setNestedReplyList] = useState<ReplyType[]>([]);
   const [parentId, setParentId] = useState(0);
+  const [showWriteTextarea, setShowWriteTextarea] = useState(false);
   const isFake = comment.is_fake;
   useEffect(() => {
     setNestedReplyList(comment.reply);
   }, []);
   const loginId: string | null | number = localStorage.getItem('id');
-  const [showWriteTextarea, setShowWriteTextarea] = useState(false);
+
   const returnReply = () => {
     if (isFake === undefined) {
       return (

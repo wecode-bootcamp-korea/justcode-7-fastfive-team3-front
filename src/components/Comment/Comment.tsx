@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Pagination } from '@mui/material';
 import CommentList from './CommentList/CommentList';
 import css from './Comment.module.scss';
-import { useParams } from 'react-router-dom';
 
 export interface ReplyType {
   reply_id: number;
@@ -67,6 +67,9 @@ const Comment = () => {
   //댓글 전체 데이터
   const [comments, setComments] = useState<CommentType[]>([]);
 
+  const params = useParams();
+  let postId = params.id;
+
   //댓글 데이터 불러오기
   const token: string | null = localStorage.getItem('token');
   const requestHeaders: HeadersInit = new Headers();
@@ -74,10 +77,6 @@ const Comment = () => {
   if (token) {
     requestHeaders.set('Authorization', token);
   }
-
-  const params = useParams();
-  let postId = params.id;
-
   useEffect(() => {
     fetch(`http://localhost:8000/reply/${postId}?page=${currPage}`, {
       method: 'GET',
@@ -90,10 +89,6 @@ const Comment = () => {
       });
   }, [currPage]);
 
-  const setMainSecret = () => {
-    setMainIsSecret(!isMainSecret);
-  };
-
   const mainTextareaDOM = useRef<HTMLTextAreaElement>(null);
   let mainTextareaValue = mainTextareaDOM.current?.value;
 
@@ -104,6 +99,19 @@ const Comment = () => {
       setIsMainDisable(true);
     }
   }, [mainTextareaValue]);
+
+  useEffect(() => {
+    if (replyMainTextLength == 1000) {
+      setIsDisableWrite(true);
+      setIsMainDisable(true);
+    } else {
+      setIsDisableWrite(false);
+    }
+  }, [replyMainTextLength]);
+
+  const setMainSecret = () => {
+    setMainIsSecret(!isMainSecret);
+  };
 
   const handleMainResizeHeight = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -121,18 +129,10 @@ const Comment = () => {
     }
   };
 
-  useEffect(() => {
-    if (replyMainTextLength == 1000) {
-      setIsDisableWrite(true);
-      setIsMainDisable(true);
-    } else {
-      setIsDisableWrite(false);
-    }
-  }, [replyMainTextLength]);
-
   const handlePagination = (e: React.ChangeEvent<any>) => {
     setCurrPage(e.target.textContent);
   };
+
   const uploadComment = () => {
     fetch('http://localhost:8000/reply', {
       method: 'POST',

@@ -13,6 +13,7 @@ const Reply: React.FC<ReplyProps> = ({
   const [isPrivate, setIsPrivate] = useState(false);
   const [replyTextLength, setReplyTextLength] = useState(0);
   const [isMainSecret, setMainIsSecret] = useState(false);
+  const [isLoginUser, setIsLoginUser] = useState(false);
   const doModify = () => {
     setIsMyTextarea(false);
   };
@@ -52,7 +53,6 @@ const Reply: React.FC<ReplyProps> = ({
       alert('취소되었습니다.');
     }
   };
-  const [isLoginUser, setIsLoginUser] = useState(false);
 
   const replyUserId = commentInfo.reply_user_id;
   useEffect(() => {
