@@ -1,18 +1,34 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import css from './WriteNestedReply.module.scss';
 
-const WriteNestedReply = () => {
+interface TextareaType {
+  showWriteTextarea: boolean;
+  setTotalPages: Function;
+  parentId: number;
+  setComments: Function;
+}
+
+const WriteNestedReply: React.FC<TextareaType> = ({
+  showWriteTextarea,
+  setTotalPages,
+  parentId,
+  setComments,
+}) => {
   const [replyTextLength, setReplyTextLength] = useState(0);
-  //답글 비밀 여부
   const [isSecret, setIsSecret] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
+  const textareaDOM = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    textareaDOM.current?.focus();
+  }, [showWriteTextarea]);
   const setSecret = () => {
     setIsSecret(!isSecret);
   };
 
-  //답글 등록 버튼 활성화 여부
-  const textareaDOM = useRef<HTMLTextAreaElement>(null);
+  //등록 버튼 활성화 여부
   const textareaValue = textareaDOM.current?.value;
-  const [isDisable, setIsDisable] = useState(true);
+
   useEffect(() => {
     if (textareaValue) {
       setIsDisable(false);
@@ -32,6 +48,45 @@ const WriteNestedReply = () => {
       setReplyTextLength(0);
     }
   };
+  const token: string | null = localStorage.getItem('token');
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set('Content-Type', 'application/json');
+  if (token) {
+    requestHeaders.set('Authorization', token);
+  }
+  const params = useParams();
+  let postId = params.id;
+
+  const uploadReply = () => {
+    fetch('http://localhost:8000/reply', {
+      method: 'POST',
+      headers: requestHeaders,
+      body: JSON.stringify({
+        feed_id: postId,
+        comment: textareaValue,
+        is_private: isSecret,
+        parent_reply_id: parentId,
+      }),
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log('reply : ', json);
+        if (json.createdNewComment) {
+          setTotalPages(Number(json.result.replyPageCnt));
+          setComments(json.result.result);
+          alert('답글 등록이 완료되었습니다.');
+          if (textareaDOM.current?.value) {
+            textareaDOM.current.value = '';
+            setReplyTextLength(0);
+          }
+          window.location.reload();
+        } else if (json.message.includes('ADMIN_ONLY')) {
+          alert('권한이 없습니다.');
+        } else {
+          alert('다시 시도해주세요.');
+        }
+      });
+  };
   return (
     <div className={`${css.writeReplyContainer} ${css.reply}`}>
       <textarea
@@ -47,6 +102,7 @@ const WriteNestedReply = () => {
         <button
           className={isDisable ? css.notSendReply : css.sendReply}
           disabled={isDisable}
+          onClick={uploadReply}
         >
           등록
         </button>
