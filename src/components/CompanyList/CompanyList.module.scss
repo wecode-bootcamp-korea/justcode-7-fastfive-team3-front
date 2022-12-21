@@ -1,9 +1,15 @@
 .categoryList {
   .topTitle {
-    margin-top: 5vh;
+    margin-top: 1vh;
     display: flex;
     justify-content: space-between;
+    .titleAll {
+      padding-right: 10px;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
     .introduce {
+      cursor: pointer;
       width: 10rem;
       background-color: #ff6d6a;
       border-radius: 100px;
@@ -18,9 +24,6 @@
     .titleCate {
       padding-left: 10px;
     }
-    .titleAll {
-      padding-right: 10px;
-    }
   }
   .buttonWrap {
     margin-top: 5vh;
@@ -29,6 +32,7 @@
       padding-left: 10px;
     }
     .cateBtn {
+      cursor: pointer;
       margin-left: 2px;
       margin-right: 2px;
       background-color: antiquewhite;
@@ -41,15 +45,24 @@
   .cateTitle {
     margin-top: 5vh;
     padding-left: 10px;
+    margin-bottom: 1.5vh;
+  }
+  .title {
+    color: #ff6d6a;
+    font-weight: 500;
+    margin-top: 2em;
+    font-size: 1.2em;
+    margin-left: 2rem;
   }
 }
 
 .cardWrap {
+  cursor: pointer;
   display: flex;
   flex-wrap: wrap;
   grid-row-gap: 2rem;
   grid-column-gap: 2rem;
-  padding-top: 5vh;
+  padding-top: 9vh;
   .cardContainer {
     width: 22%;
     border-radius: 25px;
@@ -78,6 +91,7 @@
       .companyName {
         margin-top: 14px;
         text-align: center;
+        font-weight: 600;
       }
       .companyDesc {
         margin-top: 14px;
@@ -85,4 +99,9 @@
       }
     }
   }
+}
+.pagination {
+  margin-top: 3.5em;
+  display: flex;
+  justify-content: center;
 }

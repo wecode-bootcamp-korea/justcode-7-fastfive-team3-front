@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import css from './CardSubHome.module.scss';
 import { Pagination } from '@mui/material';
 
@@ -13,12 +13,7 @@ function CardSubHome() {
   }, []);
 
   const [categoryText, setCategoryText] = useState('');
-  const handleButtonValue = (e: React.ChangeEvent<any>) => {
-    setCategoryText(e.target.textContent);
-  };
   const [isAccess, setIsAccess] = useState(false);
-  // const token: string | null = localStorage.getItem('token');
-  // const requestHeaders: HeadersInit = new Headers();
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
   requestHeaders.set(
@@ -28,9 +23,6 @@ function CardSubHome() {
       ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
   );
   useEffect(() => {
-    // if (token) {
-    //   requestHeaders.set('token', token);
-    // }
     fetch('http://localhost:8000/user/checkauth', {
       headers: requestHeaders,
     })
@@ -40,35 +32,24 @@ function CardSubHome() {
       });
   });
 
-  const handleIntroduce = () => {
-    // if (token) {
-    //   requestHeaders.set('token', token);
-    // }
-    // fetch('http://localhost:8000/user/checkauth', {
-    //   headers: requestHeaders,
-    // })
-    //   .then(res => res.json())
-    //   .then(result => {
-    //     setIsAccess(result.write_permission);
-    //   });
-  };
-
   const handleCategory = (e: React.MouseEvent<HTMLElement>) => {
-    const element = e.currentTarget;
-    fetch(`http://localhost:8000/subhome/category?category_id=${element.id}`)
+    const category = e.currentTarget;
+    fetch(`http://localhost:8000/subhome/category?category_id=${category.id}`)
       .then(res => res.json())
       .then(result => {
         setCompanyCard(result);
       });
+    const target = e.target as Element;
+    setCategoryText(target.innerHTML);
   };
 
-  // const navigate = useNavigate();
-  // const moveDetail = () => {
-  //   navigate(`/detail/${feed_id}`);
-  // };
+  const navigate = useNavigate();
+  const moveDetail = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.currentTarget as Element;
+    navigate(`/detail/${target.id}`);
+  };
 
-  const [currPage, setCurrPage] = useState(''); //전체 페이지 수
-  console.log('페이지', `http://localhost:8000/feedlist?page=${currPage}`);
+  const [currPage, setCurrPage] = useState('');
   const [totalPages, setTotalPages] = useState(0);
   useEffect(() => {
     fetch(`http://localhost:8000/feedlist?page=${currPage}`, {
@@ -84,15 +65,18 @@ function CardSubHome() {
   const handlePagination = (e: React.ChangeEvent<any>) => {
     setCurrPage(e.target.textContent);
   };
+
   return (
     <>
       <div className={css.categoryList}>
-        <div className={css.topTitle}>
+        <div className={css.btnWrapper}>
           {isAccess === undefined && (
-            <button className={css.introduce} onClick={handleIntroduce}>
+            <button className={css.introduce}>
               <Link to="/postWritePage">우리 회사 소개하기</Link>
             </button>
           )}
+        </div>
+        <div className={css.topTitle}>
           <p className={css.titleCate}>업종별 살펴보기</p>
           <p className={css.titleAll}>
             <Link to="/list">전체 보기</Link>
@@ -105,13 +89,12 @@ function CardSubHome() {
               key={category_id}
               id={category_id}
               onClick={handleCategory}
-              // onChange={handleButtonValue}
             >
               {category}
             </button>
           ))}
         </div>
-        {/* <p className={css.cateTitle}>{categoryText}</p> */}
+        <p className={css.cateTitle}>{categoryText}</p>
       </div>
       <div className={css.cardWrap}>
         {companyCard.map(
@@ -119,7 +102,8 @@ function CardSubHome() {
             <div
               className={css.cardContainer}
               key={feed_id}
-              // onClick={moveDetail}
+              id={feed_id}
+              onClick={moveDetail}
             >
               <div className={css.imageContainer}>
                 <img
@@ -137,7 +121,11 @@ function CardSubHome() {
         )}
       </div>
       {totalPages !== 0 && (
-        <Pagination count={totalPages} onChange={handlePagination} />
+        <Pagination
+          className={css.pagination}
+          count={totalPages}
+          onChange={handlePagination}
+        />
       )}
     </>
   );

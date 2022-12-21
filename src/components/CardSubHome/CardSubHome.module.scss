@@ -1,9 +1,10 @@
 .categoryList {
-  .topTitle {
-    margin-top: 5vh;
+  .btnWrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    margin-top: 3em;
     .introduce {
+      cursor: pointer;
       width: 10rem;
       background-color: #ff6d6a;
       border-radius: 100px;
@@ -15,19 +16,27 @@
         display: block;
       }
     }
+  }
+  .topTitle {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: space-between;
     .titleCate {
       padding-left: 10px;
+      font-weight: 700;
     }
     .titleAll {
       padding-right: 10px;
       a {
         color: #131a24;
+        font-weight: 500;
       }
     }
   }
   .buttonWrap {
     margin-top: 5vh;
     .cateBtn {
+      cursor: pointer;
       margin-left: 3px;
       margin-right: 3px;
       background-color: antiquewhite;
@@ -40,6 +49,9 @@
   .cateTitle {
     margin-top: 5vh;
     padding-left: 10px;
+    font-weight: 700;
+    color: #ff6d6a;
+    font-size: 1.2em;
   }
 }
 
@@ -50,9 +62,9 @@
   grid-column-gap: 2rem;
   padding-top: 5vh;
   .cardContainer {
+    cursor: pointer;
     width: 22%;
     border-radius: 25px;
-    // border: #5bb684 2px solid;
     .imageContainer {
       display: flex;
       height: 8rem;
@@ -64,7 +76,6 @@
         height: 100%;
         border-radius: 25px 25px 0 0;
         object-fit: cover;
-        // padding: 7px;
       }
     }
     .contentContainer {
@@ -79,6 +90,7 @@
       .companyName {
         margin-top: 14px;
         text-align: center;
+        font-weight: 600;
       }
       .companyDesc {
         margin-top: 14px;
@@ -87,22 +99,8 @@
     }
   }
 }
-// .pagenation {
-//   display: flex;
-//   gap: 1rem;
-//   overflow: hidden;
-//   .moveBtn {
-//     z-index: 999;
-//   }
-//   .pageList {
-//     display: flex;
-//     gap: 2rem;
-//     width: 5.4rem;
-
-//     .pageItem {
-//       width: 1rem;
-//       height: 1rem;
-//       cursor: pointer;
-//     }
-//   }
-// }
+.pagination {
+  margin-top: 3.5em;
+  display: flex;
+  justify-content: center;
+}
