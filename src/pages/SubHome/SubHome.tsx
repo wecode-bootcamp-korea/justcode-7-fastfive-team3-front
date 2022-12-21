@@ -5,7 +5,8 @@ import Footer from '../../components/Footer/Footer';
 import SideBar from '../../components/SideBar/SideBar';
 import SliderSubHome from '../../components/SliderSubHome/SliderSubHome';
 import CardSubHome from '../../components/CardSubHome/CardSubHome';
-import IntroduceCompany from '../../components/IntroduceCompany/IntroduceCompany';
+// import CompanyCard from '../../components/CardSubHome/CompanyCard';
+// import IntroduceCompany from '../../components/IntroduceCompany/IntroduceCompany';
 
 function SubHome() {
   return (
@@ -17,8 +18,9 @@ function SubHome() {
           <div className={css.main}>
             <div className={css.content}>
               <SliderSubHome />
-              <IntroduceCompany />
+              {/* <IntroduceCompany /> */}
               <CardSubHome />
+              {/* <CompanyCard /> */}
             </div>
           </div>
         </div>

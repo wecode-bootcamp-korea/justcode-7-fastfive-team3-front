@@ -16,6 +16,7 @@ function CategoryList() {
   //     method: 'GET',
   //     headers: {
   //       authorization: token,
+  // 'Content-Type': 'application/json',
   //     },
   //   })
   //     .then(response => response.json())

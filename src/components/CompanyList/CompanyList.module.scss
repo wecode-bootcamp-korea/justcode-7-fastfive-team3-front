@@ -20,18 +20,19 @@
     }
     .titleAll {
       padding-right: 10px;
-      a {
-        color: #131a24;
-      }
     }
   }
   .buttonWrap {
     margin-top: 5vh;
+    .cateTitle {
+      margin-top: 5vh;
+      padding-left: 10px;
+    }
     .cateBtn {
-      margin-left: 3px;
-      margin-right: 3px;
+      margin-left: 2px;
+      margin-right: 2px;
       background-color: antiquewhite;
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 5px;
       width: 5.7vw;
       height: auto;
@@ -52,7 +53,6 @@
   .cardContainer {
     width: 22%;
     border-radius: 25px;
-    // border: #5bb684 2px solid;
     .imageContainer {
       display: flex;
       height: 8rem;
@@ -64,7 +64,6 @@
         height: 100%;
         border-radius: 25px 25px 0 0;
         object-fit: cover;
-        // padding: 7px;
       }
     }
     .contentContainer {
@@ -87,22 +86,3 @@
     }
   }
 }
-// .pagenation {
-//   display: flex;
-//   gap: 1rem;
-//   overflow: hidden;
-//   .moveBtn {
-//     z-index: 999;
-//   }
-//   .pageList {
-//     display: flex;
-//     gap: 2rem;
-//     width: 5.4rem;
-
-//     .pageItem {
-//       width: 1rem;
-//       height: 1rem;
-//       cursor: pointer;
-//     }
-//   }
-// }

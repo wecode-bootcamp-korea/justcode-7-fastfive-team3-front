@@ -3,8 +3,7 @@ import css from './ListPage.module.scss';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import SideBar from '../../components/SideBar/SideBar';
-import CardSubHome from '../../components/CardSubHome/CardSubHome';
-import IntroduceCompany from '../../components/IntroduceCompany/IntroduceCompany';
+import CompanyList from '../../components/CompanyList/CompanyList';
 
 function ListPage() {
   return (
@@ -15,8 +14,7 @@ function ListPage() {
         <div className={css.container}>
           <div className={css.main}>
             <div className={css.content}>
-              <IntroduceCompany />
-              <CardSubHome />
+              <CompanyList />
             </div>
           </div>
         </div>
