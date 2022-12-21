@@ -1,7 +1,11 @@
 .mainContainer {
   display: flex;
   .componentsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    width: 100%;
   }
   & a {
     color: black;
@@ -11,9 +15,10 @@
     width: 100%;
     .main {
       display: flex;
-      width: 100%;
       padding: 3rem;
       .content {
+        display: grid;
+
         & span {
           display: inline-block;
         }
@@ -110,6 +115,9 @@
         .copyEmail {
           cursor: pointer;
         }
+      }
+      .delete {
+        cursor: pointer;
       }
       .alertMessage {
         font-size: 0.8em;
