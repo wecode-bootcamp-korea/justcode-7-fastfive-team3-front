@@ -48,6 +48,8 @@ export interface PropsType {
   comment: CommentType;
 }
 const Comment = () => {
+  //메인 댓글 실시간 내용
+  const [mainCommentText, setMainCommentText] = useState('');
   //글자 수
   const [replyMainTextLength, setReplyMainTextLength] = useState(0);
   //메인 비밀 여부
@@ -109,6 +111,7 @@ const Comment = () => {
     e.target.style.height = e.target.scrollHeight + 'px';
     //글자수 count
     const currentTextareaText = e.target.value;
+    setMainCommentText(currentTextareaText);
     if (currentTextareaText) {
       setReplyMainTextLength(currentTextareaText.length);
     } else if (!currentTextareaText) {
@@ -127,6 +130,25 @@ const Comment = () => {
 
   const handlePagination = (e: React.ChangeEvent<any>) => {
     setCurrPage(e.target.textContent);
+  };
+
+  const uploadComment = () => {
+    //feed_id : postId
+    //댓글 내용 : mainCommentText
+    //비밀 여부 : isMainSecret (true면 비밀댓글로 등록)
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        feed_id: postId,
+        comment: mainCommentText,
+        is_private: isMainSecret,
+      }),
+    })
+      .then(response => response.json())
+      .then(json => localStorage.setItem('token', json.token));
   };
 
   return (
@@ -165,6 +187,7 @@ const Comment = () => {
             <button
               className={isMainDisable ? css.notSendReply : css.sendReply}
               disabled={isMainDisable}
+              onClick={uploadComment}
             >
               등록
             </button>
