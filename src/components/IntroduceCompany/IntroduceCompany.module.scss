@@ -1,0 +1,17 @@
+.btnContainer {
+  margin-top: 10vh;
+  display: flex;
+  justify-content: flex-end;
+  .introduce {
+    width: 10rem;
+    background-color: #ff6d6a;
+    border-radius: 100px;
+    height: 3rem;
+    text-align: center;
+    a {
+      color: #fff;
+      font-size: 1.2em;
+      display: block;
+    }
+  }
+}

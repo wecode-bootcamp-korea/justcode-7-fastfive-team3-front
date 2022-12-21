@@ -1,0 +1,26 @@
+.categoryList {
+  .topTitle {
+    margin-top: 10vh;
+    display: flex;
+
+    .titleCate {
+    }
+    .titleAll {
+    }
+  }
+  .buttonWrap {
+    margin-top: 5vh;
+    .cateBtn {
+      margin-left: 3px;
+      margin-right: 3px;
+      background-color: antiquewhite;
+      border-radius: 10px;
+      padding: 5px;
+      width: 5.7vw;
+      height: auto;
+    }
+  }
+  .cateTitle {
+    margin-top: 5vh;
+  }
+}
