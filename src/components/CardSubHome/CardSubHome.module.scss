@@ -1,0 +1,108 @@
+.categoryList {
+  .topTitle {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: space-between;
+    .introduce {
+      width: 10rem;
+      background-color: #ff6d6a;
+      border-radius: 100px;
+      height: 3rem;
+      text-align: center;
+      a {
+        color: #fff;
+        font-size: 1.2em;
+        display: block;
+      }
+    }
+    .titleCate {
+      padding-left: 10px;
+    }
+    .titleAll {
+      padding-right: 10px;
+      a {
+        color: #131a24;
+      }
+    }
+  }
+  .buttonWrap {
+    margin-top: 5vh;
+    .cateBtn {
+      margin-left: 3px;
+      margin-right: 3px;
+      background-color: antiquewhite;
+      border-radius: 10px;
+      padding: 5px;
+      width: 5.7vw;
+      height: auto;
+    }
+  }
+  .cateTitle {
+    margin-top: 5vh;
+    padding-left: 10px;
+  }
+}
+
+.cardWrap {
+  display: flex;
+  flex-wrap: wrap;
+  grid-row-gap: 2rem;
+  grid-column-gap: 2rem;
+  padding-top: 5vh;
+  .cardContainer {
+    width: 22%;
+    border-radius: 25px;
+    // border: #5bb684 2px solid;
+    .imageContainer {
+      display: flex;
+      height: 8rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .cardImage {
+        width: 100%;
+        height: 100%;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        // padding: 7px;
+      }
+    }
+    .contentContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      height: 9rem;
+      background-color: #f7f7f7;
+      border-radius: 0 0 25px 25px;
+      .companyName {
+        margin-top: 14px;
+        text-align: center;
+      }
+      .companyDesc {
+        margin-top: 14px;
+        text-align: center;
+      }
+    }
+  }
+}
+// .pagenation {
+//   display: flex;
+//   gap: 1rem;
+//   overflow: hidden;
+//   .moveBtn {
+//     z-index: 999;
+//   }
+//   .pageList {
+//     display: flex;
+//     gap: 2rem;
+//     width: 5.4rem;
+
+//     .pageItem {
+//       width: 1rem;
+//       height: 1rem;
+//       cursor: pointer;
+//     }
+//   }
+// }

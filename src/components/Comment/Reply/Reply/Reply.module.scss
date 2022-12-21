@@ -13,6 +13,14 @@
     .replyDate {
       font-size: 0.9rem;
     }
+    .lock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/lock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
   }
   .newReply {
     position: absolute;
@@ -73,6 +81,9 @@
   .replyContent:focus {
     outline: none;
   }
+  .replyContent:focus::placeholder {
+    color: transparent;
+  }
   .replyContent:disabled {
     background-color: #fff;
   }
@@ -96,10 +107,29 @@
   }
   .modifys {
     display: flex;
+    align-items: center;
     gap: 1rem;
     position: absolute;
     right: 1rem;
     bottom: 0.5rem;
+    .unlock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/unlock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
+    .lock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/lock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
     .setModify {
       padding: 0.3em 0.8em;
       background-color: #ff6d6a;
