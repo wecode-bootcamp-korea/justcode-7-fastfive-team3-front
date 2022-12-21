@@ -14,6 +14,8 @@ const Reply: React.FC<ReplyProps> = ({
   const [replyTextLength, setReplyTextLength] = useState(0);
   const [isMainSecret, setMainIsSecret] = useState(false);
   const [isLoginUser, setIsLoginUser] = useState(false);
+  const [feedUser, setFeedUser] = useState(0);
+  console.log('commentInfo : ', commentInfo);
   const doModify = () => {
     setIsMyTextarea(false);
   };
@@ -22,6 +24,7 @@ const Reply: React.FC<ReplyProps> = ({
   };
   useEffect(() => {
     setIsPrivate(commentInfo.is_private);
+    setFeedUser(commentInfo.feed_user_id);
   }, []);
   //삭제 버튼 클릭 시 알림창
   let token = localStorage.getItem('token');
@@ -152,7 +155,7 @@ const Reply: React.FC<ReplyProps> = ({
       <div className={css.replyContainer}>
         <div className={css.replyWriterInfo}>
           <p className={css.replyWriterName}>
-            {isPrivate && !isLoginUser
+            {(isPrivate && !isLoginUser) || (isPrivate && feedUser !== loginId)
               ? '비밀댓글입니다'
               : commentInfo.nickname}
           </p>
@@ -167,7 +170,7 @@ const Reply: React.FC<ReplyProps> = ({
           autoFocus={!isMyTextarea}
           onInput={handleResizeHeight}
           defaultValue={
-            isPrivate && !isLoginUser
+            (isPrivate && !isLoginUser) || (isPrivate && feedUser !== loginId)
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
               : commentInfo.comment
           }

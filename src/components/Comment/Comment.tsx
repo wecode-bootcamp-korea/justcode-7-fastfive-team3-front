@@ -133,6 +133,10 @@ const Comment = () => {
     setCurrPage(e.target.textContent);
   };
 
+  console.log(postId);
+  console.log(mainCommentText);
+  console.log(isMainSecret);
+
   const uploadComment = () => {
     fetch('http://localhost:8000/reply', {
       method: 'POST',
@@ -153,6 +157,8 @@ const Comment = () => {
             mainTextareaDOM.current.value = '';
             setReplyMainTextLength(0);
           }
+        } else if (json.message.includes('ADMIN_ONLY')) {
+          alert('권한이 없습니다.');
         } else {
           alert('다시 시도해주세요.');
         }
