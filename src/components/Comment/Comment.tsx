@@ -54,6 +54,8 @@ const Comment = () => {
   const [isMainSecret, setMainIsSecret] = useState(false);
   //메인 등록 버튼 활성화 여부
   const [isMainDisable, setIsMainDisable] = useState(true);
+  //메인 글자수 제한
+  const [isDisableWrite, setIsDisableWrite] = useState(false);
   //페이지네이션-MUI
   const [currPage, setCurrPage] = useState('');
   //전체 페이지 수
@@ -114,6 +116,15 @@ const Comment = () => {
     }
   };
 
+  useEffect(() => {
+    if (replyMainTextLength == 1000) {
+      setIsDisableWrite(true);
+      setIsMainDisable(true);
+    } else {
+      setIsDisableWrite(false);
+    }
+  }, [replyMainTextLength]);
+
   const handlePagination = (e: React.ChangeEvent<any>) => {
     setCurrPage(e.target.textContent);
   };
@@ -140,9 +151,13 @@ const Comment = () => {
             ref={mainTextareaDOM}
             rows={1}
             onInput={handleMainResizeHeight}
+            maxLength={1000}
           />
           <div className={css.countAndsend}>
-            <span className={css.count}>{replyMainTextLength}</span>/1000
+            <span className={isDisableWrite ? css.stopCount : css.count}>
+              {replyMainTextLength}
+            </span>
+            /1000
             <div
               className={isMainSecret ? css.lock : css.unlock}
               onClick={setMainSecret}
