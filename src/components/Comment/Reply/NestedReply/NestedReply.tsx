@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { NestedReplyProps } from '../../CommentList/CommentList';
 import css from './NestedReply.module.scss';
 
@@ -7,6 +6,8 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
   //textarea 처음에 비활성화 -> 수정 클릭 시 활성화
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
+  const [replyTextLength, setReplyTextLength] = useState(0);
+  const [isMainSecret, setMainIsSecret] = useState(false);
   const myTextarea = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     setIsPrivate(reply.is_private);
@@ -18,7 +19,9 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
   const noModify = () => {
     setIsMyTextarea(true);
   };
-
+  const setMainSecret = () => {
+    setMainIsSecret(!isMainSecret);
+  };
   //삭제 버튼 클릭 시 알림창
   let token = localStorage.getItem('token');
   const requestHeaders: HeadersInit = new Headers();
@@ -59,6 +62,39 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
       setIsLoginUser(false);
     }
   }, [loginId]);
+  const handleResizeHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    //textarea 내용에 따른 높이 변경
+    e.target.style.height = '1px';
+    e.target.style.height = e.target.scrollHeight + 'px';
+    //글자수 count
+    const currentTextareaText = e.target.value;
+    if (currentTextareaText) {
+      setReplyTextLength(currentTextareaText.length);
+    } else if (!currentTextareaText) {
+      setReplyTextLength(0);
+    }
+  };
+  const modifyNestedReply = () => {
+    fetch('http://localhost:8000/reply', {
+      method: 'PATCH',
+      headers: requestHeaders,
+      body: JSON.stringify({
+        reply_id: reply.reply_id,
+        comment: myTextarea.current?.value,
+        is_private: isMainSecret,
+      }),
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        if (json.result) {
+          alert('답글 수정이 완료되었습니다.');
+          window.location.reload();
+        } else {
+          alert('다시 시도해주세요.');
+        }
+      });
+  };
 
   const handleModifyButton = () => {
     if (isLoginUser && isMyTextarea) {
@@ -78,10 +114,17 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
     } else if (isLoginUser && !isMyTextarea) {
       return (
         <div className={css.modifys}>
+          <span className={css.count}>{replyTextLength}</span>/1000
+          <div
+            className={isMainSecret ? css.lock : css.unlock}
+            onClick={setMainSecret}
+          />
           <button className={css.cancleModify} onClick={noModify}>
             취소
           </button>
-          <button className={css.setModify}>수정하기</button>
+          <button className={css.setModify} onClick={modifyNestedReply}>
+            수정하기
+          </button>
         </div>
       );
     }
@@ -99,6 +142,8 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
         <textarea
           className={css.nestedReplyContent}
           disabled={isMyTextarea}
+          ref={myTextarea}
+          onChange={handleResizeHeight}
           defaultValue={
             isPrivate && !isLoginUser
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'

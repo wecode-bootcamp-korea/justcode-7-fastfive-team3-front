@@ -82,16 +82,15 @@
   }
   .nestedReplyContent {
     width: 85%;
-    // height: 100%;
     margin-top: 1rem;
     color: black;
     border: none;
     resize: none;
   }
-  .nestedReplyContentt:focus {
+  .nestedReplyContent:focus {
     outline: none;
   }
-  .nestedReplyContentt:focus::placeholder {
+  .nestedReplyContent:focus::placeholder {
     color: transparent;
   }
   .nestedReplyContent:disabled {
@@ -121,6 +120,24 @@
     position: absolute;
     right: 1rem;
     bottom: 0.5rem;
+    .unlock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/unlock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
+    .lock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/lock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
     .setModify {
       padding: 0.3em 0.8em;
       background-color: #ff6d6a;

@@ -127,7 +127,7 @@ const Reply: React.FC<ReplyProps> = ({
     } else if (!isLoginUser && !isPrivate) {
       return (
         <button className={css.newReply} onClick={writeNewNestedReply}>
-          답글 달기
+          {showWriteTextarea ? '취소' : '답글 달기'}
         </button>
       );
     } else if (isLoginUser && !isMyTextarea) {
