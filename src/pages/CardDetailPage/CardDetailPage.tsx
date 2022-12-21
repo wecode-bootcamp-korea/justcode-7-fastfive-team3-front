@@ -145,7 +145,9 @@ const CardDetailPage = () => {
                 {writerId === Number(loginId) ? (
                   <div className={`${css.gridItem} ${css.crudBtns}`}>
                     <span className={css.modify}>
-                      <Link to="/postWritePage">수정</Link>
+                      <Link to="/postWritePage" state={{ type: 'modify' }}>
+                        수정
+                      </Link>
                     </span>
                     <span className={css.centerBar} />
                     <span className={css.delete} onClick={doDelete}>
