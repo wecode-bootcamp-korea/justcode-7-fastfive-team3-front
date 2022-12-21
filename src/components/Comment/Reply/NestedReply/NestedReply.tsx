@@ -8,9 +8,11 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
   const [isPrivate, setIsPrivate] = useState(false);
   const [replyTextLength, setReplyTextLength] = useState(0);
   const [isMainSecret, setMainIsSecret] = useState(false);
+  const [feedUser, setFeedUser] = useState(0);
   const myTextarea = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     setIsPrivate(reply.is_private);
+    setFeedUser(reply.feed_user_id);
   }, []);
   const doModify = () => {
     setIsMyTextarea(false);
@@ -132,7 +134,9 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
       <div className={`${css.nestedReplyContainer} ${css.reply}`}>
         <div className={css.nestedReplyWriterInfo}>
           <p className={css.nestedReplywriterName}>
-            {isPrivate && !isLoginUser ? '비밀답글입니다' : reply.nickname}
+            {(isPrivate && !isLoginUser) || (isPrivate && feedUser !== loginId)
+              ? '비밀답글입니다'
+              : reply.nickname}
           </p>
           <p className={css.nestedReplyDate}>{reply.created_at}</p>
           {isPrivate && <div className={css.lock} />}
@@ -143,7 +147,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
           ref={myTextarea}
           onChange={handleResizeHeight}
           defaultValue={
-            isPrivate && !isLoginUser
+            (isPrivate && !isLoginUser) || (isPrivate && feedUser !== loginId)
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
               : reply.comment
           }

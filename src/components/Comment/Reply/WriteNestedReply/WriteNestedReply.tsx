@@ -70,6 +70,7 @@ const WriteNestedReply: React.FC<TextareaType> = ({
     })
       .then(response => response.json())
       .then(json => {
+        console.log('reply : ', json);
         if (json.createdNewComment) {
           setTotalPages(Number(json.result.replyPageCnt));
           setComments(json.result.result);
@@ -79,6 +80,8 @@ const WriteNestedReply: React.FC<TextareaType> = ({
             setReplyTextLength(0);
           }
           window.location.reload();
+        } else if (json.message.includes('ADMIN_ONLY')) {
+          alert('권한이 없습니다.');
         } else {
           alert('다시 시도해주세요.');
         }
