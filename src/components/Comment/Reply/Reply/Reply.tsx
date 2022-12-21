@@ -42,7 +42,6 @@ const Reply: React.FC<ReplyProps> = ({
         .then(response => response.json())
         .then(json => {
           if (json.message) {
-            console.log(json);
             alert('삭제되었습니다.');
             window.location.reload();
           } else {
@@ -97,7 +96,6 @@ const Reply: React.FC<ReplyProps> = ({
     })
       .then(response => response.json())
       .then(json => {
-        console.log(json);
         if (json.result) {
           alert('댓글 수정이 완료되었습니다.');
           window.location.reload();
