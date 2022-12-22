@@ -8,6 +8,7 @@ import css from './PostWritePage.module.scss';
 
 const PostWritePage = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
   const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
   const [categoryID, setCategoryID] = useState<any>(); //카테고리 아이디
@@ -58,18 +59,18 @@ const PostWritePage = () => {
   //   })
   //     .then(res => res.json())
   //     .then(res => {
-  //       setDetailCategoryID(res[0].category_id);
-  //       setCategoryID(res[0].parent_category_id);
-  //       setCompanyNames(res[0].title);
-  //       companyLogoFetched(res[0].logo_img);
-  //       setCompanyIntroduceFetched(res[0].introduction);
-  //       setHomepage(res[0].website_url);
-  //       setMainFiled(res[0].main_field[0].main_field);
-  //       setDetailCompanyIntro(res[0].detail_introduction);
-  //       setMembership(res[0].member_benefit);
-  //       setCeoContact(res[0].contact);
-  //       setCompanyIntroFile(res[0].file_name);
-  //       setBranch(res[0].branch_name);
+  //       setDetailCategoryID(res.category_id);
+  //       setCategoryID(res.parent_category_id);
+  //       setCompanyNames(res.title);
+  //       companyLogoFetched(res.logo_img);
+  //       setCompanyIntroduceFetched(res.introduction);
+  //       setHomepage(res.website_url);
+  //       setMainFiled(res.main_field.main_field);
+  //       setDetailCompanyIntro(res.detail_introduction);
+  //       setMembership(res.member_benefit);
+  //       setCeoContact(res.contact);
+  //       setCompanyIntroFile(res.file_name);
+  //       setBranch(res.branch_name);
   //     });
   // }, []);
 
@@ -566,7 +567,7 @@ const PostWritePage = () => {
               <section className={css.btnWrapper}>
                 <div className={css.btnInnerWrapper}>
                   <button className={css.btn}>미리보기</button>
-                  {/* {type === modify ? (
+                  {/* {state.type && state.type === 'modify' ? (
                     <button className={css.btn} onClick={clikUpload}>
                       수정하기
                     </button>
