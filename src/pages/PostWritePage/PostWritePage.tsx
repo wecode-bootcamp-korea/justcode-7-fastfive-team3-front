@@ -74,15 +74,15 @@ const PostWritePage = () => {
   // }, []);
 
   //default 회사이름 GET
-  // useEffect(() => {
-  //   fetch('http://localhost:8000/user/checkauth', {
-  //     headers: requestHeaders,
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       setCompanyName(res.company_name);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch('http://localhost:8000/user/checkauth', {
+      headers: requestHeaders,
+    })
+      .then(res => res.json())
+      .then(res => {
+        setCompanyName(res.company_name);
+      });
+  }, []);
 
   //게시글 수정/등록 PUT
   const clikUpload = () => {
@@ -96,16 +96,6 @@ const PostWritePage = () => {
       branch &&
       agreeCheckBox
     ) {
-      console.log('categoryID', categoryID);
-      console.log('companyName', companyName);
-      console.log('homepage', homepage);
-      console.log('fiveLimit', fiveLimit);
-      console.log('companyIntroduce', companyIntroduce);
-      console.log('detailCompanyIntro', detailCompanyIntro);
-      console.log(membership);
-      console.log(contact);
-      console.log(branch);
-
       const formData = new FormData();
       formData.append('file', companyLogo);
       formData.append('file', companyIntroFile);
