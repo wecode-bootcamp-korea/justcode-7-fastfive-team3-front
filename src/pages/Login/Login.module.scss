@@ -48,6 +48,12 @@
       border: 1px solid #5bb684;
       color: #5bb684;
     }
+    .loginInfo {
+      font-size: 0.9rem;
+      & p {
+        color: #e1e1e1;
+      }
+    }
   }
 }
 
@@ -101,6 +107,12 @@
         background-color: #fff;
         border: 1px solid #5bb684;
         color: #5bb684;
+      }
+      .loginInfo {
+        font-size: 0.9rem;
+        & p {
+          color: #e1e1e1;
+        }
       }
     }
   }
