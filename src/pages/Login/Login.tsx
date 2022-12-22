@@ -42,7 +42,7 @@ const Login = () => {
           localStorage.setItem('email', json.authInfo.email);
           localStorage.setItem('sort_id', json.authInfo.sort_id);
           localStorage.setItem('is_admin', json.authInfo.is_admin);
-          window.location.href = '/';
+          window.location.href = '/subHome';
         }
       });
   };
@@ -74,6 +74,10 @@ const Login = () => {
         >
           로그인
         </button>
+        <div className={css.loginInfo}>
+          <p>글/댓글 쓰기권한 있는 멤버 : member3@test.com / member3</p>
+          <p>글/댓글 쓰기권한 없는 멤버 : member4@test.com / member4</p>
+        </div>
       </div>
     </div>
   );
