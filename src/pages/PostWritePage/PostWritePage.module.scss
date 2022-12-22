@@ -1,0 +1,1003 @@
+:root {
+  --div-margin-top: 1em;
+}
+
+.pageWrapper {
+  display: flex;
+  .footerWrapper {
+    display: flex;
+    flex-direction: column;
+    .outWrapper {
+      width: 80vw;
+      padding: 0 3rem;
+      .titleWrapper {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1.5rem;
+        .title {
+          font-size: 1.25em;
+          font-weight: bold;
+        }
+        .autoSaveNoti {
+          padding-top: 3em;
+          text-align: right;
+          font-size: 0.9em;
+        }
+      }
+
+      .subHeading {
+        line-height: 2;
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+
+      .contentWrapper {
+        padding-top: 1em;
+        .typeOfBusinessWrapper {
+          display: flex;
+          .categorySelect {
+            margin-left: 4em;
+            padding: 3px;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            cursor: pointer;
+          }
+          .detailSelect {
+            margin-left: 1em;
+            border-radius: 0px;
+            padding: 5px;
+            border: 1px solid #999696;
+            cursor: pointer;
+          }
+        }
+
+        .companyNameWrapper {
+          margin-top: var(--div-margin-top);
+          input {
+            margin-left: 1.47em;
+            width: 11vw;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            padding: 5px;
+          }
+          & input:focus {
+            outline: none;
+          }
+        }
+
+        .companyLogoWrapper {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          .logoUploadWrapper {
+            margin-left: 1.5em;
+            .imgWrapper {
+              input {
+                border-radius: 0;
+              }
+              img {
+              }
+            }
+            .logoSizeNoti {
+              font-size: 0.8em;
+            }
+          }
+        }
+        .mainWorkingFildAlert {
+          color: red;
+          font-size: 0.8em;
+          margin-left: 7.3em;
+        }
+
+        .essentiel {
+          color: red;
+          font-size: 0.8em;
+          margin-left: 7.3em;
+        }
+
+        .companyIntroduce {
+          margin-top: var(--div-margin-top);
+          .textAreaWrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            margin: 0.5em 0 0 5.9em;
+            width: 67.6vw;
+            height: 8vh;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            textarea {
+              border: none;
+              width: 61vw;
+              height: 7vh;
+              resize: none;
+            }
+            .textCountingSmall {
+              margin: 2.3em 0 0 0.5em;
+              width: 3.2vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: #999696;
+            }
+            .redTextCountingSmall {
+              margin: 2.3em 0 0 0.5em;
+              width: 3.2vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: red;
+            }
+          }
+          & textarea:focus::placeholder {
+            color: transparent;
+          }
+          & textarea:focus {
+            outline: none;
+          }
+        }
+
+        .companyUrl {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          input {
+            padding: 5px;
+            margin-left: 2.7em;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            width: 20vw;
+          }
+          & input:focus::placeholder {
+            color: transparent;
+          }
+          & input:focus {
+            outline: none;
+          }
+        }
+
+        .mainWorkingFild {
+          margin-top: var(--div-margin-top);
+          input {
+            padding: 5px;
+            margin: 0.5em 0 0 7em;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            width: 67.6vw;
+            height: 4vh;
+          }
+          & input:focus::placeholder {
+            color: transparent;
+          }
+          & input:focus {
+            outline: none;
+          }
+        }
+
+        .detailIntroduce {
+          margin-top: var(--div-margin-top);
+          .textAreaWrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            margin: 0.5em 0 0 5.9em;
+            width: 67.6vw;
+            height: 8vh;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            textarea {
+              border: none;
+              width: 61vw;
+              height: 7vh;
+              resize: none;
+            }
+            .textCounting {
+              margin: 2.3em 0 0 0.5em;
+              width: 4vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: #999696;
+            }
+            .redTextCounting {
+              margin: 2.3em 0 0 0.5em;
+              width: 4vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: red;
+            }
+          }
+          & textarea:focus::placeholder {
+            color: transparent;
+          }
+          & textarea:focus {
+            outline: none;
+          }
+        }
+
+        .membership {
+          margin-top: var(--div-margin-top);
+          .textAreaWrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            margin: 0.5em 0 0 5.9em;
+            width: 67.6vw;
+            height: 8vh;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            textarea {
+              border: none;
+              width: 61vw;
+              height: 7vh;
+              resize: none;
+            }
+            .textCountingSmall {
+              margin: 2.3em 0 0 0.5em;
+              width: 3.2vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: #999696;
+            }
+            .redTextCountingSmall {
+              margin: 2.3em 0 0 0.5em;
+              width: 3.2vw;
+              height: 100%;
+              font-size: 0.8em;
+              color: red;
+            }
+          }
+          & textarea:focus::placeholder {
+            color: transparent;
+          }
+          & textarea:focus {
+            outline: none;
+          }
+        }
+
+        .ceoInfo {
+          margin-top: var(--div-margin-top);
+          input {
+            padding: 5px;
+            margin-left: 7em;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            width: 67.6vw;
+            height: 4vh;
+            resize: none;
+          }
+          & input:focus::placeholder {
+            color: transparent;
+          }
+          & input:focus {
+            outline: none;
+          }
+        }
+
+        .companyIntroduceFile {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          .fileUploadWrapper {
+            margin-left: 1em;
+            input {
+            }
+            .fileSizeNoti {
+              font-size: 0.8em;
+            }
+          }
+        }
+
+        .usingBranch {
+          display: flex;
+          margin-top: var(--div-margin-top);
+          .categorySelect {
+            margin-left: 1em;
+            padding: 3px;
+            border-radius: 0px;
+            border: 1px solid #999696;
+            cursor: pointer;
+          }
+        }
+
+        .agreeWrapper {
+          display: flex;
+          margin-top: 1.3em;
+          justify-content: center;
+          input {
+          }
+          .agreeContent {
+            margin-left: 5px;
+            font-size: 0.8em;
+            .underline {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .btnWrapper {
+          display: flex;
+          justify-content: center;
+          margin: 1em 0 2em 6em;
+          .btnInnerWrapper {
+            display: flex;
+            gap: 15px;
+            .btn {
+              border-radius: 20px;
+              width: 75px;
+              height: 35px;
+              cursor: pointer;
+              background-color: #ff6d6a;
+              color: white;
+            }
+          }
+          .resetBtn {
+            border-radius: 20px;
+            background-color: #6b6b6b;
+            color: white;
+            margin-left: 6em;
+            width: 50px;
+            height: 35px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 981px) {
+  .pageWrapper {
+    .footerWrapper {
+      display: flex;
+      flex-direction: column;
+      .outWrapper {
+        width: 100vw;
+        padding: 0 3rem;
+        .titleWrapper {
+          display: flex;
+          justify-content: space-between;
+          padding-top: 1.5rem;
+          .title {
+            font-size: 1.25em;
+            font-weight: bold;
+          }
+          .autoSaveNoti {
+            padding-top: 3em;
+            text-align: right;
+            font-size: 0.9em;
+          }
+        }
+
+        .subHeading {
+          line-height: 2;
+          font-size: 0.9em;
+          font-weight: bold;
+        }
+
+        .contentWrapper {
+          padding-top: 1em;
+          .typeOfBusinessWrapper {
+            display: flex;
+            .categorySelect {
+              margin-left: 4em;
+              padding: 3px;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              cursor: pointer;
+            }
+            .detailSelect {
+              margin-left: 1em;
+              border-radius: 0px;
+              padding: 5px;
+              border: 1px solid #999696;
+              cursor: pointer;
+            }
+          }
+
+          .companyNameWrapper {
+            margin-top: var(--div-margin-top);
+            input {
+              margin-left: 1.6em;
+              width: 15vw;
+              border: 1px solid #999696;
+              border-radius: 0px;
+              padding: 5px;
+            }
+          }
+
+          .companyLogoWrapper {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            .logoUploadWrapper {
+              margin-left: 1.5em;
+              .imgWrapper {
+                input {
+                  border-radius: 0;
+                }
+                img {
+                }
+              }
+              .logoSizeNoti {
+                font-size: 0.8em;
+              }
+            }
+          }
+
+          .mainWorkingFildAlert {
+            color: red;
+            font-size: 0.8em;
+            margin-left: 7.8em;
+          }
+
+          .essentiel {
+            color: red;
+            font-size: 0.8em;
+            margin-left: 7.8em;
+          }
+
+          .companyIntroduce {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.2em;
+              width: 79.8vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 68vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCountingSmall {
+                margin: 2.3em 0.2em 0 0;
+                width: 5vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCountingSmall {
+                margin: 2.3em 0.2em 0 0;
+                width: 5vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .companyUrl {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin-left: 3em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 35vw;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .mainWorkingFild {
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin: 0.5em 0 0 7em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 79.8vw;
+              height: 4vh;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .detailIntroduce {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.2em;
+              width: 79.8vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 68vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCounting {
+                margin: 2.3em 0.5em 0 0;
+                width: 6vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCounting {
+                margin: 2.3em 0.5em 0 0;
+                width: 6vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .membership {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.2em;
+              width: 79.8vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 68vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCountingSmall {
+                margin: 2.3em 0.2em 0 0;
+                width: 5vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCountingSmall {
+                margin: 2.3em 0.2em 0 0;
+                width: 5vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .ceoInfo {
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin-left: 7em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 79.8vw;
+              height: 4vh;
+              resize: none;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .companyIntroduceFile {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            .fileUploadWrapper {
+              margin-left: 1.4em;
+              input {
+              }
+              .fileSizeNoti {
+                font-size: 0.8em;
+              }
+            }
+          }
+
+          .usingBranch {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            .categorySelect {
+              margin-left: 0.7em;
+              padding: 3px;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              cursor: pointer;
+            }
+          }
+
+          .agreeWrapper {
+            display: flex;
+            margin-top: 1.3em;
+            justify-content: center;
+            input {
+            }
+            .agreeContent {
+              margin-left: 5px;
+              font-size: 0.8em;
+              .underline {
+                text-decoration: underline;
+              }
+            }
+          }
+
+          .btnWrapper {
+            display: flex;
+            justify-content: center;
+            margin: 1em 0 2em 6em;
+            .btnInnerWrapper {
+              display: flex;
+              gap: 15px;
+              .btn {
+                width: 65px;
+                height: 35px;
+                cursor: pointer;
+              }
+            }
+            .resetBtn {
+              margin-left: 6em;
+              width: 40px;
+              height: 35px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .pageWrapper {
+    .footerWrapper {
+      display: flex;
+      flex-direction: column;
+      .outWrapper {
+        width: 100vw;
+        padding: 0 3rem;
+        .titleWrapper {
+          display: flex;
+          justify-content: space-between;
+          padding-top: 1.5rem;
+          .title {
+            font-size: 1.25em;
+            font-weight: bold;
+          }
+          .autoSaveNoti {
+            padding-top: 3em;
+            text-align: right;
+            font-size: 0.9em;
+          }
+        }
+
+        .subHeading {
+          line-height: 2;
+          font-size: 0.9em;
+          font-weight: bold;
+        }
+
+        .contentWrapper {
+          padding-top: 1em;
+          .typeOfBusinessWrapper {
+            display: flex;
+            .categorySelect {
+              margin-left: 4em;
+              padding: 3px;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              cursor: pointer;
+            }
+            .detailSelect {
+              margin-left: 1em;
+              border-radius: 0px;
+              padding: 5px;
+              border: 1px solid #999696;
+              cursor: pointer;
+            }
+          }
+
+          .companyNameWrapper {
+            margin-top: var(--div-margin-top);
+            input {
+              margin-left: 1.9em;
+              width: 20vw;
+              border: 1px solid #999696;
+              border-radius: 0px;
+              padding: 5px;
+            }
+          }
+
+          .companyLogoWrapper {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            .logoUploadWrapper {
+              margin-left: 1.5em;
+              .imgWrapper {
+                input {
+                  border-radius: 0;
+                }
+                img {
+                }
+              }
+              .logoSizeNoti {
+                font-size: 0.8em;
+              }
+            }
+          }
+
+          .mainWorkingFildAlert {
+            color: red;
+            font-size: 0.8em;
+            margin-left: 8.3em;
+          }
+
+          .essentiel {
+            color: red;
+            font-size: 0.8em;
+            margin-left: 8.3em;
+          }
+
+          .companyIntroduce {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.7em;
+              width: 77.9vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 63vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCountingSmall {
+                margin: 2.8em 1.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCountingSmall {
+                margin: 2.8em 1.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .companyUrl {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin-left: 3em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 35vw;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .mainWorkingFild {
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin: 0.5em 0 0 6.5em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 78vw;
+              height: 4vh;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .detailIntroduce {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.7em;
+              width: 77.9vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 63vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCounting {
+                margin: 3em 2.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCounting {
+                margin: 3em 2.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .membership {
+            margin-top: var(--div-margin-top);
+            .textAreaWrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 5px;
+              margin: 0.5em 0 0 6.7em;
+              width: 77.9vw;
+              height: 8vh;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              textarea {
+                border: none;
+                width: 63vw;
+                height: 7vh;
+                resize: none;
+              }
+              .textCountingSmall {
+                margin: 2.8em 1.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: #999696;
+              }
+              .redTextCountingSmall {
+                margin: 2.8em 1.5em 0 0;
+                width: 3.2vw;
+                height: 100%;
+                font-size: 0.8em;
+                color: red;
+              }
+            }
+            & textarea:focus::placeholder {
+              color: transparent;
+            }
+            & textarea:focus {
+              outline: none;
+            }
+          }
+
+          .ceoInfo {
+            margin-top: var(--div-margin-top);
+            input {
+              padding: 5px;
+              margin-left: 6.5em;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              width: 77.8vw;
+              height: 4vh;
+              resize: none;
+            }
+            & input:focus::placeholder {
+              color: transparent;
+            }
+            & input:focus {
+              outline: none;
+            }
+          }
+
+          .companyIntroduceFile {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            .fileUploadWrapper {
+              margin-left: 1.8em;
+              input {
+              }
+              .fileSizeNoti {
+                font-size: 0.8em;
+              }
+            }
+          }
+
+          .usingBranch {
+            display: flex;
+            margin-top: var(--div-margin-top);
+            .categorySelect {
+              margin-left: 0.7em;
+              padding: 3px;
+              border-radius: 0px;
+              border: 1px solid #999696;
+              cursor: pointer;
+            }
+          }
+
+          .agreeWrapper {
+            display: flex;
+            margin-top: 1.3em;
+            justify-content: center;
+            input {
+            }
+            .agreeContent {
+              margin-left: 5px;
+              font-size: 0.8em;
+              .underline {
+                text-decoration: underline;
+              }
+            }
+          }
+
+          .btnWrapper {
+            display: flex;
+            justify-content: center;
+            margin: 1em 0 2em 6em;
+            .btnInnerWrapper {
+              display: flex;
+              gap: 15px;
+              .btn {
+                width: 65px;
+                height: 35px;
+                cursor: pointer;
+              }
+            }
+            .resetBtn {
+              margin-left: 6em;
+              width: 40px;
+              height: 35px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}

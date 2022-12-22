@@ -1,0 +1,24 @@
+.sideBarContainer {
+  margin: 0;
+  width: 320px;
+  background-color: #5bb684;
+
+  .comunity {
+    margin: 3em 0 1em 2em;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  .memberIntroduce {
+    margin: 0 0 1em 3.5em;
+    color: #fff;
+    font-size: 0.9em;
+    border-bottom: 1px solid white;
+  }
+}
+@media screen and (max-width: 981px) {
+  .sideBarContainer {
+    display: none;
+  }
+}

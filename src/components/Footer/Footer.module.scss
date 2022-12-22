@@ -1,0 +1,84 @@
+.footerContainer {
+  width: 100%;
+  height: 10vh;
+  background-color: #e7e7e7;
+  border-bottom: 1px solid;
+  .footerContentWrapper {
+    display: flex;
+    justify-content: center;
+    .companyEngName {
+      margin-top: 1.08em;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: rgb(133, 132, 132);
+    }
+    .companyName {
+      margin-top: 1.8em;
+      color: rgb(133, 132, 132);
+      font-size: 0.9em;
+    }
+    .companyInfo {
+      margin-top: 1.8em;
+      color: rgb(133, 132, 132);
+      font-size: 0.9em;
+    }
+  }
+}
+
+@media screen and (max-width: 981px) {
+  .footerContainer {
+    width: 100%;
+    height: 10vh;
+    background-color: #e7e7e7;
+    border-bottom: 1px solid;
+    .footerContentWrapper {
+      display: flex;
+      justify-content: center;
+      .companyEngName {
+        margin-top: 1.4em;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: rgb(133, 132, 132);
+      }
+      .companyName {
+        margin-top: 2em;
+        color: rgb(133, 132, 132);
+        font-size: 0.9em;
+      }
+      .companyInfo {
+        margin-top: 2em;
+        color: rgb(133, 132, 132);
+        font-size: 0.9em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footerContainer {
+    width: 100%;
+    height: 10vh;
+    background-color: #e7e7e7;
+    border-bottom: 1px solid;
+    .footerContentWrapper {
+      display: flex;
+      justify-content: center;
+      .companyEngName {
+        margin-top: 1.7em;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: rgb(133, 132, 132);
+      }
+      .companyName {
+        margin-top: 2.5em;
+        color: rgb(133, 132, 132);
+        font-size: 0.9em;
+      }
+      .companyInfo {
+        margin-top: 2.5em;
+        color: rgb(133, 132, 132);
+        font-size: 0.9em;
+      }
+    }
+  }
+}

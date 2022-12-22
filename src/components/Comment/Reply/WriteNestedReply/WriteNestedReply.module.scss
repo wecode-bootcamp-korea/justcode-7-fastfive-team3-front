@@ -1,0 +1,65 @@
+.writeReplyContainer {
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  .writeCountAndsend {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    margin-left: 1em;
+    .unlock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/unlock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
+    .lock {
+      width: 1em;
+      height: 1em;
+      margin-left: 0.5em;
+      background-image: url('../../../../assets/image/lock.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      cursor: pointer;
+    }
+    .notSendReply {
+      margin-left: 1em;
+      padding: 0.3em 0.8em;
+      background-color: #e7e7e7;
+      color: black;
+      border-radius: 0.45em;
+    }
+    .sendReply {
+      margin-left: 1em;
+      padding: 0.3em 0.8em;
+      background-color: #ff6d6a;
+      color: #fff;
+      border-radius: 0.45em;
+      cursor: pointer;
+    }
+  }
+  .writeCommentContent {
+    width: 85%;
+    // height: 100%;
+    margin-top: 1rem;
+    color: black;
+    border: none;
+    resize: none;
+  }
+  .writeCommentContent:focus {
+    outline: none;
+  }
+  .writeCommentContent:disabled {
+    background-color: #fff;
+  }
+}
+.reply {
+  width: 95%;
+}
