@@ -42,7 +42,7 @@ const Login = () => {
           localStorage.setItem('email', json.authInfo.email);
           localStorage.setItem('sort_id', json.authInfo.sort_id);
           localStorage.setItem('is_admin', json.authInfo.is_admin);
-          window.location.href = '/subhome';
+          window.location.href = '/subHome';
         }
       });
   };
