@@ -8,7 +8,8 @@ import css from './PostWritePage.module.scss';
 
 const PostWritePage = () => {
   const navigate = useNavigate();
-  const URI = process.env.REACT_APP_BASE_URL;
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
   const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
   const [categoryID, setCategoryID] = useState<any>(); //카테고리 아이디
@@ -76,7 +77,7 @@ const PostWritePage = () => {
 
   //default 회사이름 GET
   useEffect(() => {
-    fetch('http://' + URI + ':8000/user/checkauth', {
+    fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
       headers: requestHeaders,
     })
       .then(res => res.json())
@@ -131,7 +132,7 @@ const PostWritePage = () => {
       }
 
       if (detailCategoryArray.length === 0) {
-        fetch('http://' + URI + ':8000/feed/posting', {
+        fetch('http://' + URI + ':' + PORT + '/feed/posting', {
           method: 'PUT',
           headers: requestHeaderFormData,
           body: formData,
@@ -158,7 +159,7 @@ const PostWritePage = () => {
 
   //카테고리 GET
   useEffect(() => {
-    fetch('http://' + URI + ':8000/category', {
+    fetch('http://' + URI + ':' + PORT + '/category', {
       headers: requestHeaders,
     })
       .then(res => res.json())
@@ -219,7 +220,7 @@ const PostWritePage = () => {
     if (!categoryID) {
       return;
     }
-    fetch('http://' + URI + ':8000/category/' + categoryID, {
+    fetch('http://' + URI + ':' + PORT + '/category/' + categoryID, {
       headers: requestHeaders,
     })
       .then(res => res.json())
