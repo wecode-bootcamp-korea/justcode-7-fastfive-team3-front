@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import css from './Login.module.scss';
 
 const Login = () => {
-  const URI = process.env.REACT_APP_BASE_URL;
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailWrong, setIsEmailWrong] = useState(false);
@@ -20,7 +21,7 @@ const Login = () => {
     setEmail(e.target.value);
   };
   const login = () => {
-    fetch('http://' + URI + ':8000/user/login', {
+    fetch('http://' + URI + ':' + PORT + '/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

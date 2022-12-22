@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import css from './CardSubHome.module.scss';
 import { Pagination } from '@mui/material';
-const URI = process.env.REACT_APP_BASE_URL;
 
 function CardSubHome() {
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [companyCard, setCompanyCard] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
-    fetch('http://' + URI + ':8000/category')
+    fetch('http://' + URI + ':' + PORT + '/category')
       .then(res => res.json())
       .then(result => setCategoryList(result));
   }, []);
@@ -24,7 +25,7 @@ function CardSubHome() {
       ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
   );
   useEffect(() => {
-    fetch('http://' + URI + ':8000/user/checkauth', {
+    fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
       headers: requestHeaders,
     })
       .then(res => res.json())
@@ -35,7 +36,13 @@ function CardSubHome() {
 
   const handleCategory = (e: React.MouseEvent<HTMLElement>) => {
     const category = e.currentTarget;
-    fetch(`http://` + URI + `:8000/subhome/category?category_id=${category.id}`)
+    fetch(
+      `http://` +
+        URI +
+        `:` +
+        PORT +
+        `/subhome/category?category_id=${category.id}`
+    )
       .then(res => res.json())
       .then(result => {
         setCompanyCard(result);
@@ -53,7 +60,7 @@ function CardSubHome() {
   const [currPage, setCurrPage] = useState('');
   const [totalPages, setTotalPages] = useState(0);
   useEffect(() => {
-    fetch(`http://` + URI + `:8000/feedlist?page=${currPage}`, {
+    fetch(`http://` + URI + `:` + PORT + `/feedlist?page=${currPage}`, {
       method: 'GET',
       headers: requestHeaders,
     })

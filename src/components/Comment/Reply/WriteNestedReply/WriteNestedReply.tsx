@@ -15,7 +15,8 @@ const WriteNestedReply: React.FC<TextareaType> = ({
   parentId,
   setComments,
 }) => {
-  const URI = process.env.REACT_APP_BASE_URL;
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [replyTextLength, setReplyTextLength] = useState(0);
   const [isSecret, setIsSecret] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
@@ -59,7 +60,7 @@ const WriteNestedReply: React.FC<TextareaType> = ({
   let postId = params.id;
 
   const uploadReply = () => {
-    fetch('http://' + URI + ':8000/reply', {
+    fetch('http://' + URI + ':' + PORT + '/reply', {
       method: 'POST',
       headers: requestHeaders,
       body: JSON.stringify({
@@ -71,7 +72,6 @@ const WriteNestedReply: React.FC<TextareaType> = ({
     })
       .then(response => response.json())
       .then(json => {
-        console.log('reply : ', json);
         if (json.createdNewComment) {
           setTotalPages(Number(json.result.replyPageCnt));
           setComments(json.result.result);

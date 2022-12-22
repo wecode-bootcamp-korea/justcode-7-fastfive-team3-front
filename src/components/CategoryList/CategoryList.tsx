@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import css from './CategoryList.module.scss';
 
 function CategoryList() {
-  const URI = process.env.REACT_APP_BASE_URL;
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
