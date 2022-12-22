@@ -10,7 +10,7 @@ const PostWritePage = () => {
   const navigate = useNavigate();
   const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
   const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
-  const [categoryID, setCategoryID] = useState<string | number>(); //카테고리 아이디
+  const [categoryID, setCategoryID] = useState<any>(); //카테고리 아이디
   const [detailCategoryID, setDetailCategoryID] = useState<string | number>(); //상세 카테고리 아이디
   const [companyName, setCompanyName] = useState<string>(''); //회사이름
   const [companyLogo, setCompanyLogo] = useState<any>(); //회사로고 파일
@@ -51,22 +51,6 @@ const PostWritePage = () => {
     localStorage?.getItem('Authorization') || ''
   );
 
-  // Form Data
-  const formData = new FormData();
-  // add file/file_id if there is one
-  formData.append('file', companyLogo);
-  formData.append('file', companyIntroFile);
-  //Basic form info
-  formData.append('categoryId', JSON.stringify(categoryID));
-  formData.append('title', JSON.stringify(companyName));
-  formData.append('hompage', JSON.stringify(homepage));
-  formData.append('main_field', JSON.stringify(fiveLimit));
-  formData.append('introduction', JSON.stringify(companyIntroduce));
-  formData.append('detail_introduction', JSON.stringify(detailCompanyIntro));
-  formData.append('member_benefit', JSON.stringify(membership));
-  formData.append('contact', JSON.stringify(contact));
-  formData.append('branch', JSON.stringify(branch));
-
   //작성 게시글 불러오기 GET
   // useEffect(() => {
   //   fetch('http://localhost:8000/feed/posting', {
@@ -100,8 +84,6 @@ const PostWritePage = () => {
   //     });
   // }, []);
 
-  console.log('companyLogo', companyLogo);
-
   //게시글 수정/등록 PUT
   const clikUpload = () => {
     if (
@@ -114,8 +96,34 @@ const PostWritePage = () => {
       branch &&
       agreeCheckBox
     ) {
+      console.log('categoryID', categoryID);
+      console.log('companyName', companyName);
+      console.log('homepage', homepage);
+      console.log('fiveLimit', fiveLimit);
+      console.log('companyIntroduce', companyIntroduce);
+      console.log('detailCompanyIntro', detailCompanyIntro);
+      console.log(membership);
+      console.log(contact);
+      console.log(branch);
+
+      const formData = new FormData();
+      formData.append('file', companyLogo);
+      formData.append('file', companyIntroFile);
+      //Basic form info
+      formData.append('categoryId', categoryID);
+      formData.append('title', companyName);
+      formData.append('hompage', JSON.stringify(homepage));
+      formData.append('main_field', fiveLimit);
+      formData.append('introduction', companyIntroduce);
+      formData.append(
+        'detail_introduction',
+        JSON.stringify(detailCompanyIntro)
+      );
+      formData.append('member_benefit', JSON.stringify(membership));
+      formData.append('contact', contact);
+      formData.append('branch', branch);
+
       if (detailCategoryArray.length !== 0) {
-        console.log('디테일카테고리', detailCategoryArray);
         if (detailCategoryID) {
           fetch('http://localhost:8000/feed/posting', {
             method: 'PUT',
@@ -130,6 +138,7 @@ const PostWritePage = () => {
           alert('상세 카테고리를 선택하세요.');
         }
       }
+
       if (detailCategoryArray.length === 0) {
         fetch('http://localhost:8000/feed/posting', {
           method: 'PUT',
@@ -382,11 +391,13 @@ const PostWritePage = () => {
                     type="text"
                     placeholder={'우리회사의 홈페이지 주소를 알려주세요.'}
                     value={homepage}
+                    onChange={e => setHomepage(e.target.value)}
                   />
                 ) : (
                   <input
                     type="text"
                     placeholder={'우리회사의 홈페이지 주소를 알려주세요.'}
+                    onChange={e => setHomepage(e.target.value)}
                   />
                 )}
               </div>
