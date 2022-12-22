@@ -3,6 +3,7 @@ import { NestedReplyProps } from '../../CommentList/CommentList';
 import css from './NestedReply.module.scss';
 
 const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
+  const URI = process.env.REACT_APP_BASE_URL;
   //textarea 처음에 비활성화 -> 수정 클릭 시 활성화
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
@@ -34,7 +35,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
   }
   const doDelete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      fetch('http://localhost:8000/reply', {
+      fetch('http://l' + URI + ':8000/reply', {
         method: 'DELETE',
         headers: requestHeaders,
         body: JSON.stringify({
@@ -76,7 +77,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
     }
   };
   const modifyNestedReply = () => {
-    fetch('http://localhost:8000/reply', {
+    fetch('http://' + URI + ':8000/reply', {
       method: 'PATCH',
       headers: requestHeaders,
       body: JSON.stringify({

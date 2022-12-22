@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import css from './CategoryList.module.scss';
 
 function CategoryList() {
+  const URI = process.env.REACT_APP_BASE_URL;
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
@@ -12,7 +13,7 @@ function CategoryList() {
 
   // useEffect(() => {
   //   const token = localStorage.getItem('token');
-  //   fetch('http://localhost:8000/category', {
+  //   fetch('http://' + URI + ':8000/category', {
   //     method: 'GET',
   //     headers: {
   //       authorization: token,

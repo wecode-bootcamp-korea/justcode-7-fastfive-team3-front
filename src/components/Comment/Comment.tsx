@@ -50,6 +50,7 @@ export interface PropsType {
   setComments: Function;
 }
 const Comment = () => {
+  const URI = process.env.REACT_APP_BASE_URL;
   //메인 댓글 실시간 내용
   const [mainCommentText, setMainCommentText] = useState('');
   //글자 수
@@ -78,7 +79,7 @@ const Comment = () => {
     requestHeaders.set('Authorization', token);
   }
   useEffect(() => {
-    fetch(`http://localhost:8000/reply/${postId}?page=${currPage}`, {
+    fetch(`http://` + URI + `:8000/reply/${postId}?page=${currPage}`, {
       method: 'GET',
       headers: requestHeaders,
     })
@@ -138,7 +139,7 @@ const Comment = () => {
   console.log(isMainSecret);
 
   const uploadComment = () => {
-    fetch('http://localhost:8000/reply', {
+    fetch('http://' + URI + ':8000/reply', {
       method: 'POST',
       headers: requestHeaders,
       body: JSON.stringify({

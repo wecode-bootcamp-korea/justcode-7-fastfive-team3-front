@@ -4,11 +4,12 @@ import css from './CompanyList.module.scss';
 import { Pagination } from '@mui/material';
 
 function CompanyList() {
+  const URI = process.env.REACT_APP_BASE_URL;
   const [companyCard, setCompanyCard] = useState([]);
   const [currPage, setCurrPage] = useState('');
   const [totalPages, setTotalPages] = useState(0);
   useEffect(() => {
-    fetch(`http://localhost:8000/feedlist?page=${currPage}`, {
+    fetch(`http://` + URI + `:8000/feedlist?page=${currPage}`, {
       method: 'GET',
       headers: requestHeaders,
     })
@@ -24,7 +25,7 @@ function CompanyList() {
 
   const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/category')
+    fetch('http://' + URI + ':8000/category')
       .then(res => res.json())
       .then(result => setCategoryList(result));
   }, []);
@@ -41,7 +42,7 @@ function CompanyList() {
       ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
   );
   useEffect(() => {
-    fetch('http://localhost:8000/user/checkauth', {
+    fetch('http://' + URI + ':8000/user/checkauth', {
       headers: requestHeaders,
     })
       .then(res => res.json())
@@ -52,7 +53,7 @@ function CompanyList() {
 
   const handleLocation = (e: React.MouseEvent<HTMLElement>) => {
     const location = e.currentTarget;
-    fetch(`http://localhost:8000/feedlist?location_id=${location.id}`)
+    fetch(`http://` + URI + `:8000/feedlist?location_id=${location.id}`)
       .then(res => res.json())
       .then(result => {
         setCompanyCard(result.result);
@@ -63,7 +64,7 @@ function CompanyList() {
 
   const handleCategory = (e: React.MouseEvent<HTMLElement>) => {
     const category = e.currentTarget;
-    fetch(`http://localhost:8000/subhome/category?category_id=${category.id}`)
+    fetch(`http://` + URI + `:8000/subhome/category?category_id=${category.id}`)
       .then(res => res.json())
       .then(result => {
         setCompanyCard(result);

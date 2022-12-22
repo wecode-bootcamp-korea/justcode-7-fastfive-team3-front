@@ -15,6 +15,7 @@ const WriteNestedReply: React.FC<TextareaType> = ({
   parentId,
   setComments,
 }) => {
+  const URI = process.env.REACT_APP_BASE_URL;
   const [replyTextLength, setReplyTextLength] = useState(0);
   const [isSecret, setIsSecret] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
@@ -58,7 +59,7 @@ const WriteNestedReply: React.FC<TextareaType> = ({
   let postId = params.id;
 
   const uploadReply = () => {
-    fetch('http://localhost:8000/reply', {
+    fetch('http://' + URI + ':8000/reply', {
       method: 'POST',
       headers: requestHeaders,
       body: JSON.stringify({

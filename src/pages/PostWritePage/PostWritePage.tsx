@@ -8,6 +8,7 @@ import css from './PostWritePage.module.scss';
 
 const PostWritePage = () => {
   const navigate = useNavigate();
+  const URI = process.env.REACT_APP_BASE_URL;
   const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
   const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
   const [categoryID, setCategoryID] = useState<any>(); //카테고리 아이디
@@ -53,7 +54,7 @@ const PostWritePage = () => {
 
   //작성 게시글 불러오기 GET
   // useEffect(() => {
-  //   fetch('http://localhost:8000/feed/posting', {
+  //   fetch('http://' + URI + ':8000/feed/posting', {
   //     headers: requestHeaders,
   //   })
   //     .then(res => res.json())
@@ -75,7 +76,7 @@ const PostWritePage = () => {
 
   //default 회사이름 GET
   useEffect(() => {
-    fetch('http://localhost:8000/user/checkauth', {
+    fetch('http://' + URI + ':8000/user/checkauth', {
       headers: requestHeaders,
     })
       .then(res => res.json())
@@ -115,7 +116,7 @@ const PostWritePage = () => {
 
       if (detailCategoryArray.length !== 0) {
         if (detailCategoryID) {
-          fetch('http://localhost:8000/feed/posting', {
+          fetch('http://' + URI + ':8000/feed/posting', {
             method: 'PUT',
             headers: requestHeaderFormData,
             body: formData,
@@ -130,7 +131,7 @@ const PostWritePage = () => {
       }
 
       if (detailCategoryArray.length === 0) {
-        fetch('http://localhost:8000/feed/posting', {
+        fetch('http://' + URI + ':8000/feed/posting', {
           method: 'PUT',
           headers: requestHeaderFormData,
           body: formData,
@@ -157,7 +158,7 @@ const PostWritePage = () => {
 
   //카테고리 GET
   useEffect(() => {
-    fetch('http://localhost:8000/category', {
+    fetch('http://' + URI + ':8000/category', {
       headers: requestHeaders,
     })
       .then(res => res.json())
@@ -218,7 +219,7 @@ const PostWritePage = () => {
     if (!categoryID) {
       return;
     }
-    fetch('http://localhost:8000/category/' + categoryID, {
+    fetch('http://' + URI + ':8000/category/' + categoryID, {
       headers: requestHeaders,
     })
       .then(res => res.json())
