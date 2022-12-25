@@ -18,7 +18,7 @@ const Header = () => {
         </button>
       ) : (
         <button>
-          <Link to="/login">로그인</Link>
+          <Link to="/">로그인</Link>
         </button>
       )}
     </header>
