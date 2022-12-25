@@ -26,6 +26,7 @@ const PostWritePage = () => {
   const [membership, setMembership] = useState<string>(); //멤버 혜택
   const [companyIntroFile, setCompanyIntroFile] = useState<any>(); //회사소개 파일
   const [branch, setBranch] = useState<string>(''); //지점
+  const { state } = useLocation();
 
   const [agreeCheckBox, setAgreeCheckBox] = useState<boolean | undefined>(
     false
@@ -43,54 +44,51 @@ const PostWritePage = () => {
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
   requestHeaders.set('categoryId', categoryID);
-  requestHeaders.set(
-    'Authorization',
-    localStorage?.getItem('Authorization') || ''
-  );
+  requestHeaders.set('Authorization', localStorage?.getItem('token') || '');
 
   const requestHeaderFormData: HeadersInit = new Headers();
   // requestHeaderFormData.set('Content-Type', 'multipart/form-data');
   requestHeaderFormData.set(
     'Authorization',
-    localStorage?.getItem('Authorization') || ''
+    localStorage?.getItem('token') || ''
   );
 
-  //임시저장
-  useEffect(() => {
-    setInterval(() => {
-      fetch('http://' + URI + ':' + PORT + '/feed/posting/temporarysave', {
-        method: 'PUT',
-        headers: requestHeaders,
-        body: JSON.stringify({ categoryId: categoryID }),
-      })
-        .then(res => res.json())
-        .then(res => {
-          setDate(res);
-          console.log('날짜', date);
-        });
-    }, 60000);
-  }, []);
+  const formData = new FormData();
+  formData.append('file', companyLogo);
+  formData.append('file', companyIntroFile);
+  //Basic form info
+  formData.append('categoryId', categoryID);
+  formData.append('title', companyName);
+  formData.append('hompage', JSON.stringify(homepage));
+  formData.append('main_field', fiveLimit);
+  formData.append('introduction', companyIntroduce);
+  formData.append('detail_introduction', JSON.stringify(detailCompanyIntro));
+  formData.append('member_benefit', JSON.stringify(membership));
+  formData.append('contact', contact);
+  formData.append('branch', branch);
 
   //작성 게시글 불러오기 GET
   // useEffect(() => {
-  //   fetch('http://' + URI + ':8000/feed/posting', {
-  //     headers: requestHeaders,
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       setDetailCategoryID(res.category_id);
-  //       setCategoryID(res.parent_category_id);
-  //       setCompanyNames(res.title);
-  //       companyLogoFetched(res.logo_img);
-  //       setCompanyIntroduceFetched(res.introduction);
-  //       setHomepage(res.website_url);
-  //       setMainFiled(res.main_field.main_field);
-  //       setDetailCompanyIntro(res.detail_introduction);
-  //       setMembership(res.member_benefit);
-  //       setCeoContact(res.contact);
-  //       setCompanyIntroFile(res.file_name);
-  //       setBranch(res.branch_name);
-  //     });
+  //   if (state.type === 'modify') {
+  //     fetch('http://' + URI + ':' + PORT + '/feed/posting', {
+  //       headers: requestHeaders,
+  //     })
+  //       .then(res => res.json())
+  //       .then(res => {
+  //         setDetailCategoryID(res.category_id);
+  //         setCategoryID(res.parent_category_id);
+  //         setCompanyName(res.title);
+  //         companyLogo(res.logo_img);
+  //         setCompanyIntroduce(res.introduction);
+  //         setHomepage(res.website_url);
+  //         setFiveLimit(res.field_name[0].main_field);
+  //         setDetailCompanyIntro(res.detail_introduction);
+  //         setMembership(res.member_benefit);
+  //         setContact(res.contact);
+  //         setCompanyIntroFile(res.file_name);
+  //         setBranch(res.branch_name);
+  //       });
+  //   }
   // }, []);
 
   //default 회사이름 GET
@@ -102,6 +100,21 @@ const PostWritePage = () => {
       .then(res => {
         setCompanyName(res.company_name);
       });
+  }, []);
+
+  //임시저장
+  useEffect(() => {
+    setInterval(() => {
+      fetch('http://' + URI + ':' + PORT + '/feed/posting/temporarysave', {
+        method: 'POST',
+        headers: requestHeaders,
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(res => {
+          setDate(res);
+        });
+    }, 60000);
   }, []);
 
   //게시글 수정/등록 PUT
@@ -116,24 +129,6 @@ const PostWritePage = () => {
       branch &&
       agreeCheckBox
     ) {
-      const formData = new FormData();
-      formData.append('file', companyLogo);
-      console.log(formData.append('file', companyLogo));
-      formData.append('file', companyIntroFile);
-      //Basic form info
-      formData.append('categoryId', categoryID);
-      formData.append('title', companyName);
-      formData.append('hompage', JSON.stringify(homepage));
-      formData.append('main_field', fiveLimit);
-      formData.append('introduction', companyIntroduce);
-      formData.append(
-        'detail_introduction',
-        JSON.stringify(detailCompanyIntro)
-      );
-      formData.append('member_benefit', JSON.stringify(membership));
-      formData.append('contact', contact);
-      formData.append('branch', branch);
-
       if (detailCategoryArray.length !== 0) {
         if (detailCategoryID) {
           fetch('http://' + URI + ':8000/feed/posting', {
@@ -587,15 +582,15 @@ const PostWritePage = () => {
               <section className={css.btnWrapper}>
                 <div className={css.btnInnerWrapper}>
                   <button className={css.btn}>미리보기</button>
-                  {/* {state.type && state.type === 'modify' ? (
+                  {state && state.type === 'modify' ? (
                     <button className={css.btn} onClick={clikUpload}>
                       수정하기
                     </button>
-                  ) : ( */}
-                  <button className={css.btn} onClick={clikUpload}>
-                    등록하기
-                  </button>
-                  {/* )} */}
+                  ) : (
+                    <button className={css.btn} onClick={clikUpload}>
+                      등록하기
+                    </button>
+                  )}
                 </div>
                 <button className={css.resetBtn}>취소</button>
               </section>
