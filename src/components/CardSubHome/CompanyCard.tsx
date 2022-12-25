@@ -5,8 +5,18 @@ function CompanyCard() {
   const URI = process.env.REACT_APP_BACK_URL;
   const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [companyCard, setCompanyCard] = useState([]);
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set('Content-Type', 'application/json');
+  requestHeaders.set(
+    'Authorization',
+    localStorage
+      ?.getItem('token')
+      ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
+  );
   useEffect(() => {
-    fetch('http://' + URI + ':' + PORT + '/feedlist')
+    fetch('http://' + URI + ':' + PORT + '/feedlist', {
+      headers: requestHeaders,
+    })
       .then(res => res.json())
       .then(result => {
         setCompanyCard(result);
