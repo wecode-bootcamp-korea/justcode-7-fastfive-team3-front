@@ -36,7 +36,6 @@ const Login = () => {
         if (json.message) {
           alert('입력한 정보를 다시 확인해주세요.');
         } else if (json.token !== '') {
-          console.log(json);
           localStorage.setItem('token', json.authInfo.token);
           localStorage.setItem('id', json.authInfo.id);
           localStorage.setItem('nickname', json.authInfo.nickname);
