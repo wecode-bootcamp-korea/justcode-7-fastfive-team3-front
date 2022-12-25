@@ -35,6 +35,8 @@ interface CompanyInfoType {
 }
 
 const CardDetailPage = () => {
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [isModalOn, setIsModalOn] = useState(false);
   const [email, setEmail] = useState('');
   const [postInfo, setPostInfo] = useState<CompanyInfoType>();
@@ -51,7 +53,7 @@ const CardDetailPage = () => {
   let postId = params.id;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/feedlist/${postId}`, {
+    fetch(`http://` + URI + `:` + PORT + `/feedlist/${postId}`, {
       method: 'GET',
       headers: requestHeaders,
     })
@@ -94,7 +96,7 @@ const CardDetailPage = () => {
   //삭제 기능 구현
   const doDelete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      fetch('http://localhost:8000/feed/posting', {
+      fetch('http://' + URI + ':' + PORT + '/feed/posting', {
         method: 'DELETE',
         headers: requestHeaders,
         body: JSON.stringify({

@@ -12,7 +12,7 @@ function CategoryList() {
 
   // useEffect(() => {
   //   const token = localStorage.getItem('token');
-  //   fetch('http://localhost:8000/category', {
+  //   fetch('http://' + URI + ':8000/category', {
   //     method: 'GET',
   //     headers: {
   //       authorization: token,

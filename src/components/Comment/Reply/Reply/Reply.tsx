@@ -9,13 +9,14 @@ const Reply: React.FC<ReplyProps> = ({
   commentInfo,
   setParentId,
 }) => {
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [isMyTextarea, setIsMyTextarea] = useState(true);
   const [isPrivate, setIsPrivate] = useState(false);
   const [replyTextLength, setReplyTextLength] = useState(0);
   const [isMainSecret, setMainIsSecret] = useState(false);
   const [isLoginUser, setIsLoginUser] = useState(false);
   const [feedUser, setFeedUser] = useState(0);
-  console.log('commentInfo : ', commentInfo);
   const doModify = () => {
     setIsMyTextarea(false);
   };
@@ -36,7 +37,7 @@ const Reply: React.FC<ReplyProps> = ({
   }
   const doDelete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      fetch('http://localhost:8000/reply', {
+      fetch('http://' + URI + ':' + PORT + '/reply', {
         method: 'DELETE',
         headers: requestHeaders,
         body: JSON.stringify({
@@ -88,7 +89,7 @@ const Reply: React.FC<ReplyProps> = ({
   const textareaDOM = useRef<HTMLTextAreaElement>(null);
   let textareaValue = textareaDOM.current?.value;
   const modifyReply = () => {
-    fetch('http://localhost:8000/reply', {
+    fetch('http://' + URI + ':' + PORT + '/reply', {
       method: 'PATCH',
       headers: requestHeaders,
       body: JSON.stringify({

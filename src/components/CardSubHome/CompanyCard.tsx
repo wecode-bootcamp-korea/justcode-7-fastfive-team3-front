@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import css from './CardSubHome.module.scss';
 
 function CompanyCard() {
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [companyCard, setCompanyCard] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8000/feedlist')
+    fetch('http://' + URI + ':' + PORT + '/feedlist')
       .then(res => res.json())
       .then(result => {
         setCompanyCard(result);

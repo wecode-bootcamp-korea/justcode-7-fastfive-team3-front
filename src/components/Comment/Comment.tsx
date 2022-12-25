@@ -50,6 +50,8 @@ export interface PropsType {
   setComments: Function;
 }
 const Comment = () => {
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   //메인 댓글 실시간 내용
   const [mainCommentText, setMainCommentText] = useState('');
   //글자 수
@@ -78,7 +80,7 @@ const Comment = () => {
     requestHeaders.set('Authorization', token);
   }
   useEffect(() => {
-    fetch(`http://localhost:8000/reply/${postId}?page=${currPage}`, {
+    fetch(`http://` + URI + `:` + PORT + `/reply/${postId}?page=${currPage}`, {
       method: 'GET',
       headers: requestHeaders,
     })
@@ -133,12 +135,8 @@ const Comment = () => {
     setCurrPage(e.target.textContent);
   };
 
-  console.log(postId);
-  console.log(mainCommentText);
-  console.log(isMainSecret);
-
   const uploadComment = () => {
-    fetch('http://localhost:8000/reply', {
+    fetch('http://' + URI + ':' + PORT + '/reply', {
       method: 'POST',
       headers: requestHeaders,
       body: JSON.stringify({

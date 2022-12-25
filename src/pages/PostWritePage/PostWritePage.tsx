@@ -8,7 +8,9 @@ import css from './PostWritePage.module.scss';
 
 const PostWritePage = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const URI = process.env.REACT_APP_BACK_URL;
+  const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
+  const [date, setDate] = useState<Date>(); //날짜
   const [categoryArray, setCategoryArray] = useState<any[]>([]); //카테고리 배열
   const [detailCategoryArray, setDetailCategoryArray] = useState<any[]>([]); //상세 카테고리 배열
   const [categoryID, setCategoryID] = useState<any>(); //카테고리 아이디
@@ -40,6 +42,7 @@ const PostWritePage = () => {
 
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
+  requestHeaders.set('categoryId', categoryID);
   requestHeaders.set(
     'Authorization',
     localStorage?.getItem('Authorization') || ''
@@ -52,9 +55,25 @@ const PostWritePage = () => {
     localStorage?.getItem('Authorization') || ''
   );
 
+  //임시저장
+  useEffect(() => {
+    setInterval(() => {
+      fetch('http://' + URI + ':' + PORT + '/feed/posting/temporarysave', {
+        method: 'PUT',
+        headers: requestHeaders,
+        body: JSON.stringify({ categoryId: categoryID }),
+      })
+        .then(res => res.json())
+        .then(res => {
+          setDate(res);
+          console.log('날짜', date);
+        });
+    }, 60000);
+  }, []);
+
   //작성 게시글 불러오기 GET
   // useEffect(() => {
-  //   fetch('http://localhost:8000/feed/posting', {
+  //   fetch('http://' + URI + ':8000/feed/posting', {
   //     headers: requestHeaders,
   //   })
   //     .then(res => res.json())
@@ -76,7 +95,7 @@ const PostWritePage = () => {
 
   //default 회사이름 GET
   useEffect(() => {
-    fetch('http://localhost:8000/user/checkauth', {
+    fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
       headers: requestHeaders,
     })
       .then(res => res.json())
@@ -99,6 +118,7 @@ const PostWritePage = () => {
     ) {
       const formData = new FormData();
       formData.append('file', companyLogo);
+      console.log(formData.append('file', companyLogo));
       formData.append('file', companyIntroFile);
       //Basic form info
       formData.append('categoryId', categoryID);
@@ -116,7 +136,7 @@ const PostWritePage = () => {
 
       if (detailCategoryArray.length !== 0) {
         if (detailCategoryID) {
-          fetch('http://localhost:8000/feed/posting', {
+          fetch('http://' + URI + ':8000/feed/posting', {
             method: 'PUT',
             headers: requestHeaderFormData,
             body: formData,
@@ -131,7 +151,7 @@ const PostWritePage = () => {
       }
 
       if (detailCategoryArray.length === 0) {
-        fetch('http://localhost:8000/feed/posting', {
+        fetch('http://' + URI + ':' + PORT + '/feed/posting', {
           method: 'PUT',
           headers: requestHeaderFormData,
           body: formData,
@@ -158,7 +178,7 @@ const PostWritePage = () => {
 
   //카테고리 GET
   useEffect(() => {
-    fetch('http://localhost:8000/category', {
+    fetch('http://' + URI + ':' + PORT + '/category', {
       headers: requestHeaders,
     })
       .then(res => res.json())
@@ -219,7 +239,7 @@ const PostWritePage = () => {
     if (!categoryID) {
       return;
     }
-    fetch('http://localhost:8000/category/' + categoryID, {
+    fetch('http://' + URI + ':' + PORT + '/category/' + categoryID, {
       headers: requestHeaders,
     })
       .then(res => res.json())
