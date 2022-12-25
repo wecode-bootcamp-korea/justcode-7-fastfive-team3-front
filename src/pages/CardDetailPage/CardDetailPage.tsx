@@ -59,10 +59,10 @@ const CardDetailPage = () => {
     })
       .then(response => response.json())
       .then(json => {
-        setPostInfo(json[0]);
-        setFieldList(json[0].field_name);
-        setWriterId(json[0].user_id);
-        setEmail(json[0].contact);
+        setPostInfo(json);
+        setFieldList(json.field_name);
+        setWriterId(json.user_id);
+        setEmail(json.contact);
       });
   }, []);
 
@@ -129,7 +129,7 @@ const CardDetailPage = () => {
           {isModalOn && (
             <div className={css.modalBg}>
               <div className={css.modalMain}>
-                <p className={css.copyMessage}>이메일이 복사되었습니다.</p>
+                <p className={css.copyMessage}>복사되었습니다.</p>
               </div>
             </div>
           )}
@@ -207,14 +207,27 @@ const CardDetailPage = () => {
               </div>
               <div className={css.gridItem}>
                 <p className={css.contactInfo}>
-                  <span className={css.copyEmail} onClick={copyEmailInhttp}>
+                  <span
+                    className={
+                      postInfo?.contact.includes('.')
+                        ? css.copyEmail
+                        : css.contact
+                    }
+                    onClick={
+                      postInfo?.contact.includes('.')
+                        ? copyEmailInhttp
+                        : undefined
+                    }
+                  >
                     {postInfo?.contact}
                   </span>
                   ({postInfo?.user_title})
                 </p>
-                <span className={css.alertMessage}>
-                  이메일을 클릭하면 복사됩니다.
-                </span>
+                {postInfo?.contact.includes('.') && (
+                  <span className={css.alertMessage}>
+                    이메일을 클릭하면 복사됩니다.
+                  </span>
+                )}
               </div>
               <div className={`${css.gridItem} ${css.infoContent}`}>
                 <p>{postInfo?.detail_introduction}</p>

@@ -107,7 +107,11 @@
       .contactInfo {
         padding-bottom: 0;
         .copyEmail {
+          margin-right: 0.5rem;
           cursor: pointer;
+        }
+        .contact {
+          margin-right: 0.5rem;
         }
       }
       .delete {

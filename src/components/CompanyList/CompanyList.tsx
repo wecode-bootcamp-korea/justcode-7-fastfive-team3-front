@@ -33,30 +33,35 @@ function CompanyList() {
 
   const [categoryText, setCategoryText] = useState('');
   const [locationText, setLocationText] = useState('');
-  const [isAccess, setIsAccess] = useState(false);
+  // const [isAccess, setIsAccess] = useState(false);
+  let token = localStorage.getItem('token');
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
-  requestHeaders.set(
-    'Authorization',
-    localStorage
-      ?.getItem('token')
-      ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
-  );
-  useEffect(() => {
-    fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
-      headers: requestHeaders,
-    })
-      .then(res => res.json())
-      .then(result => {
-        setIsAccess(result.write_permission);
-      });
-  });
+  if (token) {
+    requestHeaders.set('Authorization', token);
+  }
+  // requestHeaders.set(
+  //   'Authorization',
+  //   localStorage
+  //     ?.getItem('token')
+  //     ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
+  // );
+  // useEffect(() => {
+  //   fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
+  //     headers: requestHeaders,
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => {
+  //       setIsAccess(result.write_permission);
+  //     });
+  // });
 
   const handleLocation = (e: React.MouseEvent<HTMLElement>) => {
     const location = e.currentTarget;
     fetch(`http://` + URI + `:` + PORT + `/feedlist?location_id=${location.id}`)
       .then(res => res.json())
       .then(result => {
+        setTotalPages(0);
         setCompanyCard(result.result);
       });
     const target = e.target as Element;
@@ -74,6 +79,7 @@ function CompanyList() {
     )
       .then(res => res.json())
       .then(result => {
+        setTotalPages(0);
         setCompanyCard(result);
       });
     const target = e.target as Element;
@@ -98,11 +104,11 @@ function CompanyList() {
       <div className={css.categoryList}>
         <div className={css.topTitle}>
           <h1 className={css.titleAll}>전체 보기</h1>
-          {isAccess === undefined && (
-            <button className={css.introduce}>
-              <Link to="/postWritePage">우리 회사 소개하기</Link>
-            </button>
-          )}
+          {/* {isAccess === undefined && ( */}
+          <button className={css.introduce}>
+            <Link to="/postWritePage">우리 회사 소개하기</Link>
+          </button>
+          {/* )} */}
         </div>
         <div className={css.buttonWrap}>
           <p>관심 있는 멤버를 찾아보세요!</p>
