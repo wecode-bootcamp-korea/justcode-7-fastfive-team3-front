@@ -15,15 +15,14 @@ function CardSubHome() {
   }, []);
 
   const [categoryText, setCategoryText] = useState('');
-  const [isAccess, setIsAccess] = useState(false);
+  let token = localStorage.getItem('token');
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
-  requestHeaders.set(
-    'Authorization',
-    localStorage
-      ?.getItem('token')
-      ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
-  );
+  if (token) {
+    requestHeaders.set('Authorization', token);
+  }
+  const [isAccess, setIsAccess] = useState(false);
+
   useEffect(() => {
     fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
       headers: requestHeaders,
@@ -32,26 +31,30 @@ function CardSubHome() {
       .then(result => {
         setIsAccess(result.write_permission);
       });
-  });
-
+  }, []);
+  const navigate = useNavigate();
   const handleCategory = (e: React.MouseEvent<HTMLElement>) => {
     const category = e.currentTarget;
+
     fetch(
       `http://` +
         URI +
         `:` +
         PORT +
-        `/subhome/category?category_id=${category.id}`
+        `/subhome/category?category_id=${category.id}`,
+      {
+        headers: requestHeaders,
+      }
     )
       .then(res => res.json())
       .then(result => {
+        setTotalPages(0);
         setCompanyCard(result);
       });
     const target = e.target as Element;
     setCategoryText(target.innerHTML);
   };
 
-  const navigate = useNavigate();
   const moveDetail = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.currentTarget as Element;
     navigate(`/detail/${target.id}`);
@@ -78,7 +81,7 @@ function CardSubHome() {
     <>
       <div className={css.categoryList}>
         <div className={css.btnWrapper}>
-          {isAccess === undefined && (
+          {isAccess && (
             <button className={css.introduce}>
               <Link to="/postWritePage">우리 회사 소개하기</Link>
             </button>

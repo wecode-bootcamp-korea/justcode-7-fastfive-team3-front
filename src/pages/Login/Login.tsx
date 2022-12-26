@@ -40,7 +40,6 @@ const Login = () => {
           localStorage.setItem('id', json.authInfo.id);
           localStorage.setItem('nickname', json.authInfo.nickname);
           localStorage.setItem('email', json.authInfo.email);
-          localStorage.setItem('sort_id', json.authInfo.sort_id);
           localStorage.setItem('is_admin', json.authInfo.is_admin);
           window.location.href = '/subHome';
         }
