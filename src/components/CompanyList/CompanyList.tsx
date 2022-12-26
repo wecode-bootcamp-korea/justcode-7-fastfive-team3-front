@@ -33,32 +33,33 @@ function CompanyList() {
 
   const [categoryText, setCategoryText] = useState('');
   const [locationText, setLocationText] = useState('');
-  // const [isAccess, setIsAccess] = useState(false);
+
   let token = localStorage.getItem('token');
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
   if (token) {
     requestHeaders.set('Authorization', token);
   }
-  // requestHeaders.set(
-  //   'Authorization',
-  //   localStorage
-  //     ?.getItem('token')
-  //     ?.slice(1, localStorage.getItem('token')!.length - 1) || 'no token'
-  // );
-  // useEffect(() => {
-  //   fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
-  //     headers: requestHeaders,
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => {
-  //       setIsAccess(result.write_permission);
-  //     });
-  // });
-
+  const [isAccess, setIsAccess] = useState(false);
+  useEffect(() => {
+    fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
+      headers: requestHeaders,
+    })
+      .then(res => res.json())
+      .then(result => {
+        setIsAccess(result.write_permission);
+      });
+  });
+  const navigate = useNavigate();
   const handleLocation = (e: React.MouseEvent<HTMLElement>) => {
     const location = e.currentTarget;
-    fetch(`http://` + URI + `:` + PORT + `/feedlist?location_id=${location.id}`)
+    navigate(`?location_id=${location.id}`);
+    fetch(
+      `http://` + URI + `:` + PORT + `/feedlist?location_id=${location.id}`,
+      {
+        headers: requestHeaders,
+      }
+    )
       .then(res => res.json())
       .then(result => {
         setTotalPages(0);
@@ -70,12 +71,16 @@ function CompanyList() {
 
   const handleCategory = (e: React.MouseEvent<HTMLElement>) => {
     const category = e.currentTarget;
+    navigate(`?category_id=${category.id}`);
     fetch(
       `http://` +
         URI +
         `:` +
         PORT +
-        `/subhome/category?category_id=${category.id}`
+        `/subhome/category?category_id=${category.id}`,
+      {
+        headers: requestHeaders,
+      }
     )
       .then(res => res.json())
       .then(result => {
@@ -88,12 +93,11 @@ function CompanyList() {
 
   const [locationList, setLocationList] = useState([]);
   useEffect(() => {
-    fetch('./data/LocationList.json')
+    fetch('http://' + URI + ':' + PORT + '/category/location')
       .then(res => res.json())
       .then(result => setLocationList(result));
   }, []);
 
-  const navigate = useNavigate();
   const moveDetail = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.currentTarget as Element;
     navigate(`/detail/${target.id}`);
@@ -104,22 +108,22 @@ function CompanyList() {
       <div className={css.categoryList}>
         <div className={css.topTitle}>
           <h1 className={css.titleAll}>전체 보기</h1>
-          {/* {isAccess === undefined && ( */}
-          <button className={css.introduce}>
-            <Link to="/postWritePage">우리 회사 소개하기</Link>
-          </button>
-          {/* )} */}
+          {isAccess && (
+            <button className={css.introduce}>
+              <Link to="/postWritePage">우리 회사 소개하기</Link>
+            </button>
+          )}
         </div>
         <div className={css.buttonWrap}>
           <p>관심 있는 멤버를 찾아보세요!</p>
           <div className={css.cateTitle}>
             지역<span className={css.title}>{locationText}</span>
           </div>
-          {locationList.map(({ location_id, location }) => (
+          {locationList.map(({ id, location }) => (
             <button
               className={css.cateBtn}
-              key={location_id}
-              id={location_id}
+              key={id}
+              id={id}
               onClick={handleLocation}
             >
               {location}
@@ -142,7 +146,14 @@ function CompanyList() {
       </div>
       <div className={css.cardWrap}>
         {companyCard.map(
-          ({ feed_id, logo_img, company_name, introduction, location_id }) => (
+          ({
+            feed_id,
+            logo_img,
+            company_name,
+            introduction,
+            location_id,
+            comment_cnt,
+          }) => (
             <div
               className={css.cardContainer}
               key={feed_id}
@@ -159,6 +170,7 @@ function CompanyList() {
               <div className={css.contentContainer}>
                 <p className={css.companyName}>{company_name}</p>
                 <p className={css.companyDesc}>{introduction}</p>
+                <p className={css.companyDesc}>댓글 ({comment_cnt})</p>
               </div>
             </div>
           )
