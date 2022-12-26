@@ -36,7 +36,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
   }
   const doDelete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      fetch('http://l' + URI + ':' + PORT + '/reply', {
+      fetch('http://' + URI + ':' + PORT + '/reply', {
         method: 'DELETE',
         headers: requestHeaders,
         body: JSON.stringify({
