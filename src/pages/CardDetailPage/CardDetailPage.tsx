@@ -202,33 +202,38 @@ const CardDetailPage = () => {
                   주소를 클릭하면 페이지로 이동합니다.
                 </span>
               </div>
-              <div className={`${css.gridItem} ${css.title}`}>
-                <p>연락처</p>
-              </div>
-              <div className={css.gridItem}>
-                <p className={css.contactInfo}>
-                  <span
-                    className={
-                      postInfo?.contact.includes('.')
-                        ? css.copyEmail
-                        : css.contact
-                    }
-                    onClick={
-                      postInfo?.contact.includes('.')
-                        ? copyEmailInhttp
-                        : undefined
-                    }
-                  >
-                    {postInfo?.contact}
-                  </span>
-                  ({postInfo?.user_title})
-                </p>
-                {postInfo?.contact.includes('.') && (
-                  <span className={css.alertMessage}>
-                    이메일을 클릭하면 복사됩니다.
-                  </span>
-                )}
-              </div>
+              {postInfo?.contact && (
+                <Fragment>
+                  <div className={`${css.gridItem} ${css.title}`}>
+                    <p>연락처</p>
+                  </div>
+                  <div className={css.gridItem}>
+                    <p className={css.contactInfo}>
+                      <span
+                        className={
+                          postInfo?.contact.includes('.')
+                            ? css.copyEmail
+                            : css.contact
+                        }
+                        onClick={
+                          postInfo?.contact.includes('.')
+                            ? copyEmailInhttp
+                            : undefined
+                        }
+                      >
+                        {postInfo?.contact}
+                      </span>
+                      ({postInfo?.user_title})
+                    </p>
+                    {postInfo?.contact.includes('.') && (
+                      <span className={css.alertMessage}>
+                        이메일을 클릭하면 복사됩니다.
+                      </span>
+                    )}
+                  </div>
+                </Fragment>
+              )}
+
               <div className={`${css.gridItem} ${css.infoContent}`}>
                 <p>{postInfo?.detail_introduction}</p>
               </div>

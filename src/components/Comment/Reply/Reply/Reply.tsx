@@ -150,6 +150,7 @@ const Reply: React.FC<ReplyProps> = ({
       );
     }
   };
+  console.log(Boolean(isPrivate && !isLoginUser));
 
   return (
     <Fragment>
@@ -157,7 +158,7 @@ const Reply: React.FC<ReplyProps> = ({
         <div className={css.replyWriterInfo}>
           <p className={css.replyWriterName}>
             {(isPrivate && !isLoginUser) || (isPrivate && feedUser !== loginId)
-              ? '비밀댓글입니다'
+              ? '비밀댓글입니다.'
               : commentInfo.nickname}
           </p>
           <p className={css.replyDate}>{commentInfo.created_at}</p>
@@ -173,7 +174,7 @@ const Reply: React.FC<ReplyProps> = ({
           defaultValue={
             (isPrivate && !isLoginUser) || (isPrivate && feedUser !== loginId)
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
-              : commentInfo.comment
+              : commentInfo.comment.toString()
           }
           maxLength={1000}
         />

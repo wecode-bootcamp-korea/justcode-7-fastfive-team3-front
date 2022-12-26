@@ -32,7 +32,7 @@ const CommentList: React.FC<PropsType> = ({
   const loginId: string | null | number = localStorage.getItem('id');
 
   const returnReply = () => {
-    if (isFake === undefined) {
+    if (isFake === undefined && comment.comment !== false) {
       return (
         <Reply
           loginId={Number(loginId)}
