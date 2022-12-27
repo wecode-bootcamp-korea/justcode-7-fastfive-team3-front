@@ -32,7 +32,7 @@ const CommentList: React.FC<PropsType> = ({
   const loginId: string | null | number = localStorage.getItem('id');
 
   const returnReply = () => {
-    if (isFake === undefined) {
+    if (isFake === undefined && comment.comment !== false) {
       return (
         <Reply
           loginId={Number(loginId)}
@@ -53,11 +53,13 @@ const CommentList: React.FC<PropsType> = ({
         {comment.rnk !== 0 &&
           nestedReplyList.map(reply => {
             return (
-              <NestedReply
-                loginId={Number(loginId)}
-                reply={reply}
-                key={reply.reply_id}
-              />
+              reply.comment !== false && (
+                <NestedReply
+                  loginId={Number(loginId)}
+                  reply={reply}
+                  key={reply.reply_id}
+                />
+              )
             );
           })}
       </div>

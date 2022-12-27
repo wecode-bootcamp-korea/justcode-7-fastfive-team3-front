@@ -36,7 +36,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
   }
   const doDelete = () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      fetch('http://l' + URI + ':' + PORT + '/reply', {
+      fetch('http://' + URI + ':' + PORT + '/reply', {
         method: 'DELETE',
         headers: requestHeaders,
         body: JSON.stringify({
@@ -151,7 +151,7 @@ const NestedReply: React.FC<NestedReplyProps> = ({ loginId, reply }) => {
           defaultValue={
             (isPrivate && !isLoginUser) || (isPrivate && feedUser !== loginId)
               ? '비밀 댓글은 댓글 작성자와 본문 작성자만 볼 수 있습니다.'
-              : reply.comment
+              : reply.comment.toString()
           }
           maxLength={1000}
         />
