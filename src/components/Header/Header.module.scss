@@ -16,17 +16,22 @@
       color: black;
     }
   }
-  button {
-    margin: 1rem 3rem 0 0;
-    width: 4.5rem;
-    height: 2.5rem;
-    background-color: #ff6d6a;
-    border-radius: 60px;
-    text-align: center;
-    a {
-      color: #fff;
-      font-size: 1em;
-      display: block;
+  .headerLeft {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+    gap: 2rem;
+    button {
+      width: 4.5rem;
+      height: 2.5rem;
+      background-color: #ff6d6a;
+      border-radius: 60px;
+      text-align: center;
+      a {
+        color: #fff;
+        font-size: 1em;
+        display: block;
+      }
     }
   }
 }
