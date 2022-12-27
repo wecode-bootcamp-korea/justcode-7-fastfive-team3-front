@@ -150,8 +150,6 @@ const Reply: React.FC<ReplyProps> = ({
       );
     }
   };
-  console.log('전자 : ', Boolean(isPrivate && !isLoginUser));
-  console.log('후자 : ', Boolean(isPrivate && feedUser !== loginId));
   return (
     <Fragment>
       <div className={css.replyContainer}>
