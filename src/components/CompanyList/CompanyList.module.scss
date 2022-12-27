@@ -50,9 +50,9 @@
   .title {
     color: #ff6d6a;
     font-weight: 500;
-    margin-top: 2em;
+    margin-top: 1vh;
     font-size: 1.2em;
-    margin-left: 2rem;
+    margin-left: 1vw;
   }
 }
 
@@ -82,20 +82,25 @@
     .contentContainer {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      justify-content: space-around;
       padding: 10px 14px;
-      height: 9rem;
+      height: 11rem;
       background-color: #f7f7f7;
       border-radius: 0 0 25px 25px;
-      .companyName {
-        margin-top: 14px;
-        text-align: center;
-        font-weight: 600;
+      .commentWrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1vh;
+        .companyName {
+          font-weight: 600;
+        }
+        .commentCnt {
+          color: gray;
+        }
       }
       .companyDesc {
-        margin-top: 14px;
-        text-align: center;
+        margin-top: 1vh;
+        text-align: justify;
       }
     }
   }
