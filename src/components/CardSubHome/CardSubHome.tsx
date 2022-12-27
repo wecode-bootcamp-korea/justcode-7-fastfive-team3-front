@@ -22,6 +22,7 @@ function CardSubHome() {
     requestHeaders.set('Authorization', token);
   }
   const [isAccess, setIsAccess] = useState(false);
+
   useEffect(() => {
     fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
       headers: requestHeaders,
@@ -31,8 +32,10 @@ function CardSubHome() {
         setIsAccess(result.write_permission);
       });
   }, []);
+  const navigate = useNavigate();
   const handleCategory = (e: React.MouseEvent<HTMLElement>) => {
     const category = e.currentTarget;
+
     fetch(
       `http://` +
         URI +
@@ -52,7 +55,6 @@ function CardSubHome() {
     setCategoryText(target.innerHTML);
   };
 
-  const navigate = useNavigate();
   const moveDetail = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.currentTarget as Element;
     navigate(`/detail/${target.id}`);
