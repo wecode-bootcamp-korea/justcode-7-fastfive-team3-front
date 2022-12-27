@@ -8,20 +8,40 @@ function CardSubHome() {
   const PORT = process.env.REACT_APP_BACK_DEFAULT_PORT;
   const [companyCard, setCompanyCard] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
-  useEffect(() => {
-    fetch('http://' + URI + ':' + PORT + '/category')
-      .then(res => res.json())
-      .then(result => setCategoryList(result));
-  }, []);
-
   const [categoryText, setCategoryText] = useState('');
+  const [isAccess, setIsAccess] = useState(false);
+  const [isWrite, setIsWrite] = useState(false);
+  const [hasWrite, setHasWrite] = useState('');
+  const [currPage, setCurrPage] = useState('');
+  const [totalPages, setTotalPages] = useState(0);
   let token = localStorage.getItem('token');
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
   if (token) {
     requestHeaders.set('Authorization', token);
   }
-  const [isAccess, setIsAccess] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`http://` + URI + `:` + PORT + `/feedlist?page=${currPage}`, {
+      method: 'GET',
+      headers: requestHeaders,
+    })
+      .then(response => response.json())
+      .then(json => {
+        setTotalPages(Number(json.resultPageCnt));
+        setCompanyCard(json.resResult);
+      });
+  }, [currPage]);
+  const handlePagination = (e: React.ChangeEvent<any>) => {
+    setCurrPage(e.target.textContent);
+  };
+
+  useEffect(() => {
+    fetch('http://' + URI + ':' + PORT + '/category')
+      .then(res => res.json())
+      .then(result => setCategoryList(result));
+  }, []);
 
   useEffect(() => {
     fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
@@ -30,12 +50,13 @@ function CardSubHome() {
       .then(res => res.json())
       .then(result => {
         setIsAccess(result.write_permission);
+        setIsWrite(result.group_feed_exist);
+        setHasWrite(result.feed_id);
       });
   }, []);
-  const navigate = useNavigate();
+
   const handleCategory = (e: React.MouseEvent<HTMLElement>) => {
     const category = e.currentTarget;
-
     fetch(
       `http://` +
         URI +
@@ -59,22 +80,8 @@ function CardSubHome() {
     const target = e.currentTarget as Element;
     navigate(`/detail/${target.id}`);
   };
-
-  const [currPage, setCurrPage] = useState('');
-  const [totalPages, setTotalPages] = useState(0);
-  useEffect(() => {
-    fetch(`http://` + URI + `:` + PORT + `/feedlist?page=${currPage}`, {
-      method: 'GET',
-      headers: requestHeaders,
-    })
-      .then(response => response.json())
-      .then(json => {
-        setTotalPages(Number(json.resultPageCnt));
-        setCompanyCard(json.resResult);
-      });
-  }, [currPage]);
-  const handlePagination = (e: React.ChangeEvent<any>) => {
-    setCurrPage(e.target.textContent);
+  const moveMyDetail = () => {
+    navigate(`/detail/${hasWrite}`);
   };
 
   return (
@@ -83,7 +90,13 @@ function CardSubHome() {
         <div className={css.btnWrapper}>
           {isAccess && (
             <button className={css.introduce}>
-              <Link to="/postWritePage">우리 회사 소개하기</Link>
+              {isWrite ? (
+                <a className={css.myDetail} onClick={moveMyDetail}>
+                  우리 회사 소개하기
+                </a>
+              ) : (
+                <Link to="/postWritePage">우리 회사 소개하기</Link>
+              )}
             </button>
           )}
         </div>

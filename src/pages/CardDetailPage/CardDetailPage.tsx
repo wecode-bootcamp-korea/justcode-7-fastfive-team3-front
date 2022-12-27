@@ -165,84 +165,107 @@ const CardDetailPage = () => {
               >
                 <p>{postInfo?.company_name}</p>
               </div>
-              <div className={`${css.gridItem} ${css.infoContent}`}>
-                <p>{postInfo?.introduction}</p>
-              </div>
-              <div className={`${css.gridItem} ${css.title}`}>
-                <p>업무분야</p>
-              </div>
-              <div className={css.gridItem}>
-                <p>
-                  {fieldList.map(field => {
-                    arr.push(field.main_field);
-                    return <span key={field.id}>{arr.join(', ')}</span>;
-                  })}
-                </p>
-              </div>
-              <div className={`${css.gridItem} ${css.title}`}>
-                <p>멤버 혜택</p>
-              </div>
-              <div className={css.gridItem}>
-                <p>{postInfo?.member_benefit}</p>
-              </div>
-              <div className={`${css.gridItem} ${css.title}`}>
-                <p>홈페이지</p>
-              </div>
-              <div className={css.gridItem}>
-                <p className={css.contactInfo}>
-                  <a
-                    href={postInfo?.website_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {postInfo?.website_url}
-                  </a>
-                </p>
-                <span className={css.alertMessage}>
-                  주소를 클릭하면 페이지로 이동합니다.
-                </span>
-              </div>
-              <div className={`${css.gridItem} ${css.title}`}>
-                <p>연락처</p>
-              </div>
-              <div className={css.gridItem}>
-                <p className={css.contactInfo}>
-                  <span
-                    className={
-                      postInfo?.contact.includes('.')
-                        ? css.copyEmail
-                        : css.contact
-                    }
-                    onClick={
-                      postInfo?.contact.includes('.')
-                        ? copyEmailInhttp
-                        : undefined
-                    }
-                  >
-                    {postInfo?.contact}
-                  </span>
-                  ({postInfo?.user_title})
-                </p>
-                {postInfo?.contact.includes('.') && (
-                  <span className={css.alertMessage}>
-                    이메일을 클릭하면 복사됩니다.
-                  </span>
-                )}
-              </div>
-              <div className={`${css.gridItem} ${css.infoContent}`}>
-                <p>{postInfo?.detail_introduction}</p>
-              </div>
-              <div className={`${css.gridItem} ${css.title}`}>
-                <p>회사 소개서</p>
-              </div>
-              <div className={css.gridItem}>
-                <p className={css.contactInfo}>
-                  <a href={postInfo?.file_link}>{postInfo?.file_name}</a>
-                </p>
-                <span className={css.alertMessage}>
-                  파일 명을 클릭하면 다운로드 받을 수 있습니다.
-                </span>
-              </div>
+              {postInfo?.introduction && (
+                <div className={`${css.gridItem} ${css.infoContent}`}>
+                  <p>{postInfo?.introduction}</p>
+                </div>
+              )}
+              {postInfo?.field_name && (
+                <Fragment>
+                  <div className={`${css.gridItem} ${css.title}`}>
+                    <p>업무분야</p>
+                  </div>
+                  <div className={css.gridItem}>
+                    <p>
+                      {fieldList.map(field => {
+                        arr.push(field.main_field);
+                        return <span key={field.id}>{arr.join(', ')}</span>;
+                      })}
+                    </p>
+                  </div>
+                </Fragment>
+              )}
+              {postInfo?.member_benefit && (
+                <Fragment>
+                  <div className={`${css.gridItem} ${css.title}`}>
+                    <p>멤버 혜택</p>
+                  </div>
+                  <div className={css.gridItem}>
+                    <p>{postInfo?.member_benefit}</p>
+                  </div>
+                </Fragment>
+              )}
+              {postInfo?.website_url && (
+                <Fragment>
+                  <div className={`${css.gridItem} ${css.title}`}>
+                    <p>홈페이지</p>
+                  </div>
+                  <div className={css.gridItem}>
+                    <p className={css.contactInfo}>
+                      <a
+                        href={postInfo?.website_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {postInfo?.website_url}
+                      </a>
+                    </p>
+                    <span className={css.alertMessage}>
+                      주소를 클릭하면 페이지로 이동합니다.
+                    </span>
+                  </div>
+                </Fragment>
+              )}
+
+              {postInfo?.contact && (
+                <Fragment>
+                  <div className={`${css.gridItem} ${css.title}`}>
+                    <p>연락처</p>
+                  </div>
+                  <div className={css.gridItem}>
+                    <p className={css.contactInfo}>
+                      <span
+                        className={
+                          postInfo?.contact.includes('.')
+                            ? css.copyEmail
+                            : css.contact
+                        }
+                        onClick={
+                          postInfo?.contact.includes('.')
+                            ? copyEmailInhttp
+                            : undefined
+                        }
+                      >
+                        {postInfo?.contact}
+                      </span>
+                      ({postInfo?.user_title})
+                    </p>
+                    {postInfo?.contact.includes('.') && (
+                      <span className={css.alertMessage}>
+                        이메일을 클릭하면 복사됩니다.
+                      </span>
+                    )}
+                  </div>
+                </Fragment>
+              )}
+              {postInfo?.file_link && (
+                <Fragment>
+                  <div className={`${css.gridItem} ${css.infoContent}`}>
+                    <p>{postInfo?.detail_introduction}</p>
+                  </div>
+                  <div className={`${css.gridItem} ${css.title}`}>
+                    <p>회사 소개서</p>
+                  </div>
+                  <div className={css.gridItem}>
+                    <p className={css.contactInfo}>
+                      <a href={postInfo?.file_link}>{postInfo?.file_name}</a>
+                    </p>
+                    <span className={css.alertMessage}>
+                      파일 명을 클릭하면 다운로드 받을 수 있습니다.
+                    </span>
+                  </div>
+                </Fragment>
+              )}
             </div>
           </div>
           <Comment />

@@ -10,7 +10,7 @@ export interface ReplyType {
   feed_user_id: number;
   is_private: boolean;
   is_deleted: boolean;
-  comment: string;
+  comment: string | boolean;
   parent_reply_id: number;
   parent_user_id: number | null;
   reply_group: number;
@@ -30,7 +30,7 @@ export interface CommentType {
   is_private: boolean;
   is_deleted: boolean;
   is_fake: boolean;
-  comment: string;
+  comment: string | boolean;
   parent_reply_id: number;
   parent_user_id: number | null;
   reply_group: number;
@@ -68,6 +68,10 @@ const Comment = () => {
   const [totalPages, setTotalPages] = useState(0);
   //댓글 전체 데이터
   const [comments, setComments] = useState<CommentType[]>([]);
+  //게시글 댓글 전체 갯수
+  const [totalCommentCount, setTotalCommentCount] = useState(0);
+  //댓글 입력창 잠금 여부
+  const [closeTextarea, setCloseTextarea] = useState(false);
 
   const params = useParams();
   let postId = params.id;
@@ -88,9 +92,9 @@ const Comment = () => {
       .then(json => {
         setTotalPages(Number(json.replyPageCnt));
         setComments(json.result);
+        setTotalCommentCount(json.totalNumberOfReplies);
       });
   }, [currPage]);
-
   const mainTextareaDOM = useRef<HTMLTextAreaElement>(null);
   let mainTextareaValue = mainTextareaDOM.current?.value;
 
@@ -110,6 +114,14 @@ const Comment = () => {
       setIsDisableWrite(false);
     }
   }, [replyMainTextLength]);
+
+  useEffect(() => {
+    if (totalCommentCount >= 1000) {
+      setCloseTextarea(true);
+    } else {
+      setCloseTextarea(false);
+    }
+  }, [totalCommentCount]);
 
   const setMainSecret = () => {
     setMainIsSecret(!isMainSecret);
@@ -148,8 +160,9 @@ const Comment = () => {
       .then(response => response.json())
       .then(json => {
         if (json.createdNewComment) {
-          setTotalPages(Number(json.result.replyPageCnt));
-          setComments(json.result.result);
+          setTotalPages(Number(json.replyPageCnt));
+          setComments(json.result);
+          setCurrPage(json.replyPageCnt);
           alert('댓글 등록이 완료되었습니다.');
           if (mainTextareaDOM.current?.value) {
             mainTextareaDOM.current.value = '';
@@ -179,7 +192,11 @@ const Comment = () => {
         })}
         <div className={css.pagenation}>
           {totalPages !== 0 && (
-            <Pagination count={totalPages} onChange={handlePagination} />
+            <Pagination
+              count={totalPages}
+              onChange={handlePagination}
+              page={Number(currPage)}
+            />
           )}
         </div>
         <div
@@ -188,11 +205,16 @@ const Comment = () => {
         >
           <textarea
             className={css.commentContent}
-            placeholder="위 멤버에게 궁금한 점이나 제안하고 싶은 내용을 댓글로 남겨보세요."
+            placeholder={
+              closeTextarea
+                ? '한 게시글에 등록할 수 있는 댓글 개수가 초과되었습니다. 대표 연락처를 참고해주세요.'
+                : '위 멤버에게 궁금한 점이나 제안하고 싶은 내용을 댓글로 남겨보세요.'
+            }
             ref={mainTextareaDOM}
             rows={1}
             onInput={handleMainResizeHeight}
-            maxLength={1000}
+            maxLength={999}
+            disabled={closeTextarea}
           />
           <div className={css.countAndsend}>
             <span className={isDisableWrite ? css.stopCount : css.count}>
