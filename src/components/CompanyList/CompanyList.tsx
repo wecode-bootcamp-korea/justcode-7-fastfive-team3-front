@@ -9,6 +9,21 @@ function CompanyList() {
   const [companyCard, setCompanyCard] = useState([]);
   const [currPage, setCurrPage] = useState('');
   const [totalPages, setTotalPages] = useState(0);
+  const [categoryList, setCategoryList] = useState([]);
+  const [categoryText, setCategoryText] = useState('');
+  const [locationText, setLocationText] = useState('');
+  const [isAccess, setIsAccess] = useState(false);
+  const [isWrite, setIsWrite] = useState(false);
+  const [hasWrite, setHasWrite] = useState('');
+  const [locationList, setLocationList] = useState([]);
+  let token = localStorage.getItem('token');
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set('Content-Type', 'application/json');
+  if (token) {
+    requestHeaders.set('Authorization', token);
+  }
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetch(`http://` + URI + `:` + PORT + `/feedlist?page=${currPage}`, {
       method: 'GET',
@@ -24,23 +39,12 @@ function CompanyList() {
     setCurrPage(e.target.textContent);
   };
 
-  const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
     fetch('http://' + URI + ':' + PORT + '/category')
       .then(res => res.json())
       .then(result => setCategoryList(result));
   }, []);
 
-  const [categoryText, setCategoryText] = useState('');
-  const [locationText, setLocationText] = useState('');
-
-  let token = localStorage.getItem('token');
-  const requestHeaders: HeadersInit = new Headers();
-  requestHeaders.set('Content-Type', 'application/json');
-  if (token) {
-    requestHeaders.set('Authorization', token);
-  }
-  const [isAccess, setIsAccess] = useState(false);
   useEffect(() => {
     fetch('http://' + URI + ':' + PORT + '/user/checkauth', {
       headers: requestHeaders,
@@ -48,9 +52,11 @@ function CompanyList() {
       .then(res => res.json())
       .then(result => {
         setIsAccess(result.write_permission);
+        setIsWrite(result.group_feed_exist);
+        setHasWrite(result.feed_id);
       });
   });
-  const navigate = useNavigate();
+
   const handleLocation = (e: React.MouseEvent<HTMLElement>) => {
     const location = e.currentTarget;
     navigate(`?location_id=${location.id}`);
@@ -91,7 +97,6 @@ function CompanyList() {
     setCategoryText(target.innerHTML);
   };
 
-  const [locationList, setLocationList] = useState([]);
   useEffect(() => {
     fetch('http://' + URI + ':' + PORT + '/category/location')
       .then(res => res.json())
@@ -103,6 +108,10 @@ function CompanyList() {
     navigate(`/detail/${target.id}`);
   };
 
+  const moveMyDetail = () => {
+    navigate(`/detail/${hasWrite}`);
+  };
+
   return (
     <>
       <div className={css.categoryList}>
@@ -110,7 +119,13 @@ function CompanyList() {
           <h1 className={css.titleAll}>전체 보기</h1>
           {isAccess && (
             <button className={css.introduce}>
-              <Link to="/postWritePage">우리 회사 소개하기</Link>
+              {isWrite ? (
+                <a className={css.myDetail} onClick={moveMyDetail}>
+                  우리 회사 소개하기
+                </a>
+              ) : (
+                <Link to="/postWritePage">우리 회사 소개하기</Link>
+              )}
             </button>
           )}
         </div>
@@ -146,18 +161,11 @@ function CompanyList() {
       </div>
       <div className={css.cardWrap}>
         {companyCard.map(
-          ({
-            feed_id,
-            logo_img,
-            company_name,
-            introduction,
-            location_id,
-            comment_cnt,
-          }) => (
+          ({ feed_id, logo_img, company_name, introduction, comment_cnt }) => (
             <div
               className={css.cardContainer}
               key={feed_id}
-              id={location_id}
+              id={feed_id}
               onClick={moveDetail}
             >
               <div className={css.imageContainer}>
@@ -168,9 +176,11 @@ function CompanyList() {
                 />
               </div>
               <div className={css.contentContainer}>
-                <p className={css.companyName}>{company_name}</p>
+                <div className={css.commentWrapper}>
+                  <p className={css.companyName}>{company_name}</p>
+                  <p className={css.commentCnt}>댓글 ({comment_cnt})</p>
+                </div>
                 <p className={css.companyDesc}>{introduction}</p>
-                <p className={css.companyDesc}>댓글 ({comment_cnt})</p>
               </div>
             </div>
           )
